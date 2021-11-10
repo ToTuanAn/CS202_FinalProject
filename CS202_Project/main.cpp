@@ -14,7 +14,7 @@ int main() {
     RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "CROSSY ROAD GROUP 10");
     window.setFramerateLimit(60);
 
-    Player mainPlayer(60,80);
+    Player mainPlayer;
     while (window.isOpen())
     {
         Event event;

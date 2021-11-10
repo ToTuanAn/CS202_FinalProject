@@ -147,7 +147,6 @@
   <ItemGroup>
     <ClCompile Include="cPlayer.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="temp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cPlayer.h" />

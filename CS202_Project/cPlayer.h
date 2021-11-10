@@ -14,15 +14,19 @@ struct Position {
 	int y;
 };
 
+struct Size {
+	int w; 
+	int h;
+};
+
 class Player{
 public:
-	Player(int w = 60 , int h = 80);
+	Player();
 	RectangleShape playerBoxDisplay();
 private:
-	int width;
-	int height;
+	Size size;
 	Position position;
-	RectangleShape playerBox;
+	RectangleShape playerBox; 
 };
 
 #endif // !_C_PLAYER_H_
