@@ -22,9 +22,11 @@ struct Size {
 class Player{
 public:
 	Player();
+	void movement(float dt);
 	RectangleShape playerBoxDisplay();
 private:
 	Size size;
+	float speed = 100.0f;
 	Position position;
 	RectangleShape playerBox; 
 };

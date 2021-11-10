@@ -11,12 +11,14 @@ using namespace sf;
 using namespace std;
 
 int main() {
+    float dt; Clock dt_clock;
     RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "CROSSY ROAD GROUP 10");
     window.setFramerateLimit(60);
 
     Player mainPlayer;
     while (window.isOpen())
     {
+        dt = dt_clock.restart().asSeconds();
         Event event;
         while (window.pollEvent(event))
         {
@@ -24,7 +26,7 @@ int main() {
                 window.close();
         }
         //Update
-
+        mainPlayer.movement(dt);
 
         //Draw
         window.clear();
