@@ -14,8 +14,11 @@ int main() {
     float dt; Clock dt_clock;
     RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "CROSSY ROAD GROUP 10");
     window.setFramerateLimit(60);
-
     Player mainPlayer;
+
+    View mainview;
+
+    
     while (window.isOpen())
     {
         dt = dt_clock.restart().asSeconds();
