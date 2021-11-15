@@ -1,11 +1,13 @@
 #include<iostream>
 #include"cPlayer.h"
+#include"GameTile.h"
+#include"GameWorld.h"
 #include"SFML/Graphics.hpp"
 #include"SFML/Window.hpp"
 #include"SFML/System.hpp"
 
-const int WIDTH = 960;
-const int HEIGHT = 1000;
+const int WIDTH = 480;
+const int HEIGHT = 608;
 
 using namespace sf;
 using namespace std;
@@ -15,7 +17,7 @@ int main() {
     RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "CROSSY ROAD GROUP 10");
     window.setFramerateLimit(60);
     Player mainPlayer;
-
+    GameWorld map = GameWorld();
     View mainview;
 
     
@@ -33,6 +35,11 @@ int main() {
 
         //Draw
         window.clear();
+        for (int x = 0; x < map.gridHeight; x++) {
+            for (int y = 0; y < map.gridWidth; y++) {
+                window.draw(map.map[x][y]->sprite);
+            }
+        }
         window.draw(mainPlayer.playerBoxDisplay());
 
         window.display();
