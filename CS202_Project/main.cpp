@@ -6,8 +6,6 @@
 #include"SFML/Window.hpp"
 #include"SFML/System.hpp"
 
-const int WIDTH = 480;
-const int HEIGHT = 608;
 
 using namespace sf;
 using namespace std;

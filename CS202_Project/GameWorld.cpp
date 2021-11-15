@@ -2,8 +2,6 @@
 #include"GameWorld.h"
 
 GameWorld::GameWorld() {
-	gridWidth = 30;
-	gridHeight = 38;
 	setUpInitialState();
 }
 
@@ -11,40 +9,88 @@ void GameWorld::setUpInitialState() {
 	setUpTiles();
 }
 
+std::string grassMid() {
+	return "Tiles/tile_0028.png";
+}
+
+std::string grassStart() {
+	return "Tiles/tile_0001.png";
+}
+
+std::string grassEnd() {
+	return "Tiles/tile_0055.png";
+}
+
+std::string roadStart() {
+	return "Tiles/tile_0406.png";
+}
+
+std::string roadMid() {
+	return "Tiles/tile_0468.png";
+}
+
+std::string roadEnd() {
+	return "Tiles/tile_0460.png";
+}
+
+std::string rockStart() {
+	return  "Tiles/tile_0009.png";
+}
+
+std::string rockMid() {
+	return "Tiles/tile_0036.png";
+}
+
+std::string rockEnd() {
+	return "Tiles/tile_0063.png";
+}
+
 void GameWorld::setUpTiles() {
 	map.clear();
-	for (int i = 0; i < this->gridHeight; i++) {
-		std::vector<GameTile*> firstRow;
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 0, i*16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 16, i*16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 32, i*16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 48, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 64, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 80, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 96, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 112, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 128, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 144, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 160, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 176, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 192, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 208, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 224, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 240, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 256, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 272, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 288, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 304, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 320, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 336, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 352, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 368, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 384, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 400, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 416, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 432, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 448, i * 16, false, false));
-		firstRow.push_back(new GameTile("Tiles/tile_0028.png", 464, i * 16, false, false));
-		map.push_back(firstRow);
+	for (int i = 0; i < this->gridHeight;) {
+		
+		
+		int choice = rand() % 3 + 1;
+		int num = rand() % 4 + 4;
+		string start, mid, end;
+
+		switch (choice) {
+		case 1:
+			start = grassStart();
+			mid = grassMid();
+			end = grassEnd();
+			break;
+		case 2:
+			start = roadStart();
+			mid = roadMid();
+			end = roadEnd();
+			break;
+		case 3:
+			start = rockStart();
+			mid = rockMid();
+			end = rockEnd();
+			break;
+		}
+
+		string terrain;
+		for (int k = 0; k < num; k++) {
+			std::vector<GameTile*> row;
+			int j = 0;
+
+			if (k == 0) { terrain = start; }
+			else if (k == num - 1) { terrain = end; }
+			else {
+				terrain = mid;
+			}
+			if (i >= this->gridHeight) break;
+			while (j < WIDTH) {
+				row.push_back(new GameTile(terrain, j, i * 16, false, false));
+				j += 16;
+			}
+			map.push_back(row);
+			i++;
+		}
+		
+		
 	}
 }
