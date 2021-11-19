@@ -25,20 +25,28 @@ private:
 			int width, height;
 			in >> width >> height;
 			model.setSize(Vector2f(width, height));
+
+			in >> animSwitchTime;
+			in >> animCount;
 		}
 
 		in.close();
 	}
 
 protected:
-	float speed;
+	float speed, animSwitchTime, timeFromLastSwitchAnim;
+	int animCount;
 	RectangleShape model;
+
+	virtual void loadAnimations();
 
 public:
 	MovingObject(string type, Vector2f position)
 	{
 		LoadData(type);
+		loadAnimations();
 		model.setPosition(position);
+		timeFromLastSwitchAnim = 0;
 	}
 
 	virtual void move();
