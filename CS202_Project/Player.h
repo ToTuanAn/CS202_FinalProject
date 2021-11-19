@@ -3,9 +3,13 @@
 
 #include "MovingObject.h"
 
+const Vector2f PLAYER_STARTING_POSITION(0, 0);
+
 class Player : public MovingObject
 {
 public:
+	Player() : MovingObject("Player", PLAYER_STARTING_POSITION) {}
+
 	void move() override
 	{
 		if (Keyboard::isKeyPressed(Keyboard::A))
@@ -22,23 +26,12 @@ public:
 
 		if (Keyboard::isKeyPressed(Keyboard::S))
 		{
-			model.move(Vector2f(0, -speed)); 
+			model.move(Vector2f(0, -speed));
 			return;
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::W))
 			model.move(Vector2f(0, speed));
-
-		// Vector2f moveDirection(0, 0);
-		// if(Keyboard::isKeyPressed(Keyboard::A))
-		// 	moveDirection.x--;
-		// if (Keyboard::isKeyPressed(Keyboard::D))
-		// 	moveDirection.x++;
-		// if (Keyboard::isKeyPressed(Keyboard::S))
-		// 	moveDirection.y--;
-		// if (Keyboard::isKeyPressed(Keyboard::W))
-		// 	moveDirection.y++;
-		// model.move(moveDirection * speed);
 	}
 };
 #endif // !_PLAYER_H_
