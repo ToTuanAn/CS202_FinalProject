@@ -38,17 +38,16 @@ protected:
 	int animCount;
 	RectangleShape model;
 
-	virtual void loadAnimations();
+	virtual void loadAnimations() = 0;
 
 public:
 	MovingObject(string type, Vector2f position)
 	{
 		LoadData(type);
-		loadAnimations();
 		model.setPosition(position);
 		timeFromLastSwitchAnim = 0;
 	}
 
-	virtual void move();
+	virtual void move() = 0;
 };
 #endif // !_MOVING_OBJECT_H_

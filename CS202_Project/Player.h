@@ -12,7 +12,7 @@ class Player : public MovingObject
 private:
 	vector<Texture> leftAnim, rightAnim, frontAnim, backAnim;
 
-	void loadAnimations() override
+	void loadAnimations()
 	{
 		vector<Texture> anim;
 		for (int i = 1; i < 16; ++i)
@@ -30,9 +30,12 @@ private:
 	}
 
 public:
-	Player() : MovingObject("Player", PLAYER_STARTING_POSITION) {}
+	Player() : MovingObject("Player", PLAYER_STARTING_POSITION)
+	{
+		loadAnimations();
+	}
 
-	void move() override
+	void move()
 	{
 		if (Keyboard::isKeyPressed(Keyboard::A))
 		{
