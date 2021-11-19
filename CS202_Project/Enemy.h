@@ -22,6 +22,24 @@ private:
 		}
 	}
 
+	void updateAnimation()
+	{
+		if (timeFromLastSwitchAnim < animSwitchTime)
+			return;
+
+		timeFromLastSwitchAnim = 0;
+		currentAnimIndex = currentAnimIndex >= anim.size() - 1 ? 0 : currentAnimIndex + 1;
+
+		Texture texture = anim[currentAnimIndex];
+		model.setTexture(&texture);
+	}
+
+	void move()
+	{
+		Vector2f moveDirection(moveToLeft ? 1 : -1, 0);
+		model.move(moveDirection * speed);
+	}
+
 public:
 	Enemy(string type, Vector2f position, bool moveToLeft) : MovingObject(type, position), moveToLeft(moveToLeft)
 	{
@@ -29,10 +47,11 @@ public:
 		loadAnimations();
 	}
 
-	void move()
+	void update(float deltaTime)
 	{
-		Vector2f moveDirection(moveToLeft ? 1 : -1, 0);
-		model.move(moveDirection * speed);
+		move();
+		timeFromLastSwitchAnim += deltaTime;
+		updateAnimation();
 	}
 };
 #endif // !_ENEMY_H_

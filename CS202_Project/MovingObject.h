@@ -35,10 +35,12 @@ private:
 
 protected:
 	float speed, animSwitchTime, timeFromLastSwitchAnim;
-	int animCount;
+	int animCount, currentAnimIndex;
 	RectangleShape model;
 
 	virtual void loadAnimations() = 0;
+	virtual void updateAnimation() = 0;
+	virtual void move() = 0;
 
 public:
 	MovingObject(string type, Vector2f position)
@@ -48,6 +50,6 @@ public:
 		timeFromLastSwitchAnim = 0;
 	}
 
-	virtual void move() = 0;
+	virtual void update(float deltaTime) = 0;
 };
 #endif // !_MOVING_OBJECT_H_

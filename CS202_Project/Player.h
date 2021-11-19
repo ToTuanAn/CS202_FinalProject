@@ -11,6 +11,7 @@ class Player : public MovingObject
 {
 private:
 	vector<Texture> leftAnim, rightAnim, frontAnim, backAnim;
+	vector<Texture> currentAnim;
 
 	void loadAnimations()
 	{
@@ -29,10 +30,16 @@ private:
 		backAnim.assign(anim.begin() + 12, anim.begin() + 16);
 	}
 
-public:
-	Player() : MovingObject("Player", PLAYER_STARTING_POSITION)
+	void updateAnimation()
 	{
-		loadAnimations();
+		if (timeFromLastSwitchAnim < animSwitchTime)
+			return;
+
+		timeFromLastSwitchAnim = 0;
+		currentAnimIndex = currentAnimIndex >= currentAnim.size() - 1 ? 0 : currentAnimIndex + 1;
+
+		Texture texture = currentAnim[currentAnimIndex];
+		model.setTexture(&texture);
 	}
 
 	void move()
@@ -40,23 +47,42 @@ public:
 		if (Keyboard::isKeyPressed(Keyboard::A))
 		{
 			model.move(Vector2f(-speed, 0));
+			currentAnim = leftAnim;
 			return;
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::D))
 		{
 			model.move(Vector2f(speed, 0));
+			currentAnim = rightAnim;
 			return;
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::S))
 		{
 			model.move(Vector2f(0, -speed));
+			currentAnim = frontAnim;
 			return;
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::W))
+		{
 			model.move(Vector2f(0, speed));
+			currentAnim = backAnim;
+		}
+	}
+
+public:
+	Player() : MovingObject("Player", PLAYER_STARTING_POSITION)
+	{
+		loadAnimations();
+	}
+
+	void update(float deltaTime)
+	{
+		move();
+		timeFromLastSwitchAnim += deltaTime;
+		updateAnimation();
 	}
 };
 #endif // !_PLAYER_H_
