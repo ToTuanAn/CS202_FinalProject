@@ -11,13 +11,11 @@ using namespace std;
 const string DATA_PATH = "Data/";
 const string MOVING_OBJECT_TYPE[] = { "Player", "Bird", "Dinosaur", "Car", "Truck" };
 
-class MovingObject {
+class MovingObject
+{
 private:
-	float speed;
-	RectangleShape model;
-	bool moveToLeft;
-
-	void LoadData(string type) {
+	void LoadData(string type)
+	{
 		string path = DATA_PATH + type + ".txt";
 
 		ifstream in(path);
@@ -32,14 +30,21 @@ private:
 		in.close();
 	}
 
+protected:
+	float speed;
+	RectangleShape model;
+	bool moveToLeft;
+
 public:
-	MovingObject(string type, Vector2f position, bool moveToLeft) {
+	MovingObject(string type, Vector2f position, bool moveToLeft)
+	{
 		LoadData(type);
 		model.setPosition(position);
 		this->moveToLeft = moveToLeft;
 	}
 
-	virtual void move() {
+	virtual void move()
+	{
 		Vector2f moveDirection(moveToLeft ? 1 : -1, 0);
 		model.move(moveDirection * speed);
 	}
