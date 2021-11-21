@@ -1,5 +1,5 @@
 #include<iostream>
-#include"cPlayer.h"
+#include"Player.h"
 #include"GameTile.h"
 #include"GameWorld.h"
 #include"SFML/Graphics.hpp"
@@ -17,6 +17,8 @@ int main() {
     Player mainPlayer;
     GameWorld map = GameWorld();
     View mainview;
+    mainview.setSize(WIDTH, HEIGHT);
+
 
     
     while (window.isOpen())
@@ -29,15 +31,21 @@ int main() {
                 window.close();
         }
         //Update
-        mainPlayer.movement(dt);
+        mainPlayer.update(dt);
+        //mainview.setCenter(mainPlayer.playerBoxDisplay());
 
-        //Draw
         window.clear();
+        //Draw UI
+        window.setView(window.getDefaultView());
         for (int x = 0; x < map.gridHeight; x++) {
             for (int y = 0; y < map.gridWidth; y++) {
                 window.draw(map.map[x][y]->sprite);
             }
         }
+        
+        //Draw
+        window.setView(mainview);
+        
         window.draw(mainPlayer.playerBoxDisplay());
 
         window.display();

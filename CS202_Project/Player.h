@@ -4,7 +4,10 @@
 #include "MovingObject.h"
 #include <vector>
 
-const Vector2f PLAYER_STARTING_POSITION(0, 0);
+//int WIDTH = 960;
+//int HEIGHT = 992;
+const Vector2f PLAYER_STARTING_POSITION(960 / 2, 992 - 32) ;
+const Vector2f PLAYER_SIZE(32, 32);
 const int FRAME_PER_ANIM = 4;
 
 class Player : public MovingObject
@@ -42,47 +45,52 @@ private:
 		model.setTexture(&texture);
 	}
 
-	void move()
+	void move(float dt)
 	{
 		if (Keyboard::isKeyPressed(Keyboard::A))
 		{
-			model.move(Vector2f(-speed, 0));
+			model.move(Vector2f(-speed, 0) *dt);
 			currentAnim = leftAnim;
 			return;
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::D))
 		{
-			model.move(Vector2f(speed, 0));
+			model.move(Vector2f(speed, 0) * dt);
 			currentAnim = rightAnim;
 			return;
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::S))
 		{
-			model.move(Vector2f(0, -speed));
+			model.move(Vector2f(0, speed) * dt);
 			currentAnim = frontAnim;
 			return;
 		}
 
 		if (Keyboard::isKeyPressed(Keyboard::W))
 		{
-			model.move(Vector2f(0, speed));
+			model.move(Vector2f(0, -speed) * dt);
 			currentAnim = backAnim;
 		}
 	}
 
 public:
-	Player() : MovingObject("Player", PLAYER_STARTING_POSITION)
+	Player() : MovingObject("Player", PLAYER_STARTING_POSITION, PLAYER_SIZE)
 	{
-		loadAnimations();
+		//loadAnimations();
 	}
 
 	void update(float deltaTime)
 	{
-		move();
+		move(deltaTime);
 		timeFromLastSwitchAnim += deltaTime;
-		updateAnimation();
+		//updateAnimation();
+	}
+
+	//An add to return the shape of the player
+	RectangleShape playerBoxDisplay() {
+		return this->model;
 	}
 };
 #endif // !_PLAYER_H_

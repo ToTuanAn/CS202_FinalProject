@@ -8,6 +8,14 @@
 using namespace sf;
 using namespace std;
 
+struct Position {
+	int x;  int y;
+};
+
+struct Size {
+	int w;	int h;
+};
+
 const string DATA_PATH = "Data/";
 
 class MovingObject
@@ -34,19 +42,22 @@ private:
 	}
 
 protected:
-	float speed, animSwitchTime, timeFromLastSwitchAnim;
+	float speed = 100.0f, animSwitchTime, timeFromLastSwitchAnim;
 	int animCount, currentAnimIndex;
 	RectangleShape model;
 
 	virtual void loadAnimations() = 0;
 	virtual void updateAnimation() = 0;
-	virtual void move() = 0;
+	virtual void move(float dt) = 0;
 
 public:
-	MovingObject(string type, Vector2f position)
+	MovingObject(string type, Vector2f position , Vector2f size)
 	{
 		LoadData(type);
 		model.setPosition(position);
+		cout << position.x << " " << position.y << endl;
+		model.setSize(size);
+		cout << size.x << " " << size.y << endl;
 		timeFromLastSwitchAnim = 0;
 	}
 
