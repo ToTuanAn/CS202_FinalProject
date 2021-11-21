@@ -14,6 +14,7 @@ int main() {
     float dt; Clock dt_clock;
     RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "CROSSY ROAD GROUP 10");
     window.setFramerateLimit(60);
+    
     Player mainPlayer;
     GameWorld map = GameWorld();
     View mainview;
@@ -32,21 +33,21 @@ int main() {
         }
         //Update
         mainPlayer.update(dt);
-        //mainview.setCenter(mainPlayer.playerBoxDisplay());
+        mainview.setCenter(mainPlayer.playerBoxDisplay().getPosition());
+        
 
         window.clear();
-        //Draw UI
-        window.setView(window.getDefaultView());
+        //Draw
+        window.setView(mainview);
         for (int x = 0; x < map.gridHeight; x++) {
             for (int y = 0; y < map.gridWidth; y++) {
                 window.draw(map.map[x][y]->sprite);
             }
         }
-        
-        //Draw
-        window.setView(mainview);
-        
         window.draw(mainPlayer.playerBoxDisplay());
+        
+        //Draw UI
+        window.setView(window.getDefaultView());
 
         window.display();
     }
