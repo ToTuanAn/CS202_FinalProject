@@ -6,7 +6,7 @@
 
 //int WIDTH = 960;
 //int HEIGHT = 992;
-const Vector2f PLAYER_STARTING_POSITION(960 / 2, 992 - 32) ;
+const Vector2f PLAYER_STARTING_POSITION(960 / 2, 2880 - 32) ;
 const Vector2f PLAYER_SIZE(32, 32);
 const int FRAME_PER_ANIM = 4;
 
@@ -78,12 +78,14 @@ private:
 public:
 	Player() : MovingObject("Player", PLAYER_STARTING_POSITION, PLAYER_SIZE)
 	{
+		this->speed = 150.f;
 		//loadAnimations();
 	}
 
-	void update(float deltaTime)
+	void update(float deltaTime, View& mainview)
 	{
 		move(deltaTime);
+		mainview.move(Vector2f(0.f, -1.f));
 		timeFromLastSwitchAnim += deltaTime;
 		//updateAnimation();
 	}

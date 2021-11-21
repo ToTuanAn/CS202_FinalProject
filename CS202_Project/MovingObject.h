@@ -42,7 +42,7 @@ private:
 	}
 
 protected:
-	float speed = 100.0f, animSwitchTime, timeFromLastSwitchAnim;
+	float speed, animSwitchTime, timeFromLastSwitchAnim;
 	int animCount, currentAnimIndex;
 	RectangleShape model;
 
@@ -59,6 +59,5 @@ public:
 		timeFromLastSwitchAnim = 0;
 	}
 
-	virtual void update(float deltaTime) = 0;
 };
 #endif // !_MOVING_OBJECT_H_

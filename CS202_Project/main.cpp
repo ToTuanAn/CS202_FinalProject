@@ -6,9 +6,11 @@
 #include"SFML/Window.hpp"
 #include"SFML/System.hpp"
 
-
 using namespace sf;
 using namespace std;
+
+const int WIDTH = 960;
+const int HEIGHT = 992;
 
 int main() {
     float dt; Clock dt_clock;
@@ -19,7 +21,7 @@ int main() {
     GameWorld map = GameWorld();
     View mainview;
     mainview.setSize(WIDTH, HEIGHT);
-
+    mainview.setCenter(mainPlayer.playerBoxDisplay().getPosition());
 
     
     while (window.isOpen())
@@ -32,14 +34,14 @@ int main() {
                 window.close();
         }
         //Update
-        mainPlayer.update(dt);
-        mainview.setCenter(mainPlayer.playerBoxDisplay().getPosition());
+        mainPlayer.update(dt, mainview);
+        
         
 
         window.clear();
         //Draw
         window.setView(mainview);
-        for (int x = 0; x < map.gridHeight; x++) {
+        for (int x = 0; x < map.offset; x++) {
             for (int y = 0; y < map.gridWidth; y++) {
                 window.draw(map.map[x][y]->sprite);
             }

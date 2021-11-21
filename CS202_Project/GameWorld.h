@@ -7,18 +7,21 @@
 
 using namespace std;
 
-const int WIDTH = 960;
-const int HEIGHT = 992;
+const int GAME_HEIGHT = 2880;
+const int GAME_WIDTH = 960;
 
 class GameWorld {
 private:
 	sf::Vector2i exitPos;
 	void setUpInitialState();
 	void setUpTiles();
+	void setUpUnPassible();
 public:
 	std::vector< std::vector < GameTile*> > map;
-	int gridWidth = WIDTH/16;
-	int gridHeight = HEIGHT/16;
+	vector<Vector2f> grassTerrain;
+	int gridWidth = GAME_WIDTH/16;
+	int gridHeight = GAME_HEIGHT/16;
+	int offset = gridHeight + 30; //HEIGHT =992
 	GameWorld();
 };
 

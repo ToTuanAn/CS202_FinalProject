@@ -7,6 +7,7 @@ GameWorld::GameWorld() {
 
 void GameWorld::setUpInitialState() {
 	setUpTiles();
+	setUpUnPassible();
 }
 
 std::string grassMid() {
@@ -47,11 +48,11 @@ std::string rockEnd() {
 
 void GameWorld::setUpTiles() {
 	map.clear();
+
 	for (int i = 0; i < this->gridHeight;) {
-		
-		
+
 		int choice = rand() % 3 + 1;
-		int num = rand() % 4 + 4;
+		int num = rand() % 4 + 6;
 		string start, mid, end;
 
 		switch (choice) {
@@ -83,14 +84,25 @@ void GameWorld::setUpTiles() {
 				terrain = mid;
 			}
 			if (i >= this->gridHeight) break;
-			while (j < WIDTH) {
+			while (j < GAME_WIDTH) {
 				row.push_back(new GameTile(terrain, j, i * 16, false, false));
 				j += 16;
 			}
 			map.push_back(row);
 			i++;
+		}	
+	}
+}
+
+void GameWorld::setUpUnPassible() {
+	string terrain = "Tiles/tile_0198.png";
+	for (int i = this->gridHeight ; i < offset; i++) {
+		int j = 0;
+		std::vector<GameTile*> row;
+		while (j < GAME_WIDTH) {
+			row.push_back(new GameTile(terrain, j, i * 16, false, false));
+			j += 16;
 		}
-		
-		
+		map.push_back(row);
 	}
 }
