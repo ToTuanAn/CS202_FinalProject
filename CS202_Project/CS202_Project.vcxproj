@@ -148,13 +148,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="cPlayer.cpp" />
     <ClCompile Include="GameTile.cpp" />
     <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cPlayer.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameTile.h" />
     <ClInclude Include="GameWorld.h" />

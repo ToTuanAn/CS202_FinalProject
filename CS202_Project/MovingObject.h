@@ -55,9 +55,7 @@ public:
 	{
 		LoadData(type);
 		model.setPosition(position);
-		cout << position.x << " " << position.y << endl;
 		model.setSize(size);
-		cout << size.x << " " << size.y << endl;
 		timeFromLastSwitchAnim = 0;
 	}
 
