@@ -29,7 +29,7 @@ private:
 		rightAnim.assign(anim.begin() + 8, anim.begin() + 12);
 		backAnim.assign(anim.begin() + 12, anim.begin() + 16);
 
-		model.setTexture(frontAnim[0]);
+		currentAnim = backAnim;
 	}
 
 	void updateAnimation()
@@ -38,10 +38,8 @@ private:
 			return;
 
 		timeFromLastSwitchAnim = 0;
+		model.setTexture(currentAnim[currentAnimIndex]);
 		currentAnimIndex = currentAnimIndex >= currentAnim.size() - 1 ? 0 : currentAnimIndex + 1;
-
-		Texture texture = currentAnim[currentAnimIndex];
-		body.setTexture(&texture);
 	}
 
 	void move(float deltaTime)
@@ -80,7 +78,7 @@ public:
 	{
 		move(deltaTime);
 		timeFromLastSwitchAnim += deltaTime;
-		//updateAnimation();
+		updateAnimation();
 	}
 };
 #endif

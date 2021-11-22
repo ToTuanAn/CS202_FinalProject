@@ -52,6 +52,7 @@ public:
 		LoadData(type);
 		setPosition(position);
 		timeFromLastSwitchAnim = 0;
+		currentAnimIndex = 0;
 	}
 
 	virtual void update(float deltaTime) = 0;
