@@ -31,13 +31,13 @@ private:
 		currentAnimIndex = currentAnimIndex >= anim.size() - 1 ? 0 : currentAnimIndex + 1;
 
 		Texture texture = anim[currentAnimIndex];
-		model.setTexture(&texture);
+		body.setTexture(&texture);
 	}
 
 	void move(float deltaTime)
 	{
 		Vector2f moveDirection(moveToLeft ? 1 : -1, 0);
-		model.move(moveDirection * speed*deltaTime);
+		body.move(moveDirection * speed * deltaTime);
 	}
 
 public:

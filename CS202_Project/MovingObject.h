@@ -24,7 +24,7 @@ private:
 			cout << "speed: " << speed << endl;
 			int width, height;
 			in >> width >> height;
-			model.setSize(Vector2f(width, height));
+			body.setSize(Vector2f(width, height));
 			cout << "size: " << width << ", " << height << endl;
 
 			in >> animSwitchTime;
@@ -37,8 +37,8 @@ private:
 protected:
 	float speed, animSwitchTime, timeFromLastSwitchAnim;
 	int animCount, currentAnimIndex;
-	RectangleShape model;
-	Sprite sprite;
+	RectangleShape body;
+	Sprite model;
 
 	virtual void loadAnimations() = 0;
 	virtual void updateAnimation() = 0;
@@ -48,17 +48,15 @@ public:
 	MovingObject(string type, Vector2f position)
 	{
 		LoadData(type);
-		model.setPosition(position);
+		body.setPosition(position);
 		timeFromLastSwitchAnim = 0;
 	}
 
 	virtual void update(float deltaTime) = 0;
 
 #pragma region Get Methods
-	RectangleShape getModel()
-	{
-		return model;
-	}
+	RectangleShape getBody() { return body; }
+	Sprite getModel() { return model; }
 #pragma endregion
 };
 #endif // !_MOVING_OBJECT_H_

@@ -1,11 +1,13 @@
-#include<iostream>
-#include"GameTile.h"
+#include <iostream>
+#include "GameTile.h"
 
 using namespace std;
 using namespace sf;
 
-GameTile::GameTile(std::string textureName, float x, float y, bool pass, bool exit) {
-	if (!setUpSprite(textureName)) {
+GameTile::GameTile(std::string textureName, float x, float y, bool pass, bool exit)
+{
+	if (!setUpSprite(textureName))
+	{
 		return;
 	}
 	pos = Vector2f(x, y);
@@ -14,8 +16,10 @@ GameTile::GameTile(std::string textureName, float x, float y, bool pass, bool ex
 	isExit = exit;
 }
 
-bool GameTile::setUpSprite(std::string textureName) {
-	if (!texture.loadFromFile(textureName)) {
+bool GameTile::setUpSprite(std::string textureName)
+{
+	if (!texture.loadFromFile(textureName))
+	{
 		return false;
 	}
 	texture.setSmooth(true);
