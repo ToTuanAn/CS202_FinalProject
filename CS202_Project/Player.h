@@ -27,10 +27,10 @@ private:
 			anim.push_back(texture);
 		}
 
-		//frontAnim.assign(anim.begin(), anim.begin() + 4);
-		//leftAnim.assign(anim.begin() + 4, anim.begin() + 8);
-		//rightAnim.assign(anim.begin() + 8, anim.begin() + 12);
-		//backAnim.assign(anim.begin() + 12, anim.begin() + 16);
+	frontAnim.assign(anim.begin(), anim.begin() + 4);
+		leftAnim.assign(anim.begin() + 4, anim.begin() + 8);
+		rightAnim.assign(anim.begin() + 8, anim.begin() + 12);
+		backAnim.assign(anim.begin() + 12, anim.begin() + 16);
 	}
 
 	void updateAnimation()
@@ -74,7 +74,6 @@ public:
 	{
 		this->speed = 150.f;
 		loadAnimations();
-		model.setSize(PLAYER_SIZE);
 	}
 
 	void update(float deltaTime)

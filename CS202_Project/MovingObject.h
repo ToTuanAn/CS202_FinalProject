@@ -21,10 +21,11 @@ private:
 		if (in.is_open())
 		{
 			in >> speed;
-
+			cout << "speed: " << speed << endl;
 			int width, height;
 			in >> width >> height;
 			model.setSize(Vector2f(width, height));
+			cout << "size: " << width << ", " << height << endl;
 
 			in >> animSwitchTime;
 			in >> animCount;
@@ -46,7 +47,7 @@ protected:
 public:
 	MovingObject(string type, Vector2f position)
 	{
-		//LoadData(type);
+		LoadData(type);
 		model.setPosition(position);
 		timeFromLastSwitchAnim = 0;
 	}
