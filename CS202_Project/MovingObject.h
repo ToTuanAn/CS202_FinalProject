@@ -50,7 +50,8 @@ public:
 	MovingObject(string type, Vector2f position)
 	{
 		LoadData(type);
-		setPosition(position);
+		body.setPosition(position);
+		model.setPosition(position);
 		timeFromLastSwitchAnim = 0;
 		currentAnimIndex = 0;
 	}
@@ -58,17 +59,11 @@ public:
 	virtual void update(float deltaTime) = 0;
 
 #pragma region Get Methods
-	RectangleShape getBody() { return body; }
+	RectangleShape getBody()
+	{
+		return body;
+	}
 	Sprite getModel() { return model; }
 #pragma endregion
-
-#pragma region Set Methods
-	void setPosition(Vector2f position)
-	{
-		body.setPosition(position);
-		model.setPosition(position);
-	}
-#pragma endregion
-
 };
 #endif

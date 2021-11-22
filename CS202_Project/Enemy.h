@@ -28,10 +28,8 @@ private:
 			return;
 
 		timeFromLastSwitchAnim = 0;
+		model.setTexture(anim[currentAnimIndex]);
 		currentAnimIndex = currentAnimIndex >= anim.size() - 1 ? 0 : currentAnimIndex + 1;
-
-		Texture texture = anim[currentAnimIndex];
-		body.setTexture(&texture);
 	}
 
 	void move(float deltaTime)
