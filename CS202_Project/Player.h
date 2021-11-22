@@ -28,6 +28,8 @@ private:
 		leftAnim.assign(anim.begin() + 4, anim.begin() + 8);
 		rightAnim.assign(anim.begin() + 8, anim.begin() + 12);
 		backAnim.assign(anim.begin() + 12, anim.begin() + 16);
+
+		model.setTexture(frontAnim[0]);
 	}
 
 	void updateAnimation()
@@ -64,6 +66,8 @@ private:
 			body.move(Vector2f(0, -speed) * deltaTime);
 			currentAnim = backAnim;
 		}
+
+		model.setPosition(body.getPosition());
 	}
 
 public:
@@ -79,4 +83,4 @@ public:
 		//updateAnimation();
 	}
 };
-#endif // !_PLAYER_H_
+#endif

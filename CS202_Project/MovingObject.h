@@ -22,9 +22,11 @@ private:
 		{
 			in >> speed;
 			cout << "speed: " << speed << endl;
+
 			int width, height;
 			in >> width >> height;
 			body.setSize(Vector2f(width, height));
+			model.setTextureRect(IntRect(0, 0, width, height));
 			cout << "size: " << width << ", " << height << endl;
 
 			in >> animSwitchTime;
@@ -48,7 +50,7 @@ public:
 	MovingObject(string type, Vector2f position)
 	{
 		LoadData(type);
-		body.setPosition(position);
+		setPosition(position);
 		timeFromLastSwitchAnim = 0;
 	}
 
@@ -58,5 +60,14 @@ public:
 	RectangleShape getBody() { return body; }
 	Sprite getModel() { return model; }
 #pragma endregion
+
+#pragma region Set Methods
+	void setPosition(Vector2f position)
+	{
+		body.setPosition(position);
+		model.setPosition(position);
+	}
+#pragma endregion
+
 };
-#endif // !_MOVING_OBJECT_H_
+#endif

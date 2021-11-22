@@ -49,7 +49,8 @@ int main()
                 window.draw(map.map[x][y]->sprite);
             }
         }
-        window.draw(mainPlayer.getBody());
+        //window.draw(mainPlayer.getBody());
+        window.draw(mainPlayer.getModel());
 
         //Draw UI
         window.setView(window.getDefaultView());

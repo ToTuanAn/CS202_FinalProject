@@ -54,4 +54,4 @@ public:
 		updateAnimation();
 	}
 };
-#endif // !_ENEMY_H_
+#endif
