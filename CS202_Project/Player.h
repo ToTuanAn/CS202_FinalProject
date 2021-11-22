@@ -6,7 +6,7 @@
 
 //int WIDTH = 960;
 //int HEIGHT = 992;
-const Vector2f PLAYER_STARTING_POSITION(960 / 2, 2880 - 32) ;
+const Vector2f PLAYER_STARTING_POSITION(960 / 2, 2880 - 32);
 const Vector2f PLAYER_SIZE(32, 32);
 const int FRAME_PER_ANIM = 4;
 
@@ -45,54 +45,43 @@ private:
 		model.setTexture(&texture);
 	}
 
-	void move(float dt)
+	void move(float deltaTime)
 	{
 		if (Keyboard::isKeyPressed(Keyboard::A))
 		{
-			model.move(Vector2f(-speed, 0) *dt);
+			model.move(Vector2f(-speed, 0) * deltaTime);
 			currentAnim = leftAnim;
-			return;
 		}
-
-		if (Keyboard::isKeyPressed(Keyboard::D))
+		else if (Keyboard::isKeyPressed(Keyboard::D))
 		{
-			model.move(Vector2f(speed, 0) * dt);
+			model.move(Vector2f(speed, 0) * deltaTime);
 			currentAnim = rightAnim;
-			return;
 		}
-
-		if (Keyboard::isKeyPressed(Keyboard::S))
+		else if (Keyboard::isKeyPressed(Keyboard::S))
 		{
-			model.move(Vector2f(0, speed) * dt);
+			model.move(Vector2f(0, speed) * deltaTime);
 			currentAnim = frontAnim;
-			return;
 		}
-
-		if (Keyboard::isKeyPressed(Keyboard::W))
+		else if (Keyboard::isKeyPressed(Keyboard::W))
 		{
-			model.move(Vector2f(0, -speed) * dt);
+			model.move(Vector2f(0, -speed) * deltaTime);
 			currentAnim = backAnim;
 		}
 	}
 
 public:
-	Player() : MovingObject("Player", PLAYER_STARTING_POSITION, PLAYER_SIZE)
+	Player() : MovingObject("Player", PLAYER_STARTING_POSITION)
 	{
 		this->speed = 150.f;
 		//loadAnimations();
+		model.setSize(PLAYER_SIZE);
 	}
 
-	void update(float deltaTime, View& mainview)
+	void update(float deltaTime)
 	{
 		move(deltaTime);
-		mainview.move(Vector2f(0.f, -1.f));
 		timeFromLastSwitchAnim += deltaTime;
 		//updateAnimation();
-	}
-
-	//An add to return the shape of the player
-	RectangleShape playerBoxDisplay() {
-		return this->model;
 	}
 };
 #endif // !_PLAYER_H_

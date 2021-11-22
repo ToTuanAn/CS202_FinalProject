@@ -34,10 +34,10 @@ private:
 		model.setTexture(&texture);
 	}
 
-	void move()
+	void move(float deltaTime)
 	{
 		Vector2f moveDirection(moveToLeft ? 1 : -1, 0);
-		model.move(moveDirection * speed);
+		model.move(moveDirection * speed*deltaTime);
 	}
 
 public:
@@ -49,7 +49,7 @@ public:
 
 	void update(float deltaTime)
 	{
-		move();
+		move(deltaTime);
 		timeFromLastSwitchAnim += deltaTime;
 		updateAnimation();
 	}

@@ -21,7 +21,7 @@ int main() {
     GameWorld map = GameWorld();
     View mainview;
     mainview.setSize(WIDTH, HEIGHT);
-    mainview.setCenter(mainPlayer.playerBoxDisplay().getPosition());
+    mainview.setCenter(mainPlayer.getModel().getPosition());
 
     
     while (window.isOpen())
@@ -34,9 +34,9 @@ int main() {
                 window.close();
         }
         //Update
-        mainPlayer.update(dt, mainview);
+        mainPlayer.update(dt);
         
-        
+        mainview.move(Vector2f(0.f, -1.f));
 
         window.clear();
         //Draw
@@ -46,7 +46,7 @@ int main() {
                 window.draw(map.map[x][y]->sprite);
             }
         }
-        window.draw(mainPlayer.playerBoxDisplay());
+        window.draw(mainPlayer.getModel());
         
         //Draw UI
         window.setView(window.getDefaultView());
