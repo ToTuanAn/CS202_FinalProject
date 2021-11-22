@@ -19,7 +19,7 @@ private:
 	void loadAnimations()
 	{
 		vector<Texture> anim;
-		for (int i = 1; i < 16; ++i)
+		for (int i = 1; i <= 16; ++i)
 		{
 			string path = DATA_PATH + "Player/texture (" + to_string(i) + ").png";
 			Texture texture;
@@ -27,10 +27,10 @@ private:
 			anim.push_back(texture);
 		}
 
-		frontAnim.assign(anim.begin(), anim.begin() + 4);
-		leftAnim.assign(anim.begin() + 4, anim.begin() + 8);
-		rightAnim.assign(anim.begin() + 8, anim.begin() + 12);
-		backAnim.assign(anim.begin() + 12, anim.begin() + 16);
+		//frontAnim.assign(anim.begin(), anim.begin() + 4);
+		//leftAnim.assign(anim.begin() + 4, anim.begin() + 8);
+		//rightAnim.assign(anim.begin() + 8, anim.begin() + 12);
+		//backAnim.assign(anim.begin() + 12, anim.begin() + 16);
 	}
 
 	void updateAnimation()
@@ -73,7 +73,7 @@ public:
 	Player() : MovingObject("Player", PLAYER_STARTING_POSITION)
 	{
 		this->speed = 150.f;
-		//loadAnimations();
+		loadAnimations();
 		model.setSize(PLAYER_SIZE);
 	}
 

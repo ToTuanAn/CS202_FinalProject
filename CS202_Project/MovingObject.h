@@ -37,6 +37,7 @@ protected:
 	float speed, animSwitchTime, timeFromLastSwitchAnim;
 	int animCount, currentAnimIndex;
 	RectangleShape model;
+	Sprite sprite;
 
 	virtual void loadAnimations() = 0;
 	virtual void updateAnimation() = 0;
