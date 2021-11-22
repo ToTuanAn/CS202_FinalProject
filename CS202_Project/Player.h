@@ -12,6 +12,7 @@ class Player : public MovingObject
 private:
 	vector<Texture> leftAnim, rightAnim, frontAnim, backAnim;
 	vector<Texture> currentAnim;
+	bool isIdle;
 
 	void loadAnimations()
 	{
@@ -39,7 +40,9 @@ private:
 
 		timeFromLastSwitchAnim = 0;
 		model.setTexture(currentAnim[currentAnimIndex]);
-		currentAnimIndex = currentAnimIndex >= currentAnim.size() - 1 ? 0 : currentAnimIndex + 1;
+
+		if (!isIdle)
+			currentAnimIndex = currentAnimIndex >= currentAnim.size() - 1 ? 0 : currentAnimIndex + 1;
 	}
 
 	void move(float deltaTime)
@@ -64,7 +67,13 @@ private:
 			body.move(Vector2f(0, -speed) * deltaTime);
 			currentAnim = backAnim;
 		}
+		else
+		{
+			isIdle = true;
+			currentAnimIndex = 0;
+		}
 
+		isIdle = false;
 		model.setPosition(body.getPosition());
 	}
 
@@ -72,6 +81,7 @@ public:
 	Player() : MovingObject("Player", PLAYER_STARTING_POSITION)
 	{
 		loadAnimations();
+		isIdle = true;
 	}
 
 	void update(float deltaTime)
