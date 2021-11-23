@@ -9,6 +9,8 @@ using namespace sf;
 using namespace std;
 
 const string DATA_PATH = "Data/";
+const float ANIM_SWITCH_TIME = 0.1;
+const int FRAME_PER_ANIM = 4;
 
 class MovingObject
 {
@@ -28,17 +30,14 @@ private:
 			body.setSize(Vector2f(width, height));
 			model.setTextureRect(IntRect(0, 0, width, height));
 			cout << "size: " << width << ", " << height << endl;
-
-			in >> animSwitchTime;
-			in >> animCount;
 		}
 
 		in.close();
 	}
 
 protected:
-	float speed, animSwitchTime, timeFromLastSwitchAnim;
-	int animCount, currentAnimIndex;
+	float speed,  timeFromLastSwitchAnim;
+	int currentAnimIndex;
 	RectangleShape body;
 	Sprite model;
 

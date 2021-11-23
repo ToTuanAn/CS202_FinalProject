@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Player.h"
+#include"Enemy.h"
 #include "GameTile.h"
 #include "GameWorld.h"
 #include "SFML/Graphics.hpp"
@@ -24,6 +25,7 @@ int main()
     View mainview;
     mainview.setSize(WIDTH, HEIGHT);
     mainview.setCenter(mainPlayer.getBody().getPosition());
+    Enemy dinosaur("Dinosaur",PLAYER_STARTING_POSITION,true);
 
     while (window.isOpen())
     {
@@ -36,6 +38,7 @@ int main()
         }
         //Update
         mainPlayer.update(dt);
+        dinosaur.update(dt);
 
         mainview.move(Vector2f(0.f, -1.f));
 
@@ -51,6 +54,7 @@ int main()
         }
         //window.draw(mainPlayer.getBody());
         window.draw(mainPlayer.getModel());
+        window.draw(dinosaur.getModel());
 
         //Draw UI
         window.setView(window.getDefaultView());

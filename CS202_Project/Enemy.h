@@ -13,18 +13,24 @@ private:
 
 	void loadAnimations()
 	{
-		string path = DATA_PATH + "/" + type + "/texture (";
-		for (int i = 1; i <= animCount; ++i)
+		vector<Texture> tmpAnim;
+		for (int i = 1; i <= FRAME_PER_ANIM*2; ++i)
 		{
+			string path = DATA_PATH + type + "/texture (" + to_string(i) + ").png";
 			Texture texture;
-			texture.loadFromFile(path + to_string(i) + ").png");
-			anim.push_back(texture);
+			texture.loadFromFile(path);
+			tmpAnim.push_back(texture);
 		}
+
+		if (moveToLeft)
+			anim.assign(tmpAnim.begin(), tmpAnim.begin() + 4);
+		else
+			anim.assign(tmpAnim.begin() + 4, tmpAnim.begin() + 8);
 	}
 
 	void updateAnimation()
 	{
-		if (timeFromLastSwitchAnim < animSwitchTime)
+		if (timeFromLastSwitchAnim < ANIM_SWITCH_TIME)
 			return;
 
 		timeFromLastSwitchAnim = 0;
@@ -34,8 +40,9 @@ private:
 
 	void move(float deltaTime)
 	{
-		Vector2f moveDirection(moveToLeft ? 1 : -1, 0);
+		Vector2f moveDirection(moveToLeft ? -1 : 1, 0);
 		body.move(moveDirection * speed * deltaTime);
+		model.setPosition(body.getPosition());
 	}
 
 public:
