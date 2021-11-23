@@ -9,8 +9,6 @@ using namespace sf;
 using namespace std;
 
 const string DATA_PATH = "Data/";
-const int FRAME_PER_ANIM = 4;
-const float ANIM_SWITCH_TIME = 0.2;
 
 class MovingObject
 {
@@ -30,30 +28,33 @@ private:
 			body.setSize(Vector2f(width, height));
 			model.setTextureRect(IntRect(0, 0, width, height));
 			cout << "size: " << width << ", " << height << endl;
+
+			in >> animSwitchTime;
+			in >> animCount;
 		}
 
 		in.close();
 	}
 
 protected:
-	float speed, timeFromLastSwitchAnim;
-	int currentAnimIndex;
+	float speed, animSwitchTime, timeFromLastSwitchAnim;
+	int animCount, currentAnimIndex;
 	RectangleShape body;
 	Sprite model;
-	vector<Texture> leftAnim, rightAnim;
 
 	virtual void loadAnimations() = 0;
 	virtual void updateAnimation() = 0;
 	virtual void move(float deltaTime) = 0;
 
-	void init(string type)
+public:
+	MovingObject(string type, Vector2f position)
 	{
 		LoadData(type);
+		body.setPosition(position);
+		model.setPosition(position);
 		timeFromLastSwitchAnim = 0;
 		currentAnimIndex = 0;
 	}
-
-public:
 
 	virtual void update(float deltaTime) = 0;
 

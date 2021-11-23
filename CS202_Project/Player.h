@@ -5,18 +5,19 @@
 #include <vector>
 
 const Vector2f PLAYER_STARTING_POSITION(960 / 2, 2880 - 32);
+const int FRAME_PER_ANIM = 4;
 
 class Player : public MovingObject
 {
 private:
-	vector<Texture> frontAnim, backAnim;
+	vector<Texture> leftAnim, rightAnim, frontAnim, backAnim;
 	vector<Texture> currentAnim;
 	bool isIdle;
 
 	void loadAnimations()
 	{
 		vector<Texture> anim;
-		for (int i = 1; i <= FRAME_PER_ANIM * 4; ++i)
+		for (int i = 1; i <= 16; ++i)
 		{
 			string path = DATA_PATH + "Player/texture (" + to_string(i) + ").png";
 			Texture texture;
@@ -34,7 +35,7 @@ private:
 
 	void updateAnimation()
 	{
-		if (timeFromLastSwitchAnim < ANIM_SWITCH_TIME)
+		if (timeFromLastSwitchAnim < animSwitchTime)
 			return;
 
 		timeFromLastSwitchAnim = 0;
@@ -77,14 +78,10 @@ private:
 	}
 
 public:
-	Player() :  isIdle(true)
+	Player() : MovingObject("Player", PLAYER_STARTING_POSITION)
 	{
-		init("Player");
-
-		body.setPosition(PLAYER_STARTING_POSITION);
-		model.setPosition(PLAYER_STARTING_POSITION);
-
 		loadAnimations();
+		isIdle = true;
 	}
 
 	void update(float deltaTime)

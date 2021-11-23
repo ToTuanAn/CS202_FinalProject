@@ -13,19 +13,18 @@ private:
 
 	void loadAnimations()
 	{
-		vector<Texture> tmpAnim;
-		for (int i = 1; i <= FRAME_PER_ANIM * 2; ++i)
+		string path = DATA_PATH + "/" + type + "/texture (";
+		for (int i = 1; i <= animCount; ++i)
 		{
-			string path = DATA_PATH + type + "/texture (" + to_string(i) + ").png";
 			Texture texture;
-			texture.loadFromFile(path);
-			tmpAnim.push_back(texture);
+			texture.loadFromFile(path + to_string(i) + ").png");
+			anim.push_back(texture);
 		}
 	}
 
 	void updateAnimation()
 	{
-		if (timeFromLastSwitchAnim < ANIM_SWITCH_TIME)
+		if (timeFromLastSwitchAnim < animSwitchTime)
 			return;
 
 		timeFromLastSwitchAnim = 0;
@@ -40,14 +39,10 @@ private:
 	}
 
 public:
-	Enemy(string type) :  moveToLeft(true), type(type)
+	Enemy(string type, Vector2f position, bool moveToLeft) : MovingObject(type, position), moveToLeft(moveToLeft)
 	{
-		init(type);
+		this->type = type;
 		loadAnimations();
-	}
-
-	Enemy(const Enemy& enemyBase,Vector2f position,bool moveToLeft) {
-
 	}
 
 	void update(float deltaTime)
