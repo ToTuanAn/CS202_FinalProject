@@ -14,7 +14,7 @@ private:
 	void loadAnimations()
 	{
 		vector<Texture> tmpAnim;
-		for (int i = 1; i <= FRAME_PER_ANIM*2; ++i)
+		for (int i = 1; i <= FRAME_PER_ANIM * 2; ++i)
 		{
 			string path = DATA_PATH + type + "/texture (" + to_string(i) + ").png";
 			Texture texture;
@@ -35,7 +35,7 @@ private:
 
 		timeFromLastSwitchAnim = 0;
 		model.setTexture(anim[currentAnimIndex]);
-		currentAnimIndex = currentAnimIndex >= anim.size() - 1 ? 0 : currentAnimIndex + 1;
+		currentAnimIndex = currentAnimIndex >= (int)anim.size() - 1 ? 0 : currentAnimIndex + 1;
 	}
 
 	void move(float deltaTime)

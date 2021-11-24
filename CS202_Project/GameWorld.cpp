@@ -85,6 +85,8 @@ void GameWorld::setUpTiles()
 			mid = rockMid();
 			end = rockEnd();
 			break;
+		default:
+			break;
 		}
 
 		string terrain;

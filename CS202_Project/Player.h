@@ -16,7 +16,7 @@ private:
 	void loadAnimations()
 	{
 		vector<Texture> anim;
-		for (int i = 1; i <= FRAME_PER_ANIM*4; ++i)
+		for (int i = 1; i <= FRAME_PER_ANIM * 4; ++i)
 		{
 			string path = DATA_PATH + "Player/texture (" + to_string(i) + ").png";
 			Texture texture;
@@ -41,7 +41,7 @@ private:
 		model.setTexture(currentAnim[currentAnimIndex]);
 
 		if (!isIdle)
-			currentAnimIndex = currentAnimIndex >= currentAnim.size() - 1 ? 0 : currentAnimIndex + 1;
+			currentAnimIndex = currentAnimIndex >= (int)currentAnim.size() - 1 ? 0 : currentAnimIndex + 1;
 	}
 
 	void move(float deltaTime)
