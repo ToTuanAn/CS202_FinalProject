@@ -52,6 +52,10 @@ public:
         this->position = position;
         this->type = type;
     }
+    Vector2f getPosition()
+    {
+        return position;
+    }
     void draw(RenderWindow &window)
     {
         for (auto i = listEnemy.begin(); i != listEnemy.end(); i++)
