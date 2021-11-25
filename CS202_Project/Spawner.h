@@ -51,6 +51,7 @@ public:
         this->newObjectTime = newObjectTime;
         this->position = position;
         this->type = type;
+        timeFromLastSwitchAnim = newObjectTime;
     }
     Vector2f getPosition()
     {
