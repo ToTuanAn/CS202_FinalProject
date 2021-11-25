@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Player.h"
-#include"Enemy.h"
+#include "Enemy.h"
 #include "GameTile.h"
 #include "GameWorld.h"
 #include "SFML/Graphics.hpp"
@@ -25,8 +25,8 @@ int main()
     View mainview;
     mainview.setSize(WIDTH, HEIGHT);
     mainview.setCenter(mainPlayer.getBody().getPosition());
-    Enemy dinosaur("Dinosaur",PLAYER_STARTING_POSITION,true);
-
+    Enemy dinosaur("Dinosaur", PLAYER_STARTING_POSITION, true);
+    Spawner spa(2, Vector2f(0, 2880), "Dinosaur");
     while (window.isOpen())
     {
         dt = dt_clock.restart().asSeconds();
