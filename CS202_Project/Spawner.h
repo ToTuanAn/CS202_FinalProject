@@ -23,6 +23,16 @@ private:
         for (auto i = listEnemy.begin(); i != listEnemy.end(); i++)
             (*i)->update(dt);
     }
+    void addEnemyToList()
+    {
+        if (timeFromLastSwitchAnim >= newObjectTime)
+        {
+            MovingObject *e = new Enemy(type, position, false);
+            listEnemy.push_back(e);
+            timeFromLastSwitchAnim = 0;
+        }
+        timeFromLastSwitchAnim += dt;
+    }
 
 public:
     Spawner(float newObjectTime, Vector2f position, string type)
