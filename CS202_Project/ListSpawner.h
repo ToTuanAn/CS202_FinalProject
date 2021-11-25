@@ -39,5 +39,15 @@ public:
                 break;
         }
     }
+    void update(float dt, Player mainPlayer)
+    {
+        for (auto i = listSpawner.begin(); i != listSpawner.end(); i++)
+        {
+            if (i->getPosition().y >= mainPlayer.getBody().getPosition().y - yDistance)
+                i->update(dt);
+            else
+                break;
+        }
+    }
 };
 #endif
