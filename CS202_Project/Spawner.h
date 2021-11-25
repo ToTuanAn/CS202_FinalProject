@@ -23,7 +23,7 @@ private:
         for (auto i = listEnemy.begin(); i != listEnemy.end(); i++)
             (*i)->update(dt);
     }
-    void addEnemyToList()
+    void addEnemyToList(float dt)
     {
         if (timeFromLastSwitchAnim >= newObjectTime)
         {
@@ -47,6 +47,11 @@ public:
         {
             window.draw((*i)->getModel());
         }
+    }
+    void update(float dt)
+    {
+        updateEnemy(dt);
+        addEnemyToList(dt);
     }
 };
 
