@@ -36,7 +36,7 @@ private:
 	}
 
 protected:
-	float speed,  timeFromLastSwitchAnim;
+	float speed, timeFromLastSwitchAnim;
 	int currentAnimIndex;
 	RectangleShape body;
 	Sprite model;
@@ -54,7 +54,10 @@ public:
 		timeFromLastSwitchAnim = 0;
 		currentAnimIndex = 0;
 	}
-
+	RectangleShape getRectangleShape()
+	{
+		return body;
+	}
 	virtual void update(float deltaTime) = 0;
 
 #pragma region Get Methods

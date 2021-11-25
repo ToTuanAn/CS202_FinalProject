@@ -33,6 +33,9 @@ private:
         }
         timeFromLastSwitchAnim += dt;
     }
+    void deleteUnusedEnemy()
+    {
+    }
 
 public:
     Spawner(float newObjectTime, Vector2f position, string type)
@@ -51,6 +54,7 @@ public:
     void update(float dt)
     {
         updateEnemy(dt);
+        deleteUnusedEnemy();
         addEnemyToList(dt);
     }
 };
