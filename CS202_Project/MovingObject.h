@@ -30,6 +30,10 @@ private:
 			body.setSize(Vector2f(width, height));
 			model.setTextureRect(IntRect(0, 0, width, height));
 			cout << "size: " << width << ", " << height << endl;
+
+			float scale;
+			in >> scale;
+			model.setScale(Vector2f(scale, scale));
 		}
 
 		in.close();
