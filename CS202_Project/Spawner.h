@@ -35,6 +35,14 @@ private:
     }
     void deleteUnusedEnemy()
     {
+        if ((int)listEnemy.size() == 0)
+            return;
+        std::vector<MovingObject *>::iterator i = listEnemy.begin();
+        if ((*i)->getRectangleShape().getPosition().x > (float)GAME_WIDTH)
+        {
+            listEnemy.erase(i);
+            cout << "delete" << endl;
+        }
     }
 
 public:
@@ -53,9 +61,9 @@ public:
     }
     void update(float dt)
     {
+        addEnemyToList(dt);
         updateEnemy(dt);
         deleteUnusedEnemy();
-        addEnemyToList(dt);
     }
 };
 
