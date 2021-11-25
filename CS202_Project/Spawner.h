@@ -14,6 +14,7 @@ using namespace std;
 class Spawner
 {
 private:
+    bool moveToLeft;
     float speed, timeFromLastSwitchAnim = 0, newObjectTime;
     Vector2f position;
     string type;
@@ -27,7 +28,7 @@ private:
     {
         if (timeFromLastSwitchAnim >= newObjectTime)
         {
-            MovingObject *e = new Enemy(type, position, false);
+            MovingObject *e = new Enemy(type, position, moveToLeft);
             listEnemy.push_back(e);
             timeFromLastSwitchAnim = 0;
         }
@@ -46,8 +47,9 @@ private:
     }
 
 public:
-    Spawner(float newObjectTime, Vector2f position, string type)
+    Spawner(float newObjectTime, Vector2f position, string type, bool moveToLeft)
     {
+        this->moveToLeft = moveToLeft;
         this->newObjectTime = newObjectTime;
         this->position = position;
         this->type = type;
