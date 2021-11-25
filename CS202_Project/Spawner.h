@@ -18,6 +18,11 @@ private:
     Vector2f position;
     string type;
     vector<MovingObject *> listEnemy;
+    void updateEnemy()
+    {
+        for (auto i = listEnemy.begin(); i != listEnemy.end(); i++)
+            (*i)->update(dt);
+    }
 
 public:
     Spawner(float newObjectTime, Vector2f position, string type)
