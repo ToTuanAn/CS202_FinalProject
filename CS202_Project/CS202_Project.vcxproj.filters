@@ -41,5 +41,11 @@
     <ClInclude Include="Enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ListSpawner.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Spawner.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -29,7 +29,7 @@ public:
               listSpawner.push_back(Spawner(3, Vector2f(GAME_WIDTH, 2880 - (GAME_WIDTH / 16) * 8), "Bird", true));
               listSpawner.push_back(Spawner(2, Vector2f(0, 2880 - (GAME_WIDTH / 16) * 9), "Dinosaur", false));
        }
-       void draw(RenderWino&w &window, Player mainPlayer)
+       void draw(RenderWindow &window, Player mainPlayer)
        {
               for (auto i = listSpawner.begin(); i != listSpawner.end(); i++)
               {
