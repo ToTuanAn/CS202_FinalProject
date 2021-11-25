@@ -29,5 +29,15 @@ public:
         listSpawner.push_back(Spawner(3, Vector2f(0, 2880 - (GAME_WIDTH / 16) * 8), "Bird"));
         listSpawner.push_back(Spawner(2, Vector2f(0, 2880 - (GAME_WIDTH / 16) * 9), "Dinosaur"));
     }
+    void draw(RenderWindow &window, Player mainPlayer)
+    {
+        for (auto i = listSpawner.begin(); i != listSpawner.end(); i++)
+        {
+            if (mainPlayer.getBody().getPosition().y - i->getPosition().y <= yDistance)
+                i->draw(window);
+            else
+                break;
+        }
+    }
 };
 #endif
