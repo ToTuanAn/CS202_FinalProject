@@ -18,7 +18,7 @@ private:
     Vector2f position;
     string type;
     vector<MovingObject *> listEnemy;
-    void updateEnemy()
+    void updateEnemy(float dt)
     {
         for (auto i = listEnemy.begin(); i != listEnemy.end(); i++)
             (*i)->update(dt);
