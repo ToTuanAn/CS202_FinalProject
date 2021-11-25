@@ -31,6 +31,13 @@ public:
         this->position = position;
         this->type = type;
     }
+    void draw(RenderWindow &window)
+    {
+        for (auto i = listEnemy.begin(); i != listEnemy.end(); i++)
+        {
+            window.draw((*i)->getModel());
+        }
+    }
 };
 
 #endif
