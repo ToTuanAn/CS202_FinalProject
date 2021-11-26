@@ -51,7 +51,7 @@ int main()
         //Update
         mainPlayer.update(dt);
         listSpawner.update(dt, mainPlayer);
-        mainview.move(Vector2f(0.f, -1.f));
+        mainview.move(Vector2f(0.f, -2.f));
 
         window.clear();
         //Draw
