@@ -16,18 +16,52 @@ class ListSpawner
 {
 private:
        vector<Spawner> listSpawner;
-       int yDistance = 200;
+       int yDistance = 992;
 
 public:
-       ListSpawner()
+       ListSpawner(vector<pair<int,int>> pos)
        {
-              listSpawner.push_back(Spawner(6, Vector2f(GAME_WIDTH, 2880 - GAME_WIDTH / 16), "Bird", true));
-              listSpawner.push_back(Spawner(5, Vector2f(0, 2880 - (GAME_WIDTH / 16) * 2), "Truck", false));
-              listSpawner.push_back(Spawner(5, Vector2f(GAME_WIDTH, 2880 - (GAME_WIDTH / 16) * 4), "Bird", true));
-              listSpawner.push_back(Spawner(4, Vector2f(0, 2880 - (GAME_WIDTH / 16) * 5), "Dinosaur", false));
-              listSpawner.push_back(Spawner(3, Vector2f(GAME_WIDTH, 2880 - (GAME_WIDTH / 16) * 6), "Dinosaur", true));
-              listSpawner.push_back(Spawner(3, Vector2f(GAME_WIDTH, 2880 - (GAME_WIDTH / 16) * 8), "Car", true));
-              listSpawner.push_back(Spawner(2, Vector2f(0, 2880 - (GAME_WIDTH / 16) * 9), "Dinosaur", false));
+           int randDirect = 0;
+           int randAnimal = 0;
+           int randVehicle = 0;
+           int randTime = 0;
+           for (int i = pos.size() -1; i >= 0; i-=3) {
+               randDirect = rand() % 2;
+               randAnimal = rand() % 2;
+               randVehicle = rand() % 2;
+               randTime = (rand() % 4) + 3;
+               if (pos[i].first == 1) {
+                   continue;
+               }
+               else if (pos[i].first == 2) {
+                   if (randVehicle == 0 && randDirect == 0) {
+                       listSpawner.push_back(Spawner(randTime, Vector2f(0, pos[i].second - 64), "Car", randDirect));
+                   }
+                   else if (randVehicle == 0 && randDirect == 1) {
+                       listSpawner.push_back(Spawner(randTime, Vector2f(GAME_WIDTH, pos[i].second - 64), "Car", randDirect));
+                   }
+                   else if (randVehicle == 1 && randDirect == 0) {
+                       listSpawner.push_back(Spawner(randTime, Vector2f(0, pos[i].second - 96), "Truck", randDirect));
+                   }
+                   else if (randVehicle == 1 && randDirect == 1) {
+                       listSpawner.push_back(Spawner(randTime, Vector2f(GAME_WIDTH, pos[i].second - 96), "Truck", randDirect));
+                   }
+               }
+               else if (pos[i].first == 3) {
+                   if (randAnimal == 0 && randDirect == 0) {
+                       listSpawner.push_back(Spawner(randTime, Vector2f(0, pos[i].second - 32), "Bird", randDirect));
+                   }
+                   else if (randAnimal == 0 && randDirect == 1) {
+                       listSpawner.push_back(Spawner(randTime, Vector2f(GAME_WIDTH, pos[i].second - 32), "Bird", randDirect));
+                   }
+                   else if (randAnimal == 1 && randDirect == 0) {
+                       listSpawner.push_back(Spawner(randTime, Vector2f(0, pos[i].second - 64), "Dinosaur", randDirect));
+                   }
+                   else if (randAnimal == 1 && randDirect == 1) {
+                       listSpawner.push_back(Spawner(randTime, Vector2f(GAME_WIDTH, pos[i].second - 64), "Dinosaur", randDirect));
+                   }
+               }
+           }
        }
        void draw(RenderWindow &window, Player mainPlayer)
        {

@@ -33,8 +33,8 @@ int main()
     GameWorld map = GameWorld();
     View mainview;
     mainview.setSize(WIDTH, HEIGHT);
-    mainview.setCenter(mainPlayer.getBody().getPosition());
-    ListSpawner listSpawner;
+    mainview.setCenter(mainPlayer.getBody().getPosition() - Vector2f(0,368));
+    ListSpawner listSpawner(map.terrainSpawn);
 
     while (window.isOpen())
     {

@@ -114,6 +114,7 @@ void GameWorld::setUpTiles()
 				row.push_back(new GameTile(terrain, j, i * 16, false, false));
 				j += 16;
 			}
+			terrainSpawn.push_back(make_pair(choice, i*16));
 			map.push_back(row);
 			i++;
 		}
