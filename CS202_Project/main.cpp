@@ -7,6 +7,7 @@
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
 #include "Spawner.h"
+#include "Menu.h"
 #include <iostream>
 using namespace sf;
 using namespace std;
@@ -18,9 +19,16 @@ int main()
 {
     float dt;
     Clock dt_clock;
+
+    //MENU
+    RenderWindow MENU(sf::VideoMode(WIDTH, HEIGHT), "CROSSY ROAD GROUP 10");
+    Menu menu(MENU.getSize().x, MENU.getSize().y);
+    MENU.setFramerateLimit(60);
+    menu.show(MENU);
+
+    //GAME
     RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "CROSSY ROAD GROUP 10");
     window.setFramerateLimit(60);
-
     Player mainPlayer;
     GameWorld map = GameWorld();
     View mainview;
@@ -36,6 +44,9 @@ int main()
         {
             if (event.type == Event::Closed)
                 window.close();
+            if (event.type == Keyboard::Escape) {
+
+            }
         }
         //Update
         mainPlayer.update(dt);
@@ -52,10 +63,11 @@ int main()
                 window.draw(map.map[x][y]->sprite);
             }
         }
-        //window.draw(mainPlayer.getBody());
+        
         window.draw(mainPlayer.getModel());
         listSpawner.draw(window, mainPlayer);
         //Draw UI
+
         window.setView(window.getDefaultView());
 
         window.display();
