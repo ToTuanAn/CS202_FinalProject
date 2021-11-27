@@ -3,6 +3,7 @@
 
 #include "ListSpawner.h"
 #include "Player.h"
+#include <iostream>
 #include <vector>
 
 using namespace std;
@@ -17,7 +18,7 @@ public:
 
 		if (check)
 		{
-			std::cout << "Collision";
+			cout << "Collision" << endl;
 		}
 	}
 };

@@ -101,7 +101,10 @@ public:
 		for (auto spawner = listSpawner.begin(); spawner != listSpawner.end(); spawner++)
 		{
 			if (spawner->getPosition().y >= mainPlayer.getBody().getPosition().y - yDistance)
-				spawner->UpdateCollsion(mainPlayer);
+			{
+				if (spawner->UpdateCollsion(mainPlayer))
+					return true;
+			}
 			else
 				break;
 		}
