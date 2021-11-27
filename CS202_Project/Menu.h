@@ -11,7 +11,8 @@ using namespace sf;
 class Menu
 {
 public:
-	Menu(float width, float height) {
+	Menu(float width, float height)
+	{
 		if (!font.loadFromFile("arial.ttf"))
 		{
 			// handle error
@@ -36,16 +37,19 @@ public:
 		selectedItemIndex = 0;
 	}
 
-	~Menu() {}
+	~Menu()
+	{}
 
-	void draw(sf::RenderWindow& window) {
+	void draw(sf::RenderWindow& window)
+	{
 		for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++)
 		{
 			window.draw(menu[i]);
 		}
 	}
 
-	void MoveUp() {
+	void MoveUp()
+	{
 		if (selectedItemIndex - 1 >= 0)
 		{
 			menu[selectedItemIndex].setFillColor(sf::Color::White);
@@ -54,7 +58,8 @@ public:
 		}
 	}
 
-	void MoveDown() {
+	void MoveDown()
+	{
 		if (selectedItemIndex + 1 < MAX_NUMBER_OF_ITEMS)
 		{
 			menu[selectedItemIndex].setFillColor(sf::Color::White);
@@ -63,42 +68,53 @@ public:
 		}
 	}
 
-	int GetPressedItem() { return selectedItemIndex; }
+	int GetPressedItem()
+	{
+		return selectedItemIndex;
+	}
 
-	void show(RenderWindow& MENU) {
-		while (MENU.isOpen()) {
+	void show(RenderWindow& MENU)
+	{
+		while (MENU.isOpen())
+		{
 			Event event;
 
-			while (MENU.pollEvent(event)) {
+			while (MENU.pollEvent(event))
+			{
 
-				if (event.type == Event::Closed) {
+				if (event.type == Event::Closed)
+				{
 					MENU.close();
 				}
 
-				if (event.type == Event::KeyPressed) {
-					if (event.key.code == Keyboard::Up) {
+				if (event.type == Event::KeyPressed)
+				{
+					if (event.key.code == Keyboard::Up)
+					{
 						this->MoveUp();
 						break;
 					}
-					if (event.key.code == Keyboard::Down) {
+					if (event.key.code == Keyboard::Down)
+					{
 						this->MoveDown();
 						break;
 					}
-					if (event.key.code == Keyboard::Return) {
+					if (event.key.code == Keyboard::Return)
+					{
 						switch (this->GetPressedItem())
 						{
-						case 0:
-							std::cout << "Play button has been pressed" << std::endl;
-							break;
-						case 1:
-							std::cout << "Option button has been pressed" << std::endl;
-							break;
-						case 2:
-							MENU.close();
-							break;
+							case 0:
+								std::cout << "Play button has been pressed" << std::endl;
+								break;
+							case 1:
+								std::cout << "Option button has been pressed" << std::endl;
+								break;
+							case 2:
+								MENU.close();
+								break;
+							default:
+								break;
 						}
-
-
 					}
 				}
 			}
@@ -112,10 +128,6 @@ private:
 	int selectedItemIndex;
 	Font font;
 	Text menu[MAX_NUMBER_OF_ITEMS];
-
 };
 
-
-
 #endif // !_MENU_H_
-

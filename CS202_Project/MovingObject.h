@@ -1,9 +1,9 @@
 #ifndef _MOVING_OBJECT_H_
 #define _MOVING_OBJECT_H_
 
-#include <iostream>
-#include <fstream>
 #include "SFML/Graphics.hpp"
+#include <fstream>
+#include <iostream>
 
 using namespace sf;
 using namespace std;
@@ -64,12 +64,13 @@ public:
 	}
 	virtual void update(float deltaTime) = 0;
 
-#pragma region Get Methods
 	RectangleShape getBody()
 	{
 		return body;
 	}
-	Sprite getModel() { return model; }
-#pragma endregion
+	Sprite getModel()
+	{
+		return model;
+	}
 };
 #endif
