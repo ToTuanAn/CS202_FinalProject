@@ -17,7 +17,7 @@ public:
 
 		if (check)
 		{
-			std::cout << "Collision";
+			
 		}
 	}
 };
