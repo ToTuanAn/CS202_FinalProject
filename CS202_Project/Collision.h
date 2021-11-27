@@ -15,7 +15,10 @@ public:
 	{
 		bool check = listSpawner.UpdateCollsion(mainPlayer);
 
-		
+		if (check)
+		{
+			std::cout << "Collision";
+		}
 	}
 };
 
