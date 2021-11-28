@@ -29,7 +29,7 @@ int main()
 
 	//GAME
 	RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "CROSSY ROAD GROUP 10");
-	window.setFramerateLimit(60);
+	window.setFramerateLimit(30);
 	Player mainPlayer;
 	GameWorld map = GameWorld();
 	View mainview;

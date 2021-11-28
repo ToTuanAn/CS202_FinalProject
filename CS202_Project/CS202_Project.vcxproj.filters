@@ -50,5 +50,11 @@
     <ClInclude Include="Menu.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

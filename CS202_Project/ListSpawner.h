@@ -25,12 +25,12 @@ public:
 		int randAnimal = 0;
 		int randVehicle = 0;
 		int randTime = 0;
-		for (int i = pos.size() - 1; i >= 0; i -= 3)
+		for (int i = pos.size() - 1; i >= 0; i -= 4)
 		{
 			randDirect = rand() % 2;
 			randAnimal = rand() % 2;
 			randVehicle = rand() % 2;
-			randTime = (rand() % 4) + 3;
+			randTime = (rand() % 3) + 4;
 			if (pos[i].first == 1)
 			{
 				continue;
