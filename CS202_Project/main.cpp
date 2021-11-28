@@ -49,7 +49,7 @@ int main()
 		}
 		//Update
 		mainPlayer.update(dt);
-		listSpawner.update(dt, mainPlayer);
+		listSpawner.update(dt, mainPlayer, mainview.getCenter().y);
 		mainview.move(Vector2f(0.f, -2.f));
 
 		// Collision
@@ -67,7 +67,7 @@ int main()
 		}
 
 		window.draw(mainPlayer.getModel());
-		listSpawner.draw(window, mainPlayer);
+		listSpawner.draw(window, mainPlayer, mainview.getCenter().y);
 		//Draw UI
 
 		window.setView(window.getDefaultView());
