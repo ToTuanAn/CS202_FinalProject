@@ -18,7 +18,7 @@ private:
 	float speed, timeFromLastSwitchAnim = 0, newObjectTime;
 	Vector2f position;
 	string type;
-	vector<MovingObject*> listEnemy;
+	vector<MovingObject *> listEnemy;
 	void updateEnemy(float dt)
 	{
 		for (auto i = listEnemy.begin(); i != listEnemy.end(); i++)
@@ -28,7 +28,7 @@ private:
 	{
 		if (timeFromLastSwitchAnim >= newObjectTime)
 		{
-			MovingObject* e = new Enemy(type, position, moveToLeft);
+			MovingObject *e = new Enemy(type, position, moveToLeft);
 			listEnemy.push_back(e);
 			timeFromLastSwitchAnim = 0;
 		}
@@ -38,7 +38,7 @@ private:
 	{
 		if ((int)listEnemy.size() == 0)
 			return;
-		std::vector<MovingObject*>::iterator i = listEnemy.begin();
+		std::vector<MovingObject *>::iterator i = listEnemy.begin();
 		if ((*i)->getRectangleShape().getPosition().x > (float)GAME_WIDTH)
 		{
 			delete (*i);
@@ -48,6 +48,20 @@ private:
 	}
 
 public:
+	void deleteAllEnemy()
+	{
+		if ((int)listEnemy.size() == 0)
+			return;
+		for (auto i = listEnemy.begin(); i != listEnemy.end(); i++)
+		{
+			if ((*i)->getRectangleShape().getPosition().x > (float)GAME_WIDTH)
+			{
+				delete (*i);
+				listEnemy.erase(i);
+				cout << "delete enemy" << endl; // debug
+			}
+		}
+	}
 	Spawner(float newObjectTime, Vector2f position, string type, bool moveToLeft)
 	{
 		this->moveToLeft = moveToLeft;
@@ -60,7 +74,7 @@ public:
 	{
 		return position;
 	}
-	void draw(RenderWindow& window)
+	void draw(RenderWindow &window)
 	{
 		for (auto i = listEnemy.begin(); i != listEnemy.end(); i++)
 		{
