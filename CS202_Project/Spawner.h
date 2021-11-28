@@ -41,8 +41,9 @@ private:
 		std::vector<MovingObject*>::iterator i = listEnemy.begin();
 		if ((*i)->getRectangleShape().getPosition().x > (float)GAME_WIDTH)
 		{
+			delete (*i);
 			listEnemy.erase(i);
-			cout << "delete" << endl;
+			cout << "delete enemy" << endl; // debug
 		}
 	}
 
@@ -74,19 +75,16 @@ public:
 		deleteUnusedEnemy();
 	}
 
-	bool UpdateCollsion(Player mainPlayer)
+	bool UpdateCollsion(FloatRect const playerBounds)
 	{
 		for (auto i = listEnemy.begin(); i != listEnemy.end(); i++)
 		{
-			FloatRect playerBounds = mainPlayer.getRectangleShape().getGlobalBounds();
 			FloatRect enemyBounds = (*i)->getRectangleShape().getGlobalBounds();
-
 			if (enemyBounds.intersects(playerBounds))
 			{
 				return true;
 			}
 		}
-
 		return false;
 	}
 };

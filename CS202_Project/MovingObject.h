@@ -72,5 +72,9 @@ public:
 	{
 		return model;
 	}
+	virtual ~MovingObject()
+	{
+		// cout << "Destructor Base " << speed << endl; //debug
+	}
 };
 #endif

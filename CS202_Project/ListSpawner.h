@@ -77,9 +77,10 @@ public:
 	}
 	void draw(RenderWindow& window, Player mainPlayer)
 	{
+		const float yPos = mainPlayer.getBody().getPosition().y;
 		for (auto i = listSpawner.begin(); i != listSpawner.end(); i++)
 		{
-			if (mainPlayer.getBody().getPosition().y - i->getPosition().y <= yDistance)
+			if (yPos - i->getPosition().y <= yDistance)
 				i->draw(window);
 			else
 				break;
@@ -87,9 +88,10 @@ public:
 	}
 	void update(float dt, Player mainPlayer)
 	{
+		const float yPos = mainPlayer.getBody().getPosition().y;
 		for (auto i = listSpawner.begin(); i != listSpawner.end(); i++)
 		{
-			if (i->getPosition().y >= mainPlayer.getBody().getPosition().y - yDistance)
+			if (i->getPosition().y >= yPos - yDistance)
 				i->update(dt);
 			else
 				break;
@@ -98,11 +100,13 @@ public:
 
 	bool UpdateCollsion(Player mainPlayer)
 	{
+		const FloatRect playerBounds = mainPlayer.getRectangleShape().getGlobalBounds();
+		const float yPos = mainPlayer.getBody().getPosition().y;
 		for (auto spawner = listSpawner.begin(); spawner != listSpawner.end(); spawner++)
 		{
-			if (spawner->getPosition().y >= mainPlayer.getBody().getPosition().y - yDistance)
+			if (spawner->getPosition().y >= yPos - yDistance)
 			{
-				if (spawner->UpdateCollsion(mainPlayer))
+				if (spawner->UpdateCollsion(playerBounds))
 					return true;
 			}
 			else
