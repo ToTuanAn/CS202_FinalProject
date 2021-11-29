@@ -2,9 +2,11 @@
 #define _PLAYER_H_
 
 #include "MovingObject.h"
+#include "GameWorld.h"
 #include <vector>
 
 const Vector2f PLAYER_STARTING_POSITION(960 / 2, 2880 - 32);
+const float LANE_WIDTH = GAME_HEIGHT / 16;
 
 class Player : public MovingObject
 {
@@ -88,6 +90,11 @@ public:
 		move(deltaTime);
 		timeFromLastSwitchAnim += deltaTime;
 		updateAnimation();
+	}
+
+	int calculateScore()
+	{
+		return (body.getPosition().y - PLAYER_STARTING_POSITION.y) / LANE_WIDTH;
 	}
 };
 #endif
