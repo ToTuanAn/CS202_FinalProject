@@ -39,7 +39,7 @@ private:
 		if ((int)listEnemy.size() == 0)
 			return;
 		std::vector<MovingObject *>::iterator i = listEnemy.begin();
-		if ((*i)->getRectangleShape().getPosition().x > (float)GAME_WIDTH)
+		if ((*i)->getBody().getPosition().x > (float)GAME_WIDTH)
 		{
 			delete (*i);
 			listEnemy.erase(i);
@@ -54,7 +54,7 @@ public:
 			return;
 		for (auto i = listEnemy.begin(); i != listEnemy.end(); i++)
 		{
-			if ((*i)->getRectangleShape().getPosition().x > (float)GAME_WIDTH)
+			if ((*i)->getBody().getPosition().x > (float)GAME_WIDTH)
 			{
 				delete (*i);
 				listEnemy.erase(i);
@@ -93,7 +93,7 @@ public:
 	{
 		for (auto i = listEnemy.begin(); i != listEnemy.end(); i++)
 		{
-			FloatRect enemyBounds = (*i)->getRectangleShape().getGlobalBounds();
+			FloatRect enemyBounds = (*i)->getBody().getGlobalBounds();
 			if (enemyBounds.intersects(playerBounds))
 			{
 				return true;

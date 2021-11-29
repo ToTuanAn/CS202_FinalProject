@@ -114,7 +114,7 @@ public:
 
 	bool UpdateCollsion(Player mainPlayer)
 	{
-		const FloatRect playerBounds = mainPlayer.getRectangleShape().getGlobalBounds();
+		const FloatRect playerBounds = mainPlayer.getBody().getGlobalBounds();
 		const float yPos = mainPlayer.getBody().getPosition().y;
 		for (auto spawner = listSpawner.begin(); spawner != listSpawner.end(); spawner++)
 		{

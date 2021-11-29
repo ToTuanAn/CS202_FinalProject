@@ -46,9 +46,8 @@ private:
 	}
 
 public:
-	Enemy(string type, Vector2f position, bool moveToLeft) :
-		MovingObject(type, position),
-		moveToLeft(moveToLeft)
+	Enemy(string type, Vector2f position, bool moveToLeft) : MovingObject(type, position),
+															 moveToLeft(moveToLeft)
 	{
 		this->type = type;
 		loadAnimations();
@@ -59,10 +58,6 @@ public:
 		move(deltaTime);
 		timeFromLastSwitchAnim += deltaTime;
 		updateAnimation();
-	}
-	~Enemy()
-	{
-		cout << "Destructor Derived\n";
 	}
 };
 #endif

@@ -58,23 +58,16 @@ public:
 		timeFromLastSwitchAnim = 0;
 		currentAnimIndex = 0;
 	}
-	RectangleShape getRectangleShape()
-	{
-		return body;
-	}
 	virtual void update(float deltaTime) = 0;
 
 	RectangleShape getBody()
 	{
 		return body;
 	}
+
 	Sprite getModel()
 	{
 		return model;
-	}
-	virtual ~MovingObject()
-	{
-		// cout << "Destructor Base " << speed << endl; //debug
 	}
 };
 #endif

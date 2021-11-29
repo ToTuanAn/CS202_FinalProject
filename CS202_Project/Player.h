@@ -76,13 +76,8 @@ private:
 		model.setPosition(body.getPosition());
 	}
 
-	void CalculationCollision()
-	{
-	}
-
 public:
-	Player() :
-		MovingObject("Player", PLAYER_STARTING_POSITION)
+	Player() : MovingObject("Player", PLAYER_STARTING_POSITION)
 	{
 		loadAnimations();
 		isIdle = true;
@@ -93,8 +88,6 @@ public:
 		move(deltaTime);
 		timeFromLastSwitchAnim += deltaTime;
 		updateAnimation();
-
-		CalculationCollision();
 	}
 };
 #endif
