@@ -13,19 +13,25 @@ private:
 
 	void loadAnimations()
 	{
-		vector<Texture> tmpAnim;
-		for (int i = 1; i <= FRAME_PER_ANIM * 2; ++i)
+		int startLoad = 0, endLoad = 0;
+		if (moveToLeft)
+		{
+			startLoad = 1;
+			endLoad = FRAME_PER_ANIM;
+		}
+		else
+		{
+			startLoad = FRAME_PER_ANIM + 1;
+			endLoad = FRAME_PER_ANIM * 2;
+		}
+
+		for (int i = startLoad; i <= endLoad; ++i)
 		{
 			string path = DATA_PATH + type + "/texture (" + to_string(i) + ").png";
 			Texture texture;
 			texture.loadFromFile(path);
-			tmpAnim.push_back(texture);
+			anim.push_back(texture);
 		}
-
-		if (moveToLeft)
-			anim.assign(tmpAnim.begin(), tmpAnim.begin() + 4);
-		else
-			anim.assign(tmpAnim.begin() + 4, tmpAnim.begin() + 8);
 	}
 
 	void updateAnimation()
@@ -46,8 +52,7 @@ private:
 	}
 
 public:
-	Enemy(string type, Vector2f position, bool moveToLeft) : MovingObject(type, position),
-															 moveToLeft(moveToLeft)
+	Enemy(string type, Vector2f position, bool moveToLeft) : MovingObject(type, position), moveToLeft(moveToLeft)
 	{
 		this->type = type;
 		loadAnimations();
