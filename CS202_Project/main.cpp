@@ -38,6 +38,15 @@ int main()
 	ListSpawner listSpawner(map.terrainSpawn);
 	Collision collision;
 
+	// Score Text
+	Font scoreTextFont;
+	scoreTextFont.loadFromFile("arial.ttf");
+
+	Text scoreText;
+	scoreText.setFont(scoreTextFont);
+	scoreText.setFillColor(Color::Red);
+	scoreText.setStyle(Text::Bold);
+
 	while (window.isOpen())
 	{
 		dt = dt_clock.restart().asSeconds();
@@ -71,6 +80,10 @@ int main()
 		//Draw UI
 
 		window.setView(window.getDefaultView());
+
+		// Score Text
+		scoreText.setPosition(Vector2f(WIDTH / 2, mainPlayer.getBody().getPosition().y + 100));
+		scoreText.setString(to_string(mainPlayer.calculateScore()));
 
 		window.display();
 	}
