@@ -112,21 +112,6 @@ public:
 		deleteUnusedSpawner(viewY);
 	}
 
-	bool UpdateCollsion(Player mainPlayer)
-	{
-		const FloatRect playerBounds = mainPlayer.getBody().getGlobalBounds();
-		const float yPos = mainPlayer.getBody().getPosition().y;
-		for (auto spawner = listSpawner.begin(); spawner != listSpawner.end(); spawner++)
-		{
-			if (spawner->getPosition().y >= yPos - yDistance)
-			{
-				if (spawner->UpdateCollsion(playerBounds))
-					return true;
-			}
-			else
-				break;
-		}
-		return false;
-	}
+	
 };
 #endif
