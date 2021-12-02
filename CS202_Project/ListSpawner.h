@@ -121,7 +121,7 @@ public:
 			if (spawner->getPosition().y >= yPos - yDistance)
 			{
 				if (spawner->UpdateCollsion(playerBounds))
-					return true;
+					return false;
 			}
 			else
 				break;
