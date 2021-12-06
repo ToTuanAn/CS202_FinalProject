@@ -23,13 +23,11 @@ private:
 		if (in.is_open())
 		{
 			in >> speed;
-			//cout << "speed: " << speed << endl;
 
 			int width, height;
 			in >> width >> height;
 			body.setSize(Vector2f(width, height));
 			model.setTextureRect(IntRect(0, 0, width, height));
-			//cout << "size: " << width << ", " << height << endl;
 
 			float scale;
 			in >> scale;

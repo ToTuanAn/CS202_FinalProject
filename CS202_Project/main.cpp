@@ -39,13 +39,25 @@ int main()
 	Collision collision;
 
 	// Score Text
+	const string SCORE_TEXT = "Score: ";
+
 	Font scoreTextFont;
-	scoreTextFont.loadFromFile("arial.ttf");
+	if (!scoreTextFont.loadFromFile("PixelFont.ttf"))
+	{
+		cout << "Can't load font!\n";
+		return 0;
+	}
+	else
+		cout << "PixelFont.ttf is loaded!\n";
 
 	Text scoreText;
+	scoreText.setCharacterSize(50);
 	scoreText.setFont(scoreTextFont);
 	scoreText.setFillColor(Color::Red);
+	scoreText.setOutlineColor(Color::Blue);
+	scoreText.setOutlineThickness(2);
 	scoreText.setStyle(Text::Bold);
+	scoreText.setOrigin(scoreText.getGlobalBounds().width - (WIDTH / 2 - 75), scoreText.getGlobalBounds().height / 2);
 
 	while (window.isOpen())
 	{
@@ -82,8 +94,8 @@ int main()
 		window.setView(window.getDefaultView());
 
 		// Score Text
-		scoreText.setPosition(Vector2f(WIDTH / 2, mainPlayer.getBody().getPosition().y + 100));
-		scoreText.setString(to_string(mainPlayer.calculateScore()));
+		scoreText.setString(SCORE_TEXT + to_string(mainPlayer.calculateScore()));
+		window.draw(scoreText);
 
 		window.display();
 	}

@@ -94,7 +94,7 @@ public:
 
 	int calculateScore()
 	{
-		return (body.getPosition().y - PLAYER_STARTING_POSITION.y) / LANE_WIDTH;
+		return -(body.getPosition().y - PLAYER_STARTING_POSITION.y) / LANE_WIDTH;
 	}
 };
 #endif
