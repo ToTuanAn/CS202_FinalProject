@@ -8,6 +8,7 @@
 #include "SFML/Graphics.hpp"
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
+#include "SFML/Audio.hpp"
 #include "Spawner.h"
 #include <iostream>
 using namespace sf;
@@ -40,15 +41,17 @@ int main()
 
 	// Score Text
 	const string SCORE_TEXT = "Score: ";
+	const string FONT_NAME = "PixelFont";
+	string FONT_FILE_NAME = FONT_NAME + ".ttf";
 
 	Font scoreTextFont;
-	if (!scoreTextFont.loadFromFile("PixelFont.ttf"))
+	if (!scoreTextFont.loadFromFile("Fonts/" + FONT_FILE_NAME))
 	{
-		cout << "Can't load font!\n";
+		cout << "Can't load " + FONT_FILE_NAME << endl;
 		return 0;
 	}
 	else
-		cout << "PixelFont.ttf is loaded!\n";
+		cout << FONT_FILE_NAME + " is loaded!\n";
 
 	Text scoreText;
 	scoreText.setCharacterSize(50);
@@ -58,6 +61,24 @@ int main()
 	scoreText.setOutlineThickness(2);
 	scoreText.setStyle(Text::Bold);
 	scoreText.setOrigin(scoreText.getGlobalBounds().width - (WIDTH / 2 - 75), scoreText.getGlobalBounds().height / 2);
+
+	// Sound
+	// const string GAME_MUSIC_NAME = "GameMusic";
+	// string GAME_MUSIC_FILE_NAME = GAME_MUSIC_NAME + ".mp3";
+
+	// SoundBuffer gameMusicBuffer;
+	// if (!gameMusicBuffer.loadFromFile("Sounds/" + GAME_MUSIC_FILE_NAME))
+	// {
+	// 	cout << "Can't load " + GAME_MUSIC_FILE_NAME << endl;
+	// 	return 0;
+	// }
+	// else
+	// 	cout << GAME_MUSIC_FILE_NAME + " is loaded!\n";
+
+	// Sound gameMusic;
+	// gameMusic.setBuffer(gameMusicBuffer);
+
+	// gameMusic.play();
 
 	while (window.isOpen())
 	{

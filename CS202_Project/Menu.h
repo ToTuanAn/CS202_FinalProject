@@ -13,7 +13,7 @@ class Menu
 public:
 	Menu(float width, float height)
 	{
-		if (!font.loadFromFile("arial.ttf"))
+		if (!font.loadFromFile("Fonts/arial.ttf"))
 		{
 			// handle error
 			cout << "huhu";
