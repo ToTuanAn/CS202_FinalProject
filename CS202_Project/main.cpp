@@ -63,22 +63,22 @@ int main()
 	scoreText.setOrigin(scoreText.getGlobalBounds().width - (WIDTH / 2 - 75), scoreText.getGlobalBounds().height / 2);
 
 	// Sound
-	// const string GAME_MUSIC_NAME = "GameMusic";
-	// string GAME_MUSIC_FILE_NAME = GAME_MUSIC_NAME + ".mp3";
+	const string GAME_MUSIC_NAME = "GameMusic";
+	string GAME_MUSIC_FILE_NAME = GAME_MUSIC_NAME + ".wav";
 
-	// SoundBuffer gameMusicBuffer;
-	// if (!gameMusicBuffer.loadFromFile("Sounds/" + GAME_MUSIC_FILE_NAME))
-	// {
-	// 	cout << "Can't load " + GAME_MUSIC_FILE_NAME << endl;
-	// 	return 0;
-	// }
-	// else
-	// 	cout << GAME_MUSIC_FILE_NAME + " is loaded!\n";
+	SoundBuffer gameMusicBuffer;
+	if (!gameMusicBuffer.loadFromFile("Sounds/" + GAME_MUSIC_FILE_NAME))
+	{
+		cout << "Can't load " + GAME_MUSIC_FILE_NAME << endl;
+		return 0;
+	}
+	else
+		cout << GAME_MUSIC_FILE_NAME + " is loaded!\n";
 
-	// Sound gameMusic;
-	// gameMusic.setBuffer(gameMusicBuffer);
-
-	// gameMusic.play();
+	Sound gameMusic;
+	gameMusic.setBuffer(gameMusicBuffer);
+	gameMusic.setLoop(true);
+	gameMusic.play();
 
 	while (window.isOpen())
 	{
