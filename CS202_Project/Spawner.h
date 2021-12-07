@@ -1,16 +1,19 @@
 #ifndef SPAWNER_H
 #define SPAWNER_H
+
 #include "Enemy.h"
 #include "GameWorld.h"
 #include "MovingObject.h"
 #include "SFML/Graphics.hpp"
-#include "fstream"
-#include "string"
+
+#include <fstream>
+#include <string>
 #include <iostream>
 #include <vector>
 
 using namespace sf;
 using namespace std;
+
 class Spawner
 {
 private:
@@ -19,11 +22,13 @@ private:
 	Vector2f position;
 	string type;
 	vector<MovingObject *> listEnemy;
+
 	void updateEnemy(float dt)
 	{
 		for (auto i = listEnemy.begin(); i != listEnemy.end(); i++)
 			(*i)->update(dt);
 	}
+
 	void addEnemyToList(float dt)
 	{
 		if (timeFromLastSwitchAnim >= newObjectTime)
@@ -34,6 +39,7 @@ private:
 		}
 		timeFromLastSwitchAnim += dt;
 	}
+
 	void deleteUnusedEnemy()
 	{
 		if ((int)listEnemy.size() == 0)
@@ -62,6 +68,7 @@ public:
 			}
 		}
 	}
+
 	Spawner(float newObjectTime, Vector2f position, string type, bool moveToLeft)
 	{
 		this->moveToLeft = moveToLeft;
@@ -70,10 +77,12 @@ public:
 		this->type = type;
 		timeFromLastSwitchAnim = newObjectTime;
 	}
+
 	Vector2f getPosition()
 	{
 		return position;
 	}
+
 	void draw(RenderWindow &window)
 	{
 		for (auto i = listEnemy.begin(); i != listEnemy.end(); i++)
@@ -102,5 +111,4 @@ public:
 		return false;
 	}
 };
-
 #endif

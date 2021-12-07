@@ -10,17 +10,13 @@ using namespace std;
 
 class Collision
 {
-private:
 public:
 	void UpdateCollision(Player mainPlayer, ListSpawner listSpawner)
 	{
 		bool check = listSpawner.UpdateCollsion(mainPlayer);
 
 		if (check)
-		{
 			cout << "Collision" << endl;
-		}
 	}
 };
-
 #endif

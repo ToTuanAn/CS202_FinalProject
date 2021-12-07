@@ -20,5 +20,4 @@ public:
 	Texture texture;
 	Sprite sprite;
 };
-
-#endif // !_GAMETILE_H_
+#endif

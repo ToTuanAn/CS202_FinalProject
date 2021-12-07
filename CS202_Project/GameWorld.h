@@ -39,4 +39,4 @@ std::string rockStart();
 std::string rockMid();
 std::string rockEnd();
 
-#endif // !_GAMEWORLD_H_
+#endif

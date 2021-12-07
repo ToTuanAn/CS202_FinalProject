@@ -5,12 +5,15 @@
 #include "ListSpawner.h"
 #include "Menu.h"
 #include "Player.h"
+#include "Spawner.h"
+
 #include "SFML/Graphics.hpp"
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
 #include "SFML/Audio.hpp"
-#include "Spawner.h"
+
 #include <iostream>
+
 using namespace sf;
 using namespace std;
 
@@ -89,6 +92,7 @@ int main()
 			if (event.type == Event::Closed)
 				window.close();
 		}
+
 		//Update
 		mainPlayer.update(dt);
 		listSpawner.update(dt, mainPlayer, mainview.getCenter().y);
@@ -97,20 +101,17 @@ int main()
 		// Collision
 		collision.UpdateCollision(mainPlayer, listSpawner);
 
-		window.clear();
 		//Draw
+		window.clear();
 		window.setView(mainview);
+
 		for (int x = 0; x < map.offset; x++)
-		{
 			for (int y = 0; y < map.gridWidth; y++)
-			{
 				window.draw(map.map[x][y]->sprite);
-			}
-		}
 
 		window.draw(mainPlayer.getModel());
+
 		listSpawner.draw(window, mainPlayer, mainview.getCenter().y);
-		//Draw UI
 
 		window.setView(window.getDefaultView());
 

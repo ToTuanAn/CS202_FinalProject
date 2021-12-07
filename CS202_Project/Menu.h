@@ -15,7 +15,6 @@ public:
 	{
 		if (!font.loadFromFile("Fonts/arial.ttf"))
 		{
-			// handle error
 			cout << "huhu";
 		}
 
@@ -37,10 +36,9 @@ public:
 		selectedItemIndex = 0;
 	}
 
-	~Menu()
-	{}
+	~Menu() {}
 
-	void draw(sf::RenderWindow& window)
+	void draw(sf::RenderWindow &window)
 	{
 		for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++)
 		{
@@ -73,7 +71,7 @@ public:
 		return selectedItemIndex;
 	}
 
-	void show(RenderWindow& MENU)
+	void show(RenderWindow &MENU)
 	{
 		while (MENU.isOpen())
 		{
@@ -103,17 +101,17 @@ public:
 					{
 						switch (this->GetPressedItem())
 						{
-							case 0:
-								std::cout << "Play button has been pressed" << std::endl;
-								break;
-							case 1:
-								std::cout << "Option button has been pressed" << std::endl;
-								break;
-							case 2:
-								MENU.close();
-								break;
-							default:
-								break;
+						case 0:
+							std::cout << "Play button has been pressed" << std::endl;
+							break;
+						case 1:
+							std::cout << "Option button has been pressed" << std::endl;
+							break;
+						case 2:
+							MENU.close();
+							break;
+						default:
+							break;
 						}
 					}
 				}
@@ -130,4 +128,4 @@ private:
 	Text menu[MAX_NUMBER_OF_ITEMS];
 };
 
-#endif // !_MENU_H_
+#endif

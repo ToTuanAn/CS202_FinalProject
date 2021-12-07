@@ -1,17 +1,21 @@
 #ifndef LISTSPAWNER_H
 #define LISTSPAWNER_H
+
 #include "Enemy.h"
 #include "GameWorld.h"
 #include "MovingObject.h"
 #include "Player.h"
 #include "SFML/Graphics.hpp"
 #include "Spawner.h"
-#include "fstream"
-#include "string"
+
+#include <fstream>
+#include <string>
 #include <iostream>
 #include <vector>
+
 using namespace sf;
 using namespace std;
+
 class ListSpawner
 {
 private:
@@ -86,6 +90,7 @@ public:
 			}
 		}
 	}
+
 	void draw(RenderWindow &window, Player mainPlayer, int viewY)
 	{
 		viewY += 368;
@@ -98,6 +103,7 @@ public:
 				break;
 		}
 	}
+
 	void update(float dt, Player mainPlayer, int viewY)
 	{
 		viewY += 368;
