@@ -54,6 +54,8 @@ private:
 public:
 	Enemy(string type, Vector2f position, bool moveToLeft) : MovingObject(type, position), moveToLeft(moveToLeft)
 	{
+		cout << "Load " + type << ".\n";
+
 		this->type = type;
 		loadAnimations();
 	}
@@ -63,6 +65,11 @@ public:
 		move(deltaTime);
 		timeFromLastSwitchAnim += deltaTime;
 		updateAnimation();
+	}
+
+	string getType()
+	{
+		return type;
 	}
 };
 #endif

@@ -47,9 +47,9 @@ private:
 		std::vector<MovingObject *>::iterator i = listEnemy.begin();
 		if ((*i)->getBody().getPosition().x > (float)GAME_WIDTH)
 		{
+			cout << "Delete " + (*i)->getType() << ".\n";
 			delete (*i);
 			listEnemy.erase(i);
-			cout << "delete enemy" << endl; // debug
 		}
 	}
 
@@ -59,14 +59,12 @@ public:
 		if ((int)listEnemy.size() == 0)
 			return;
 		for (auto i = listEnemy.begin(); i != listEnemy.end(); i++)
-		{
 			if ((*i)->getBody().getPosition().x > (float)GAME_WIDTH)
 			{
+				cout << "Delete " + (*i)->getType() << ".\n";
 				delete (*i);
 				listEnemy.erase(i);
-				cout << "delete enemy" << endl; // debug
 			}
-		}
 	}
 
 	Spawner(float newObjectTime, Vector2f position, string type, bool moveToLeft)

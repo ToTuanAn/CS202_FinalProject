@@ -3,6 +3,7 @@
 
 #include "ListSpawner.h"
 #include "Player.h"
+
 #include <iostream>
 #include <vector>
 
@@ -16,7 +17,7 @@ public:
 		bool check = listSpawner.UpdateCollsion(mainPlayer);
 
 		if (check)
-			cout << "Collision" << endl;
+			cout << "In theory, player dead!\n" ;
 	}
 };
 #endif

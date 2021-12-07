@@ -83,6 +83,8 @@ public:
 	{
 		loadAnimations();
 		isIdle = true;
+
+		cout << "Player is set up.\n";
 	}
 
 	void update(float deltaTime)
@@ -95,6 +97,11 @@ public:
 	int calculateScore()
 	{
 		return -(body.getPosition().y - PLAYER_STARTING_POSITION.y) / LANE_WIDTH;
+	}
+
+	string getType()
+	{
+		return "Player";
 	}
 };
 #endif
