@@ -31,16 +31,24 @@ int main()
 	MENU.setFramerateLimit(60);
 	menu.show(MENU);
 
-	//GAME
+	// Window
 	RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "CROSSY ROAD GROUP 10");
 	window.setFramerateLimit(30);
-	Player mainPlayer;
+
+	// Map
 	GameWorld map = GameWorld();
-	View mainview;
-	mainview.setSize(WIDTH, HEIGHT);
-	mainview.setCenter(mainPlayer.getBody().getPosition() - Vector2f(0, 368));
+
+	// Spawners
 	ListSpawner listSpawner(map.terrainSpawn);
 	Collision collision;
+
+	// Player
+	Player mainPlayer;
+
+	// Main view
+	View mainView;
+	mainView.setSize(WIDTH, HEIGHT);
+	mainView.setCenter(mainPlayer.getBody().getPosition() - Vector2f(0, 368));
 
 	// Score Text
 	const string SCORE_TEXT = "Score: ";
@@ -95,15 +103,15 @@ int main()
 
 		//Update
 		mainPlayer.update(dt);
-		listSpawner.update(dt, mainPlayer, mainview.getCenter().y);
-		mainview.move(Vector2f(0.f, -2.f));
+		listSpawner.update(dt, mainPlayer, mainView.getCenter().y);
+		mainView.move(Vector2f(0.f, -2.f));
 
 		// Collision
 		collision.UpdateCollision(mainPlayer, listSpawner);
 
-		//Draw
+		// Draw
 		window.clear();
-		window.setView(mainview);
+		window.setView(mainView);
 
 		for (int x = 0; x < map.offset; x++)
 			for (int y = 0; y < map.gridWidth; y++)
@@ -111,7 +119,7 @@ int main()
 
 		window.draw(mainPlayer.getModel());
 
-		listSpawner.draw(window, mainPlayer, mainview.getCenter().y);
+		listSpawner.draw(window, mainPlayer, mainView.getCenter().y);
 
 		window.setView(window.getDefaultView());
 

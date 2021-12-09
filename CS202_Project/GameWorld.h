@@ -23,7 +23,7 @@ public:
 	vector<pair<int, int>> terrainSpawn;
 	int gridWidth = GAME_WIDTH / 16;
 	int gridHeight = GAME_HEIGHT / 16;
-	int offset = gridHeight + 30; //HEIGHT =992
+	int offset = gridHeight + 30;
 	GameWorld();
 };
 

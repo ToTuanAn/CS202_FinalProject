@@ -21,6 +21,7 @@ class ListSpawner
 private:
 	vector<Spawner> listSpawner;
 	int yDistance = 992;
+
 	void deleteUnusedSpawner(int viewY)
 	{
 		for (auto i = listSpawner.begin(); i != listSpawner.end(); i++)
@@ -118,7 +119,7 @@ public:
 		deleteUnusedSpawner(viewY);
 	}
 
-	bool UpdateCollsion(Player mainPlayer)
+	bool updateCollsion(Player mainPlayer)
 	{
 		const FloatRect playerBounds = mainPlayer.getBody().getGlobalBounds();
 		const float yPos = mainPlayer.getBody().getPosition().y;

@@ -14,10 +14,10 @@ class Collision
 public:
 	void UpdateCollision(Player mainPlayer, ListSpawner listSpawner)
 	{
-		bool check = listSpawner.UpdateCollsion(mainPlayer);
+		bool check = listSpawner.updateCollsion(mainPlayer);
 
 		if (check)
-			cout << "In theory, player dead!\n" ;
+			cout << "In theory, player dead!\n";
 	}
 };
 #endif
