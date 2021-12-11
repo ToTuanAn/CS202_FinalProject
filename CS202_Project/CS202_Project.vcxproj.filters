@@ -59,5 +59,11 @@
     <ClInclude Include="Menu.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
+    <ClInclude Include="UIText.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UISound.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
