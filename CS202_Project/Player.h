@@ -87,6 +87,11 @@ public:
 		cout << "Player is set up.\n";
 	}
 
+	~Player()
+	{
+		cout << "Delete Player\n";
+	}
+
 	void update(float deltaTime)
 	{
 		move(deltaTime);

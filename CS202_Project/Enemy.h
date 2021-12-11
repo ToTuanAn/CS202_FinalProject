@@ -52,18 +52,20 @@ private:
 	}
 
 public:
-	Enemy(string type, Vector2f position, bool moveToLeft) :
-		MovingObject(type, position),
-		moveToLeft(moveToLeft)
+	Enemy(string type, Vector2f position, bool moveToLeft) : MovingObject(type, position),
+															 moveToLeft(moveToLeft)
 	{
 		cout << "Load " + type << ".\n";
 
 		this->type = type;
 		loadAnimations();
 	}
+
 	~Enemy()
 	{
+		cout << "Delete " + type << endl;
 	}
+
 	void update(float deltaTime)
 	{
 		move(deltaTime);

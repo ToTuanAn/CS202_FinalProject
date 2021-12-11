@@ -25,7 +25,7 @@ int main()
 	float dt;
 	Clock dt_clock;
 
-	//MENU
+	// Menu
 	RenderWindow MENU(sf::VideoMode(WIDTH, HEIGHT), "CROSSY ROAD GROUP 10");
 	Menu menu(MENU.getSize().x, MENU.getSize().y);
 	MENU.setFramerateLimit(60);
@@ -101,7 +101,7 @@ int main()
 				window.close();
 		}
 
-		//Update
+		// Update
 		mainPlayer.update(dt);
 		listSpawner.update(dt, mainPlayer, mainView.getCenter().y);
 		mainView.move(Vector2f(0.f, -2.f));

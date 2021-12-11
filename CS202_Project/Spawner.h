@@ -47,7 +47,6 @@ private:
 		std::vector<MovingObject *>::iterator i = listEnemy.begin();
 		if ((*i)->getBody().getPosition().x > (float)GAME_WIDTH)
 		{
-			cout << "Delete " + (*i)->getType() << ".\n";
 			delete (*i);
 			listEnemy.erase(i);
 		}
@@ -61,7 +60,6 @@ public:
 		for (auto i = listEnemy.begin(); i != listEnemy.end(); i++)
 			if ((*i)->getBody().getPosition().x > (float)GAME_WIDTH)
 			{
-				cout << "Delete " + (*i)->getType() << ".\n";
 				delete (*i);
 				listEnemy.erase(i);
 			}
