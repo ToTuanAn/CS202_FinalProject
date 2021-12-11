@@ -48,7 +48,7 @@ public:
 		}
 	}
 
-	void moveUp()
+	void MoveUp()
 	{
 		if (selectedItemIndex - 1 >= 0)
 		{
@@ -58,7 +58,7 @@ public:
 		}
 	}
 
-	void moveDown()
+	void MoveDown()
 	{
 		if (selectedItemIndex + 1 < MAX_NUMBER_OF_ITEMS)
 		{
@@ -68,7 +68,7 @@ public:
 		}
 	}
 
-	int getPressedItem()
+	int GetPressedItem()
 	{
 		return selectedItemIndex;
 	}
@@ -91,17 +91,17 @@ public:
 				{
 					if (event.key.code == Keyboard::Up)
 					{
-						this->moveUp();
+						this->MoveUp();
 						break;
 					}
 					if (event.key.code == Keyboard::Down)
 					{
-						this->moveDown();
+						this->MoveDown();
 						break;
 					}
 					if (event.key.code == Keyboard::Return)
 					{
-						switch (this->getPressedItem())
+						switch (this->GetPressedItem())
 						{
 						case 0:
 							std::cout << "Play button has been pressed" << std::endl;

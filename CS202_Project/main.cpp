@@ -6,7 +6,6 @@
 #include "Menu.h"
 #include "Player.h"
 #include "Spawner.h"
-#include "UIText.h"
 
 #include "SFML/Graphics.hpp"
 #include "SFML/System.hpp"
@@ -52,8 +51,27 @@ int main()
 	mainView.setCenter(mainPlayer.getBody().getPosition() - Vector2f(0, 368));
 
 	// Score Text
-	UIText scoreText("PixelFont.ttf", 50, Color::Red, 2, Color::Red, Text::Bold);
-	scoreText.getText().setOrigin(scoreText.getText().getGlobalBounds().width - (WIDTH / 2 - 75), scoreText.getText().getGlobalBounds().height / 2);
+	const string SCORE_TEXT = "Score: ";
+	const string FONT_NAME = "PixelFont";
+	string FONT_FILE_NAME = FONT_NAME + ".ttf";
+
+	Font scoreTextFont;
+	if (!scoreTextFont.loadFromFile("Fonts/" + FONT_FILE_NAME))
+	{
+		cout << "Can't load " + FONT_FILE_NAME << endl;
+		return 0;
+	}
+	else
+		cout << FONT_FILE_NAME + " is loaded!\n";
+
+	Text scoreText;
+	scoreText.setCharacterSize(50);
+	scoreText.setFont(scoreTextFont);
+	scoreText.setFillColor(Color::Red);
+	scoreText.setOutlineColor(Color::Blue);
+	scoreText.setOutlineThickness(2);
+	scoreText.setStyle(Text::Bold);
+	scoreText.setOrigin(scoreText.getGlobalBounds().width - (WIDTH / 2 - 75), scoreText.getGlobalBounds().height / 2);
 
 	// Sound
 	const string GAME_MUSIC_NAME = "GameMusic";
@@ -106,8 +124,8 @@ int main()
 		window.setView(window.getDefaultView());
 
 		// Score Text
-		scoreText.setText("Score: " + to_string(mainPlayer.calculateScore()));
-		window.draw(scoreText.getText());
+		scoreText.setString(SCORE_TEXT + to_string(mainPlayer.calculateScore()));
+		window.draw(scoreText);
 
 		window.display();
 	}
