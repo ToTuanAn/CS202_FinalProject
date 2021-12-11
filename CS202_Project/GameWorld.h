@@ -11,6 +11,51 @@ using namespace sf;
 const int GAME_HEIGHT = 2880;
 const int GAME_WIDTH = 960;
 
+string grassMid()
+{
+	return "Tiles/tile_0028.png";
+}
+
+string grassStart()
+{
+	return "Tiles/tile_0001.png";
+}
+
+string grassEnd()
+{
+	return "Tiles/tile_0055.png";
+}
+
+string roadStart()
+{
+	return "Tiles/tile_0406.png";
+}
+
+string roadMid()
+{
+	return "Tiles/tile_0468.png";
+}
+
+string roadEnd()
+{
+	return "Tiles/tile_0460.png";
+}
+
+string rockStart()
+{
+	return "Tiles/tile_0009.png";
+}
+
+string rockMid()
+{
+	return "Tiles/tile_0036.png";
+}
+
+string rockEnd()
+{
+	return "Tiles/tile_0063.png";
+}
+
 class GameWorld
 {
 private:
@@ -114,49 +159,4 @@ public:
 		setUpInitialState();
 	}
 };
-
-string grassMid()
-{
-	return "Tiles/tile_0028.png";
-}
-
-string grassStart()
-{
-	return "Tiles/tile_0001.png";
-}
-
-string grassEnd()
-{
-	return "Tiles/tile_0055.png";
-}
-
-string roadStart()
-{
-	return "Tiles/tile_0406.png";
-}
-
-string roadMid()
-{
-	return "Tiles/tile_0468.png";
-}
-
-string roadEnd()
-{
-	return "Tiles/tile_0460.png";
-}
-
-string rockStart()
-{
-	return "Tiles/tile_0009.png";
-}
-
-string rockMid()
-{
-	return "Tiles/tile_0036.png";
-}
-
-string rockEnd()
-{
-	return "Tiles/tile_0063.png";
-}
 #endif
