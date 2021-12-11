@@ -6,6 +6,7 @@
 #include "GameTile.h"
 
 using namespace std;
+using namespace sf;
 
 const int GAME_HEIGHT = 2880;
 const int GAME_WIDTH = 960;
@@ -13,7 +14,7 @@ const int GAME_WIDTH = 960;
 class GameWorld
 {
 private:
-	sf::Vector2i exitPos;
+	Vector2i exitPos;
 
 	void setUpInitialState()
 	{
@@ -56,7 +57,7 @@ private:
 			string terrain;
 			for (int k = 0; k < num; k++)
 			{
-				std::vector<GameTile *> row;
+				vector<GameTile *> row;
 				int j = 0;
 
 				if (k == 0)
@@ -91,7 +92,7 @@ private:
 		for (int i = this->gridHeight; i < offset; i++)
 		{
 			int j = 0;
-			std::vector<GameTile *> row;
+			vector<GameTile *> row;
 			while (j < GAME_WIDTH)
 			{
 				row.push_back(new GameTile(terrain, j, i * 16, false, false));
@@ -102,7 +103,7 @@ private:
 	}
 
 public:
-	std::vector<std::vector<GameTile *>> map;
+	vector<vector<GameTile *>> map;
 	vector<pair<int, int>> terrainSpawn;
 	int gridWidth = GAME_WIDTH / 16;
 	int gridHeight = GAME_HEIGHT / 16;
@@ -114,47 +115,47 @@ public:
 	}
 };
 
-std::string grassMid()
+string grassMid()
 {
 	return "Tiles/tile_0028.png";
 }
 
-std::string grassStart()
+string grassStart()
 {
 	return "Tiles/tile_0001.png";
 }
 
-std::string grassEnd()
+string grassEnd()
 {
 	return "Tiles/tile_0055.png";
 }
 
-std::string roadStart()
+string roadStart()
 {
 	return "Tiles/tile_0406.png";
 }
 
-std::string roadMid()
+string roadMid()
 {
 	return "Tiles/tile_0468.png";
 }
 
-std::string roadEnd()
+string roadEnd()
 {
 	return "Tiles/tile_0460.png";
 }
 
-std::string rockStart()
+string rockStart()
 {
 	return "Tiles/tile_0009.png";
 }
 
-std::string rockMid()
+string rockMid()
 {
 	return "Tiles/tile_0036.png";
 }
 
-std::string rockEnd()
+string rockEnd()
 {
 	return "Tiles/tile_0063.png";
 }

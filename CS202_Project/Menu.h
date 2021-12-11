@@ -8,15 +8,17 @@
 using namespace std;
 using namespace sf;
 
+const string MENU_FONT_NAME = "UIFont.ttf";
+
 class Menu
 {
 public:
 	Menu(float width, float height)
 	{
-		if (!font.loadFromFile("Fonts/arial.ttf"))
-		{
-			cout << "huhu";
-		}
+		if (!font.loadFromFile("Fonts/" + MENU_FONT_NAME))
+			cout << "Can't load " + MENU_FONT_NAME << endl;
+		else
+			cout << MENU_FONT_NAME + " is loaded\n";
 
 		menu[0].setFont(font);
 		menu[0].setFillColor(sf::Color::Red);
@@ -127,5 +129,4 @@ private:
 	Font font;
 	Text menu[MAX_NUMBER_OF_ITEMS];
 };
-
 #endif
