@@ -56,7 +56,9 @@ public:
 		timeFromLastSwitchAnim = 0;
 		currentAnimIndex = 0;
 	}
-
+	virtual ~MovingObject()
+	{
+	}
 	virtual void update(float deltaTime) = 0;
 	virtual string getType() = 0;
 
