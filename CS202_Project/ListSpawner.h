@@ -20,16 +20,15 @@ class ListSpawner
 {
 private:
 	vector<Spawner> listSpawner;
-	int yDistance = 992;
 
-	void deleteUnusedSpawner(int viewY)
+	void deleteUnusedSpawners(int viewY)
 	{
-		for (auto i = listSpawner.begin(); i != listSpawner.end(); i++)
+		for (auto spawner = listSpawner.begin(); spawner != listSpawner.end(); spawner++)
 		{
-			if (i->getPosition().y + 20 > viewY)
+			if (spawner->getPosition().y + 20 > viewY)
 			{
-				i->deleteAllEnemy();
-				listSpawner.erase(i);
+				spawner->deleteAllEnemies();
+				listSpawner.erase(spawner);
 			}
 		}
 	}
@@ -92,47 +91,44 @@ public:
 		}
 	}
 
-	void draw(RenderWindow& window, Player& mainPlayer, int viewY)
+	void draw(RenderWindow& window, Player& mainPlayer, int cameraYPosition)
 	{
-		viewY += 368;
-		const float yPos = mainPlayer.getBody().getPosition().y;
+		cameraYPosition += 368;
+		const float playerYPosition = mainPlayer.getBody().getPosition().y;
+		for (auto spawner = listSpawner.begin(); spawner != listSpawner.end(); spawner++)
+			if (spawner->getPosition().y <= cameraYPosition && spawner->getPosition().y >= playerYPosition - HEIGHT)
+				spawner->draw(window);
+			else
+				break;
+	}
+
+	void update(float deltaTime, Player& mainPlayer, int cameraYPosition)
+	{
+		cameraYPosition += 368;
+		const float playerYPosition = mainPlayer.getBody().getPosition().y;
 		for (auto i = listSpawner.begin(); i != listSpawner.end(); i++)
 		{
-			if (i->getPosition().y <= viewY && i->getPosition().y >= yPos - yDistance)
-				i->draw(window);
+			if (i->getPosition().y <= cameraYPosition && i->getPosition().y >= playerYPosition - HEIGHT)
+				i->update(deltaTime);
 			else
 				break;
 		}
+
+		deleteUnusedSpawners(cameraYPosition);
 	}
 
-	void update(float dt, Player& mainPlayer, int viewY)
-	{
-		viewY += 368;
-		const float yPos = mainPlayer.getBody().getPosition().y;
-		for (auto i = listSpawner.begin(); i != listSpawner.end(); i++)
-		{
-			if (i->getPosition().y <= viewY && i->getPosition().y >= yPos - yDistance)
-				i->update(dt);
-			else
-				break;
-		}
-		deleteUnusedSpawner(viewY);
-	}
-
-	bool updateCollsion(Player& mainPlayer)
+	bool isCollidedWithPlayer(Player& mainPlayer)
 	{
 		const FloatRect playerBounds = mainPlayer.getBody().getGlobalBounds();
-		const float yPos = mainPlayer.getBody().getPosition().y;
+		const float playerYPosition = mainPlayer.getBody().getPosition().y;
 		for (auto spawner = listSpawner.begin(); spawner != listSpawner.end(); spawner++)
-		{
-			if (spawner->getPosition().y >= yPos - yDistance)
+			if (spawner->getPosition().y >= playerYPosition - HEIGHT)
 			{
-				if (spawner->UpdateCollsion(playerBounds))
+				if (spawner->isCollidedWithPlayer(playerBounds))
 					return true;
 			}
 			else
-				break;
-		}
+				return false;
 		return false;
 	}
 };

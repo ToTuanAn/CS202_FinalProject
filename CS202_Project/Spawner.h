@@ -5,7 +5,6 @@
 #include "GameWorld.h"
 #include "IObject.h"
 #include "ISaveable.h"
-#include "MovingObject.h"
 #include "SFML/Graphics.hpp"
 
 #include <fstream>
@@ -20,60 +19,70 @@ class Spawner : public IObject
 {
 private:
 	bool moveToLeft;
-	float speed, timeFromLastSwitchAnim = 0, newObjectTime;
+	float speed, timeFromLastSwitchAnim, timeToSpawn;
 	Vector2f position;
 	string type;
-	vector<MovingObject*> listEnemy;
+	vector<Enemy*> listEnemy;
 
-	void updateEnemy(float dt)
+	void updateEnemies(float dt)
 	{
-		for (auto i = listEnemy.begin(); i != listEnemy.end(); i++)
-			(*i)->update(dt);
+		for (auto enemy = listEnemy.begin(); enemy != listEnemy.end(); enemy++)
+			(*enemy)->update(dt);
 	}
 
-	void addEnemyToList(float dt)
+	void addEnemy(float dt)
 	{
-		if (timeFromLastSwitchAnim >= newObjectTime)
+		if (timeFromLastSwitchAnim >= timeToSpawn)
 		{
-			MovingObject* e = new Enemy(type, position, moveToLeft);
+			Enemy* e = new Enemy(type, position, moveToLeft);
 			listEnemy.push_back(e);
 			timeFromLastSwitchAnim = 0;
 		}
+
 		timeFromLastSwitchAnim += dt;
 	}
 
-	void deleteUnusedEnemy()
+	void deleteUnusedEnemies()
 	{
 		if ((int)listEnemy.size() == 0)
 			return;
-		std::vector<MovingObject*>::iterator i = listEnemy.begin();
-		if ((*i)->getBody().getPosition().x > (float)GAME_WIDTH)
+
+		std::vector<Enemy*>::iterator enemy = listEnemy.begin();
+		if ((*enemy)->getBody().getPosition().x > (float)GAME_WIDTH)
 		{
-			delete (*i);
-			listEnemy.erase(i);
+			delete (*enemy);
+			listEnemy.erase(enemy);
 		}
 	}
 
 public:
-	void deleteAllEnemy()
+	Spawner(float timeToSpawn, Vector2f position, string type, bool moveToLeft)
+	{
+		this->moveToLeft = moveToLeft;
+		this->timeToSpawn = timeToSpawn;
+		this->position = position;
+		this->type = type;
+
+		timeFromLastSwitchAnim = timeToSpawn;
+	}
+
+	~Spawner()
+	{
+		for (auto enemy : listEnemy)
+			delete enemy;
+	}
+
+	void deleteAllEnemies()
 	{
 		if ((int)listEnemy.size() == 0)
 			return;
-		for (auto i = listEnemy.begin(); i != listEnemy.end(); i++)
-			if ((*i)->getBody().getPosition().x > (float)GAME_WIDTH)
-			{
-				delete (*i);
-				listEnemy.erase(i);
-			}
-	}
 
-	Spawner(float newObjectTime, Vector2f position, string type, bool moveToLeft)
-	{
-		this->moveToLeft = moveToLeft;
-		this->newObjectTime = newObjectTime;
-		this->position = position;
-		this->type = type;
-		timeFromLastSwitchAnim = newObjectTime;
+		for (auto enemy = listEnemy.begin(); enemy != listEnemy.end(); enemy++)
+			if ((*enemy)->getBody().getPosition().x > (float)GAME_WIDTH)
+			{
+				delete (*enemy);
+				listEnemy.erase(enemy);
+			}
 	}
 
 	Vector2f getPosition()
@@ -83,30 +92,26 @@ public:
 
 	void draw(RenderWindow& window)
 	{
-		for (auto i = listEnemy.begin(); i != listEnemy.end(); i++)
-		{
-			window.draw((*i)->getModel());
-		}
+		for (auto enemy = listEnemy.begin(); enemy != listEnemy.end(); enemy++)
+			window.draw((*enemy)->getModel());
 	}
 
 	float update(float deltaTime)
 	{
-		addEnemyToList(deltaTime);
-		updateEnemy(deltaTime);
-		deleteUnusedEnemy();
+		addEnemy(deltaTime);
+		updateEnemies(deltaTime);
+		deleteUnusedEnemies();
 
 		return deltaTime;
 	}
 
-	bool UpdateCollsion(FloatRect const playerBounds)
+	bool isCollidedWithPlayer(FloatRect const playerBounds)
 	{
-		for (auto i = listEnemy.begin(); i != listEnemy.end(); i++)
+		for (auto enemy = listEnemy.begin(); enemy != listEnemy.end(); enemy++)
 		{
-			FloatRect enemyBounds = (*i)->getBody().getGlobalBounds();
+			FloatRect enemyBounds = (*enemy)->getBody().getGlobalBounds();
 			if (enemyBounds.intersects(playerBounds))
-			{
 				return true;
-			}
 		}
 		return false;
 	}
