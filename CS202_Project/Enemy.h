@@ -78,5 +78,13 @@ public:
 	{
 		return type;
 	}
+
+	void save(ostream& out)
+	{
+	}
+
+	void load(istream& in)
+	{
+	}
 };
 #endif

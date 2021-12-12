@@ -3,6 +3,7 @@
 
 #include "Enemy.h"
 #include "GameWorld.h"
+#include "ISaveable.h"
 #include "MovingObject.h"
 #include "SFML/Graphics.hpp"
 

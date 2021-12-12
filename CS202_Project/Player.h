@@ -110,5 +110,13 @@ public:
 	{
 		return "Player";
 	}
+
+	void save(ostream& out)
+	{
+	}
+
+	void load(istream& in)
+	{
+	}
 };
 #endif

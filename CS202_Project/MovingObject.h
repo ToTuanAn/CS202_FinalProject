@@ -1,6 +1,7 @@
 #ifndef _MOVING_OBJECT_H_
 #define _MOVING_OBJECT_H_
 
+#include "ISaveable.h"
 #include "SFML/Graphics.hpp"
 #include <fstream>
 #include <iostream>
@@ -12,7 +13,7 @@ const string DATA_PATH = "Data/";
 const float ANIM_SWITCH_TIME = 0.1;
 const int FRAME_PER_ANIM = 4;
 
-class MovingObject
+class MovingObject : public ISaveable
 {
 private:
 	void LoadData(string type)
@@ -63,6 +64,8 @@ public:
 
 	virtual void update(float deltaTime) = 0;
 	virtual string getType() = 0;
+	virtual void save(ostream& out) = 0;
+	virtual void load(istream& in) = 0;
 
 	RectangleShape getBody()
 	{
