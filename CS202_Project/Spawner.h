@@ -3,6 +3,7 @@
 
 #include "Enemy.h"
 #include "GameWorld.h"
+#include "IObject.h"
 #include "ISaveable.h"
 #include "MovingObject.h"
 #include "SFML/Graphics.hpp"
@@ -15,7 +16,7 @@
 using namespace sf;
 using namespace std;
 
-class Spawner
+class Spawner : public IObject
 {
 private:
 	bool moveToLeft;
@@ -88,10 +89,10 @@ public:
 		}
 	}
 
-	void update(float dt)
+	void update(float deltaTime)
 	{
-		addEnemyToList(dt);
-		updateEnemy(dt);
+		addEnemyToList(deltaTime);
+		updateEnemy(deltaTime);
 		deleteUnusedEnemy();
 	}
 

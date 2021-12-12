@@ -16,6 +16,11 @@ private:
 public:
 	SaveLoadSystem(const SaveLoadSystem& saveLoadSystem) = delete;
 
+	~SaveLoadSystem()
+	{
+		delete instance;
+	}
+
 	static SaveLoadSystem* getInstance()
 	{
 		if (!instance)
