@@ -1,8 +1,8 @@
 #ifndef _GAMETILE_H_
 #define _GAMETILE_H_
 
-#include <iostream>
 #include "SFML/Graphics.hpp"
+#include <iostream>
 
 using namespace std;
 using namespace sf;

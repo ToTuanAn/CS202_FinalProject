@@ -7,8 +7,8 @@
 #include "SFML/Graphics.hpp"
 
 #include <fstream>
-#include <string>
 #include <iostream>
+#include <string>
 #include <vector>
 
 using namespace sf;
@@ -21,7 +21,7 @@ private:
 	float speed, timeFromLastSwitchAnim = 0, newObjectTime;
 	Vector2f position;
 	string type;
-	vector<MovingObject *> listEnemy;
+	vector<MovingObject*> listEnemy;
 
 	void updateEnemy(float dt)
 	{
@@ -33,7 +33,7 @@ private:
 	{
 		if (timeFromLastSwitchAnim >= newObjectTime)
 		{
-			MovingObject *e = new Enemy(type, position, moveToLeft);
+			MovingObject* e = new Enemy(type, position, moveToLeft);
 			listEnemy.push_back(e);
 			timeFromLastSwitchAnim = 0;
 		}
@@ -44,7 +44,7 @@ private:
 	{
 		if ((int)listEnemy.size() == 0)
 			return;
-		std::vector<MovingObject *>::iterator i = listEnemy.begin();
+		std::vector<MovingObject*>::iterator i = listEnemy.begin();
 		if ((*i)->getBody().getPosition().x > (float)GAME_WIDTH)
 		{
 			delete (*i);
@@ -79,7 +79,7 @@ public:
 		return position;
 	}
 
-	void draw(RenderWindow &window)
+	void draw(RenderWindow& window)
 	{
 		for (auto i = listEnemy.begin(); i != listEnemy.end(); i++)
 		{

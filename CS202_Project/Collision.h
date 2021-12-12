@@ -12,7 +12,7 @@ using namespace std;
 class Collision
 {
 public:
-	void UpdateCollision(Player mainPlayer, ListSpawner listSpawner)
+	void UpdateCollision(Player& mainPlayer, ListSpawner listSpawner)
 	{
 		bool check = listSpawner.updateCollsion(mainPlayer);
 

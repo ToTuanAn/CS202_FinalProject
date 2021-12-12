@@ -9,8 +9,8 @@
 #include "Spawner.h"
 
 #include <fstream>
-#include <string>
 #include <iostream>
+#include <string>
 #include <vector>
 
 using namespace sf;
@@ -92,7 +92,7 @@ public:
 		}
 	}
 
-	void draw(RenderWindow &window, Player mainPlayer, int viewY)
+	void draw(RenderWindow& window, Player& mainPlayer, int viewY)
 	{
 		viewY += 368;
 		const float yPos = mainPlayer.getBody().getPosition().y;
@@ -105,7 +105,7 @@ public:
 		}
 	}
 
-	void update(float dt, Player mainPlayer, int viewY)
+	void update(float dt, Player& mainPlayer, int viewY)
 	{
 		viewY += 368;
 		const float yPos = mainPlayer.getBody().getPosition().y;
@@ -119,7 +119,7 @@ public:
 		deleteUnusedSpawner(viewY);
 	}
 
-	bool updateCollsion(Player mainPlayer)
+	bool updateCollsion(Player& mainPlayer)
 	{
 		const FloatRect playerBounds = mainPlayer.getBody().getGlobalBounds();
 		const float yPos = mainPlayer.getBody().getPosition().y;

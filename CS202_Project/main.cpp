@@ -7,10 +7,10 @@
 #include "Player.h"
 #include "Spawner.h"
 
+#include "SFML/Audio.hpp"
 #include "SFML/Graphics.hpp"
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
-#include "SFML/Audio.hpp"
 
 #include <iostream>
 
@@ -106,7 +106,7 @@ int main()
 		listSpawner.update(dt, mainPlayer, mainView.getCenter().y);
 		mainView.move(Vector2f(0.f, -2.f));
 
-		// Collision
+		// // Collision
 		collision.UpdateCollision(mainPlayer, listSpawner);
 
 		// Draw

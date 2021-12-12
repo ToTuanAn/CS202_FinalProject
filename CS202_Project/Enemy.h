@@ -52,8 +52,9 @@ private:
 	}
 
 public:
-	Enemy(string type, Vector2f position, bool moveToLeft) : MovingObject(type, position),
-															 moveToLeft(moveToLeft)
+	Enemy(string type, Vector2f position, bool moveToLeft) :
+		MovingObject(type, position),
+		moveToLeft(moveToLeft)
 	{
 		cout << "Load " + type << ".\n";
 
@@ -63,7 +64,7 @@ public:
 
 	~Enemy()
 	{
-		cout << "Delete " + type << endl;
+		cout << "Delete " + type + "!\n";
 	}
 
 	void update(float deltaTime)

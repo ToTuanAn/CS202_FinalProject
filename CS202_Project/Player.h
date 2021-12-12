@@ -1,8 +1,8 @@
 #ifndef _PLAYER_H_
 #define _PLAYER_H_
 
-#include "MovingObject.h"
 #include "GameWorld.h"
+#include "MovingObject.h"
 #include <vector>
 
 const Vector2f PLAYER_STARTING_POSITION(960 / 2, 2880 - 32);
@@ -32,6 +32,7 @@ private:
 		backAnim.assign(anim.begin() + 12, anim.begin() + 16);
 
 		currentAnim = backAnim;
+		model.setTexture(currentAnim[0]);
 	}
 
 	void updateAnimation()
@@ -79,7 +80,8 @@ private:
 	}
 
 public:
-	Player() : MovingObject("Player", PLAYER_STARTING_POSITION)
+	Player() :
+		MovingObject("Player", PLAYER_STARTING_POSITION)
 	{
 		loadAnimations();
 		isIdle = true;
@@ -89,7 +91,7 @@ public:
 
 	~Player()
 	{
-		cout << "Delete Player\n";
+		cout << "Delete Player!\n";
 	}
 
 	void update(float deltaTime)

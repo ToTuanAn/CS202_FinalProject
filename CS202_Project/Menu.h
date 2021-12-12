@@ -18,7 +18,7 @@ public:
 		if (!font.loadFromFile("Fonts/" + MENU_FONT_NAME))
 			cout << "Can't load " + MENU_FONT_NAME << endl;
 		else
-			cout << MENU_FONT_NAME + " is loaded\n";
+			cout << MENU_FONT_NAME + " is loaded!\n";
 
 		menu[0].setFont(font);
 		menu[0].setFillColor(sf::Color::Red);
@@ -38,9 +38,10 @@ public:
 		selectedItemIndex = 0;
 	}
 
-	~Menu() {}
+	~Menu()
+	{}
 
-	void draw(sf::RenderWindow &window)
+	void draw(sf::RenderWindow& window)
 	{
 		for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++)
 		{
@@ -73,7 +74,7 @@ public:
 		return selectedItemIndex;
 	}
 
-	void show(RenderWindow &MENU)
+	void show(RenderWindow& MENU)
 	{
 		while (MENU.isOpen())
 		{
@@ -103,17 +104,17 @@ public:
 					{
 						switch (this->GetPressedItem())
 						{
-						case 0:
-							std::cout << "Play button has been pressed" << std::endl;
-							break;
-						case 1:
-							std::cout << "Option button has been pressed" << std::endl;
-							break;
-						case 2:
-							MENU.close();
-							break;
-						default:
-							break;
+							case 0:
+								std::cout << "Play button has been pressed" << std::endl;
+								break;
+							case 1:
+								std::cout << "Option button has been pressed" << std::endl;
+								break;
+							case 2:
+								MENU.close();
+								break;
+							default:
+								break;
 						}
 					}
 				}
