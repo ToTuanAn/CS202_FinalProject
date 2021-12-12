@@ -1,5 +1,5 @@
-#ifndef _ENEMY_H_
-#define _ENEMY_H_
+#ifndef _ENEMY_
+#define _ENEMY_
 
 #include "MovingObject.h"
 #include <vector>

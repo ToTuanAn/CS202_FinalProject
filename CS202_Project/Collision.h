@@ -1,5 +1,5 @@
-#ifndef _COLLISION_H_
-#define _COLLISION_H_
+#ifndef _COLLISION_
+#define _COLLISION_
 
 #include "ListSpawner.h"
 #include "Player.h"

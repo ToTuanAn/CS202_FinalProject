@@ -1,5 +1,5 @@
-#ifndef _I_SAVEABLE_H_
-#define _I_SAVEABLE_H_
+#ifndef _I_SAVEABLE_
+#define _I_SAVEABLE_
 
 #include <fstream>
 #include <iostream>

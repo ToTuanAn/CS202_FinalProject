@@ -100,7 +100,7 @@ int main()
 
 		// Update
 		listSpawner.update(dt, mainPlayer, mainView.getCenter().y);
-		mainView.move(Vector2f(0.f, -2.f));
+		mainView.move(Vector2f(0.f, -CAMERA_SPEED));
 		mainPlayer.setBound(mainView.getCenter());
 		mainPlayer.update(dt);
 
@@ -122,7 +122,7 @@ int main()
 		window.setView(window.getDefaultView());
 
 		// Score Text
-		scoreText.setString(SCORE_TEXT + to_string(mainPlayer.calculateScore()));
+		scoreText.setString(SCORE_TEXT + to_string(mainPlayer.getScore()));
 		window.draw(scoreText);
 
 		window.display();

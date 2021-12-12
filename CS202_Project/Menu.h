@@ -1,5 +1,5 @@
-#ifndef _MENU_H_
-#define _MENU_H_
+#ifndef _MENU_
+#define _MENU_
 
 #include "SFML/Graphics.hpp"
 

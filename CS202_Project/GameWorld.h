@@ -1,5 +1,5 @@
-#ifndef _GAMEWORLD_H_
-#define _GAMEWORLD_H_
+#ifndef _GAMEWORLD_
+#define _GAMEWORLD_
 
 #include "GameTile.h"
 #include "SFML/Graphics.hpp"
@@ -14,7 +14,7 @@ const int GAME_WIDTH = 960;
 const int HEIGHT = 992;
 const int WIDTH = 960;
 
-const float CAMERA_SPEED = 2.f;
+const float CAMERA_SPEED = 1;
 
 const string grassMid = "Tiles/tile_0028.png";
 const string grassStart = "Tiles/tile_0001.png";
@@ -28,7 +28,9 @@ const string rockStart = "Tiles/tile_0009.png";
 const string rockMid = "Tiles/tile_0036.png";
 const string rockEnd = "Tiles/tile_0063.png";
 
-const int TILES_PER_LANE = 9;
+const int TILES_PER_LANE = 7;
+const int SPAWNER_LANE_WIDTH = 28;
+const int SPAWNER_LANE_WIDTH_OFFSET = -24;
 
 class GameWorld
 {
@@ -91,7 +93,7 @@ private:
 					row.push_back(new GameTile(terrain, j, i * 16, false, false));
 					j += 16;
 				}
-				terrainSpawn.push_back(make_pair(choice, i * 32));
+				terrainSpawn.push_back(make_pair(choice, i * SPAWNER_LANE_WIDTH + SPAWNER_LANE_WIDTH_OFFSET));
 				map.push_back(row);
 				i++;
 			}

@@ -46,7 +46,7 @@ public:
 			randDirect = rand() % 2;
 			randAnimal = rand() % 2;
 			randVehicle = rand() % 2;
-			randTime = (rand() % 3) + 4;
+			randTime = 2;
 			if (pos[i].first == 1)
 			{
 				continue;

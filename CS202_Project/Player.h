@@ -1,12 +1,12 @@
-#ifndef _PLAYER_H_
-#define _PLAYER_H_
+#ifndef _PLAYER_
+#define _PLAYER_
 
 #include "GameWorld.h"
 #include "MovingObject.h"
 #include <vector>
 
 const Vector2f PLAYER_STARTING_POSITION(960 / 2, 2880 - 32);
-const float LANE_WIDTH = GAME_HEIGHT / 16;
+const float SCORE_WIDTH = 145;
 
 class Player : public MovingObject
 {
@@ -15,6 +15,7 @@ private:
 	vector<Texture> currentAnim;
 	bool isIdle;
 	bool boundEast, boundWest, boundNorth, boundSouth;
+	int score;
 
 	void loadAnimations()
 	{
@@ -90,6 +91,7 @@ public:
 	{
 		loadAnimations();
 		isIdle = true;
+		score = 0;
 
 		cout << "Player is set up.\n";
 	}
@@ -106,9 +108,11 @@ public:
 		updateAnimation();
 	}
 
-	int calculateScore()
+	int getScore()
 	{
-		return -(body.getPosition().y - PLAYER_STARTING_POSITION.y) / LANE_WIDTH;
+		int currentScore = -(body.getPosition().y - PLAYER_STARTING_POSITION.y) / SCORE_WIDTH;
+		score = currentScore > score ? currentScore : score;
+		return score;
 	}
 
 	string getType()

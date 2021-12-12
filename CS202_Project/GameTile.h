@@ -1,5 +1,5 @@
-#ifndef _GAMETILE_H_
-#define _GAMETILE_H_
+#ifndef _GAMETILE_
+#define _GAMETILE_
 
 #include "SFML/Graphics.hpp"
 #include <iostream>

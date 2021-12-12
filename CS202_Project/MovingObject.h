@@ -1,5 +1,5 @@
-#ifndef _MOVING_OBJECT_H_
-#define _MOVING_OBJECT_H_
+#ifndef _MOVING_OBJECT_
+#define _MOVING_OBJECT_
 
 #include "ISaveable.h"
 #include "SFML/Graphics.hpp"
