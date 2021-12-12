@@ -1,31 +1,33 @@
 #ifndef _SAVE_LOAD_SYSTEM_
 #define _SAVE_LOAD_SYSTEM_
 
+#include "IObject.h"
 #include "ISaveable.h"
+#include <fstream>
 #include <vector>
 
-class SaveLoadSystem
+using namespace std;
+using namespace sf;
+
+class SaveLoadSystem : public IObject
 {
 private:
 	vector<ISaveable*> saveableObjects;
-	static SaveLoadSystem* instance;
 
-	SaveLoadSystem()
-	{}
-
-public:
-	SaveLoadSystem(const SaveLoadSystem& saveLoadSystem) = delete;
-
-	~SaveLoadSystem()
+	string inputFilename()
 	{
-		delete instance;
+		return "save.dat";
 	}
 
-	static SaveLoadSystem* getInstance()
+public:
+	float update(float deltaTime)
 	{
-		if (!instance)
-			instance = new SaveLoadSystem();
-		return instance;
+		if (Keyboard::isKeyPressed(Keyboard::L))
+			save();
+		else if (Keyboard::isKeyPressed(Keyboard::T))
+			load();
+
+		return deltaTime;
 	}
 
 	void addSaveableObject(ISaveable* saveableObject)
@@ -40,16 +42,30 @@ public:
 			saveableObjects.erase(foundObject);
 	}
 
-	// void save()
-	// {
-	// 	for (ISaveable* saveableObject : saveableObjects)
-	// 		saveableObject->save();
-	// }
+	void save()
+	{
+		cout << "Saving...\n";
 
-	// void load()
-	// {
-	// 	for (ISaveable* saveableObject : saveableObjects)
-	// 		saveableObject->load();
-	// }
+		ofstream out;
+		out.open(inputFilename());
+		if (out.is_open())
+			for (ISaveable* saveableObject : saveableObjects)
+				saveableObject->save(out);
+
+		out.close();
+	}
+
+	void load()
+	{
+		cout << "Loading...\n";
+
+		ifstream in;
+		in.open(inputFilename());
+		if (in.is_open())
+			for (ISaveable* saveableObject : saveableObjects)
+				saveableObject->load(in);
+
+		in.close();
+	}
 };
 #endif

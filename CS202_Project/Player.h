@@ -101,11 +101,13 @@ public:
 		cout << "Delete Player!\n";
 	}
 
-	void update(float deltaTime)
+	float update(float deltaTime)
 	{
 		move(deltaTime);
 		timeFromLastSwitchAnim += deltaTime;
 		updateAnimation();
+
+		return deltaTime;
 	}
 
 	int getScore()

@@ -63,7 +63,7 @@ public:
 	{
 	}
 
-	virtual void update(float deltaTime) = 0;
+	virtual float update(float deltaTime) = 0;
 	virtual string getType() = 0;
 	virtual void save(ostream& out) = 0;
 	virtual void load(istream& in) = 0;

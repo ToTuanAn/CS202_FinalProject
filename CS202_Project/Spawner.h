@@ -89,11 +89,13 @@ public:
 		}
 	}
 
-	void update(float deltaTime)
+	float update(float deltaTime)
 	{
 		addEnemyToList(deltaTime);
 		updateEnemy(deltaTime);
 		deleteUnusedEnemy();
+
+		return deltaTime;
 	}
 
 	bool UpdateCollsion(FloatRect const playerBounds)

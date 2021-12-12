@@ -4,9 +4,6 @@
 class IObject
 {
 public:
-	virtual void start()
-	{}
-
-	virtual void update(float deltaTime) = 0;
+	virtual float update(float deltaTime) = 0;
 };
 #endif
