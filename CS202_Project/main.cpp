@@ -103,10 +103,8 @@ int main()
 		mainView.move(Vector2f(0.f, -2.f));
 		mainPlayer.setBound(mainView.getCenter());
 		mainPlayer.update(dt);
-		cout << mainView.getCenter().y << endl
-			 << endl;
 
-		// // Collision
+		// Collision
 		collision.UpdateCollision(mainPlayer, listSpawner);
 
 		// Draw
