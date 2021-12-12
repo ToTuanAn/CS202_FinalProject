@@ -156,10 +156,12 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameTile.h" />
     <ClInclude Include="GameWorld.h" />
+    <ClInclude Include="ISaveable.h" />
     <ClInclude Include="ListSpawner.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MovingObject.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="SaveLoadSystem.h" />
     <ClInclude Include="Spawner.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

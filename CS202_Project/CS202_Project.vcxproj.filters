@@ -25,6 +25,9 @@
     <Filter Include="Header Files\UI">
       <UniqueIdentifier>{a189757f-afc2-4d9e-9682-d26b7d9d9bd5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Save Load">
+      <UniqueIdentifier>{27e656c1-6378-445b-9c4c-fd2da8c592e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -58,6 +61,12 @@
     </ClInclude>
     <ClInclude Include="Menu.h">
       <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveLoadSystem.h">
+      <Filter>Header Files\Save Load</Filter>
+    </ClInclude>
+    <ClInclude Include="ISaveable.h">
+      <Filter>Header Files\Save Load</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
