@@ -50,22 +50,22 @@ private:
 		for (int i = 0; i < this->gridHeight;)
 		{
 
-			int choice = rand() % 3 + 1;
+			int choice = rand() % 3;
 			string start, mid, end;
 
 			switch (choice)
 			{
-				case 1:
+				case 0:
 					start = grassStart;
 					mid = grassMid;
 					end = grassEnd;
 					break;
-				case 2:
+				case 1:
 					start = roadStart;
 					mid = roadMid;
 					end = roadEnd;
 					break;
-				case 3:
+				case 2:
 					start = rockStart;
 					mid = rockMid;
 					end = rockEnd;
@@ -86,6 +86,7 @@ private:
 					terrain = end;
 				else
 					terrain = mid;
+
 				if (i >= this->gridHeight)
 					break;
 				while (j < GAME_WIDTH)

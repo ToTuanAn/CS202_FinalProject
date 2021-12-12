@@ -34,59 +34,26 @@ private:
 	}
 
 public:
-	ListSpawner(vector<pair<int, int>> pos)
+	ListSpawner(vector<pair<int, int>> spawnInfo)
 	{
-		int randDirect = 0;
-		int randAnimal = 0;
-		int randVehicle = 0;
-		int randTime = 0;
-		for (int i = pos.size() - 1; i >= 0; i -= 4)
+		string animals[] = { "Dinosaur", "Bird" };
+		string vehicles[] = { "Truck", "Car" };
+
+		for (int i = spawnInfo.size() - 1; i >= 0; i -= 4)
 		{
-			randDirect = rand() % 2;
-			randAnimal = rand() % 2;
-			randVehicle = rand() % 2;
-			randTime = 2;
-			if (pos[i].first == 1)
+			bool moveToLeft = rand() % 2 > 0;
+			float timeToSpawn = rand() % 3 + 3;
+			Vector2f position = moveToLeft ? Vector2f(GAME_WIDTH, spawnInfo[i].second - 64) : Vector2f(0, spawnInfo[i].second - 64);
+
+			if (spawnInfo[i].first == 1)
 			{
-				continue;
+				int vehicle = rand() % 2;
+				listSpawner.push_back(Spawner(timeToSpawn, position, vehicles[vehicle], moveToLeft));
 			}
-			else if (pos[i].first == 2)
+			else if (spawnInfo[i].first == 1)
 			{
-				if (randVehicle == 0 && randDirect == 0)
-				{
-					listSpawner.push_back(Spawner(randTime, Vector2f(0, pos[i].second - 64), "Car", randDirect));
-				}
-				else if (randVehicle == 0 && randDirect == 1)
-				{
-					listSpawner.push_back(Spawner(randTime, Vector2f(GAME_WIDTH, pos[i].second - 64), "Car", randDirect));
-				}
-				else if (randVehicle == 1 && randDirect == 0)
-				{
-					listSpawner.push_back(Spawner(randTime, Vector2f(0, pos[i].second - 96), "Truck", randDirect));
-				}
-				else if (randVehicle == 1 && randDirect == 1)
-				{
-					listSpawner.push_back(Spawner(randTime, Vector2f(GAME_WIDTH, pos[i].second - 96), "Truck", randDirect));
-				}
-			}
-			else if (pos[i].first == 3)
-			{
-				if (randAnimal == 0 && randDirect == 0)
-				{
-					listSpawner.push_back(Spawner(randTime, Vector2f(0, pos[i].second - 32), "Bird", randDirect));
-				}
-				else if (randAnimal == 0 && randDirect == 1)
-				{
-					listSpawner.push_back(Spawner(randTime, Vector2f(GAME_WIDTH, pos[i].second - 32), "Bird", randDirect));
-				}
-				else if (randAnimal == 1 && randDirect == 0)
-				{
-					listSpawner.push_back(Spawner(randTime, Vector2f(0, pos[i].second - 64), "Dinosaur", randDirect));
-				}
-				else if (randAnimal == 1 && randDirect == 1)
-				{
-					listSpawner.push_back(Spawner(randTime, Vector2f(GAME_WIDTH, pos[i].second - 64), "Dinosaur", randDirect));
-				}
+				int animal = rand() % 2;
+				listSpawner.push_back(Spawner(timeToSpawn, position, animals[animal], moveToLeft));
 			}
 		}
 	}
