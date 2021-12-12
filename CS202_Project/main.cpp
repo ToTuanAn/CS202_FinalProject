@@ -17,9 +17,6 @@
 using namespace sf;
 using namespace std;
 
-const int WIDTH = 960;
-const int HEIGHT = 992;
-
 int main()
 {
 	float dt;
@@ -102,9 +99,12 @@ int main()
 		}
 
 		// Update
-		mainPlayer.update(dt);
 		listSpawner.update(dt, mainPlayer, mainView.getCenter().y);
 		mainView.move(Vector2f(0.f, -2.f));
+		mainPlayer.setBound(mainView.getCenter());
+		mainPlayer.update(dt);
+		cout << mainView.getCenter().y << endl
+			 << endl;
 
 		// // Collision
 		collision.UpdateCollision(mainPlayer, listSpawner);

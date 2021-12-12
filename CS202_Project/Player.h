@@ -14,6 +14,7 @@ private:
 	vector<Texture> leftAnim, rightAnim, frontAnim, backAnim;
 	vector<Texture> currentAnim;
 	bool isIdle;
+	bool boundEast, boundWest, boundNorth, boundSouth;
 
 	void loadAnimations()
 	{
@@ -51,22 +52,26 @@ private:
 	{
 		if (Keyboard::isKeyPressed(Keyboard::A))
 		{
-			body.move(Vector2f(-speed, 0) * deltaTime);
+			if (!boundWest)
+				body.move(Vector2f(-speed, 0) * deltaTime);
 			currentAnim = leftAnim;
 		}
 		else if (Keyboard::isKeyPressed(Keyboard::D))
 		{
-			body.move(Vector2f(speed, 0) * deltaTime);
+			if (!boundEast)
+				body.move(Vector2f(speed, 0) * deltaTime);
 			currentAnim = rightAnim;
 		}
 		else if (Keyboard::isKeyPressed(Keyboard::S))
 		{
-			body.move(Vector2f(0, speed) * deltaTime);
+			if (!boundSouth)
+				body.move(Vector2f(0, speed) * deltaTime);
 			currentAnim = frontAnim;
 		}
 		else if (Keyboard::isKeyPressed(Keyboard::W))
 		{
-			body.move(Vector2f(0, -speed) * deltaTime);
+			if (!boundNorth)
+				body.move(Vector2f(0, -speed) * deltaTime);
 			currentAnim = backAnim;
 		}
 		else
@@ -113,10 +118,25 @@ public:
 
 	void save(ostream& out)
 	{
+		out << body.getPosition().x << endl
+			<< body.getPosition().y << endl
+			<< isIdle << endl;
 	}
 
 	void load(istream& in)
 	{
+		float x, y;
+		in >> x >> y >> isIdle;
+
+		body.setPosition(x, y);
+	}
+
+	void setBound(Vector2f cameraPosition)
+	{
+		boundEast = body.getPosition().x >= cameraPosition.x + WIDTH / 2;
+		boundWest = body.getPosition().x <= cameraPosition.x - WIDTH / 2;
+		boundNorth = body.getPosition().y <= cameraPosition.y - HEIGHT / 2;
+		boundSouth = body.getPosition().y >= cameraPosition.y + HEIGHT / 2 - 100;
 	}
 };
 #endif

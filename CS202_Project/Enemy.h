@@ -56,15 +56,12 @@ public:
 		MovingObject(type, position),
 		moveToLeft(moveToLeft)
 	{
-		cout << "Load " + type << ".\n";
-
 		this->type = type;
 		loadAnimations();
 	}
 
 	~Enemy()
 	{
-		cout << "Delete " + type + "!\n";
 	}
 
 	void update(float deltaTime)
@@ -81,10 +78,18 @@ public:
 
 	void save(ostream& out)
 	{
+		out << body.getPosition().x << endl
+			<< body.getPosition().y << endl
+			<< type << endl
+			<< moveToLeft << endl;
 	}
 
 	void load(istream& in)
 	{
+		int x, y;
+		in >> x >> y >> type >> moveToLeft;
+
+		body.setPosition(x, y);
 	}
 };
 #endif

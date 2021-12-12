@@ -10,6 +10,9 @@ using namespace sf;
 
 const int GAME_HEIGHT = 2880;
 const int GAME_WIDTH = 960;
+const int HEIGHT = 992;
+const int WIDTH = 960;
+const float CAMERA_SPEED = 2.f;
 
 class GameWorld
 {
