@@ -16,117 +16,104 @@ const int WIDTH = 960;
 
 const float CAMERA_SPEED = 1;
 
-const string grassMid = "Tiles/tile_0028.png";
-const string grassStart = "Tiles/tile_0001.png";
-const string grassEnd = "Tiles/tile_0055.png";
-
-const string roadStart = "Tiles/tile_0406.png";
-const string roadMid = "Tiles/tile_0468.png";
-const string roadEnd = "Tiles/tile_0460.png";
-
-const string rockStart = "Tiles/tile_0009.png";
-const string rockMid = "Tiles/tile_0036.png";
-const string rockEnd = "Tiles/tile_0063.png";
-
 const int TILES_PER_LANE = 7;
 const int SPAWNER_LANE_WIDTH = 28;
 const int SPAWNER_LANE_WIDTH_OFFSET = -24;
 
+const int GRID_WIDTH = GAME_WIDTH / 16;
+const int GRID_HEIGHT = GAME_HEIGHT / 16;
+const int OFFSET = GRID_HEIGHT + 30;
+
 class GameWorld
 {
 private:
+	vector<vector<GameTile*>> tiles;
+	vector<pair<string, int>> lanes;
 	Vector2i exitPos;
 
-	void setUpInitialState()
+	string randomLane()
 	{
-		setUpTiles();
-		setUpUnPassible();
+		int laneRandom = rand() % 3;
+
+		if (laneRandom == 0)
+			return "Grass";
+
+		if (laneRandom == 1)
+			return "Road";
+
+		return "Rock";
+	}
+
+	string getRowTile(int& row, string& startTile, string& middleTile, string& endTile)
+	{
+		if (row == 0)
+			return startTile;
+
+		if (row == TILES_PER_LANE - 1)
+			return endTile;
+
+		return middleTile;
 	}
 
 	void setUpTiles()
 	{
-		map.clear();
+		tiles.clear();
 
-		for (int i = 0; i < this->gridHeight;)
+		for (int lane = 0; lane < GRID_HEIGHT;)
 		{
+			string laneRandom = randomLane();
+			string lanePath = "Tiles/" + laneRandom + "/";
+			string startTile = lanePath + "start.png", middleTile = lanePath + "middle.png", endTile = lanePath + "end.png";
 
-			int choice = rand() % 3;
-			string start, mid, end;
-
-			switch (choice)
+			for (int row = 0; row < TILES_PER_LANE; ++row)
 			{
-				case 0:
-					start = grassStart;
-					mid = grassMid;
-					end = grassEnd;
+				if (lane >= GRID_HEIGHT)
 					break;
-				case 1:
-					start = roadStart;
-					mid = roadMid;
-					end = roadEnd;
-					break;
-				case 2:
-					start = rockStart;
-					mid = rockMid;
-					end = rockEnd;
-					break;
-				default:
-					break;
-			}
 
-			string terrain;
-			for (int k = 0; k < TILES_PER_LANE; k++)
-			{
-				vector<GameTile*> row;
-				int j = 0;
+				vector<GameTile*> rowTiles;
+				string terrain = getRowTile(row, startTile, middleTile, endTile);
 
-				if (k == 0)
-					terrain = start;
-				else if (k == TILES_PER_LANE - 1)
-					terrain = end;
-				else
-					terrain = mid;
+				for (int rowTile = 0; rowTile < GAME_WIDTH; rowTile += 16)
+					rowTiles.push_back(new GameTile(terrain, rowTile, lane * 16, false, false));
 
-				if (i >= this->gridHeight)
-					break;
-				while (j < GAME_WIDTH)
-				{
-					row.push_back(new GameTile(terrain, j, i * 16, false, false));
-					j += 16;
-				}
-				terrainSpawn.push_back(make_pair(choice, i * SPAWNER_LANE_WIDTH + SPAWNER_LANE_WIDTH_OFFSET));
-				map.push_back(row);
-				i++;
+				lanes.push_back(make_pair(laneRandom, lane * SPAWNER_LANE_WIDTH + SPAWNER_LANE_WIDTH_OFFSET));
+				tiles.push_back(rowTiles);
+
+				++lane;
 			}
 		}
 	}
 
 	void setUpUnPassible()
 	{
-		string terrain = "Tiles/tile_0198.png";
-		for (int i = this->gridHeight; i < offset; i++)
+		string terrain = "Tiles/StartGameTile.png";
+
+		for (int row = GRID_HEIGHT; row < OFFSET; ++row)
 		{
-			int j = 0;
-			vector<GameTile*> row;
-			while (j < GAME_WIDTH)
-			{
-				row.push_back(new GameTile(terrain, j, i * 16, false, false));
-				j += 16;
-			}
-			map.push_back(row);
+			vector<GameTile*> rowTiles;
+
+			for (int rowTile = 0; rowTile < GAME_WIDTH; rowTile += 16)
+				rowTiles.push_back(new GameTile(terrain, rowTile, row * 16, false, false));
+
+			tiles.push_back(rowTiles);
 		}
 	}
 
 public:
-	vector<vector<GameTile*>> map;
-	vector<pair<int, int>> terrainSpawn;
-	int gridWidth = GAME_WIDTH / 16;
-	int gridHeight = GAME_HEIGHT / 16;
-	int offset = gridHeight + 30;
-
 	GameWorld()
 	{
-		setUpInitialState();
+		setUpTiles();
+		setUpUnPassible();
+	}
+
+	vector<vector<GameTile*>> getTiles()
+	{
+		return tiles;
+	}
+
+	vector<pair<string, int>> getLanes()
+	{
+		return lanes;
 	}
 };
 #endif

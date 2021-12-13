@@ -35,7 +35,7 @@ int main()
 	GameWorld map = GameWorld();
 
 	// Spawners
-	ListSpawner listSpawner(map.terrainSpawn);
+	ListSpawner listSpawner(map.getLanes());
 
 	// Player
 	Player mainPlayer;
@@ -111,9 +111,10 @@ int main()
 		window.clear();
 		window.setView(mainView);
 
-		for (int x = 0; x < map.offset; x++)
-			for (int y = 0; y < map.gridWidth; y++)
-				window.draw(map.map[x][y]->sprite);
+		for (int x = 0; x < OFFSET; x++)
+			for (int y = 0; y < GRID_WIDTH; y++)
+
+				window.draw(map.getTiles()[x][y]->getSprite());
 
 		window.draw(mainPlayer.getModel());
 

@@ -9,14 +9,15 @@ using namespace sf;
 
 class GameTile
 {
-public:
+private:
 	bool isPassible;
 	bool isExit;
 	Vector2f pos;
 	Texture texture;
 	Sprite sprite;
 
-	GameTile(std::string textureName, float x, float y, bool isPassible, bool isExit)
+public:
+	GameTile(string textureName, float x, float y, bool isPassible, bool isExit)
 	{
 		if (!setUpSprite(textureName))
 			return;
@@ -27,7 +28,7 @@ public:
 		this->isExit = isExit;
 	}
 
-	bool setUpSprite(std::string textureName)
+	bool setUpSprite(string textureName)
 	{
 		if (!texture.loadFromFile(textureName))
 			return false;
@@ -36,6 +37,11 @@ public:
 		sprite.setTexture(texture);
 		sprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
 		return true;
+	}
+
+	Sprite getSprite()
+	{
+		return sprite;
 	}
 };
 #endif

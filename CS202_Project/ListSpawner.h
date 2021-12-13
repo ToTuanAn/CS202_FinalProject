@@ -34,7 +34,7 @@ private:
 	}
 
 public:
-	ListSpawner(vector<pair<int, int>> spawnInfo)
+	ListSpawner(vector<pair<string, int>> spawnInfo)
 	{
 		string animals[] = { "Dinosaur", "Bird" };
 		string vehicles[] = { "Truck", "Car" };
@@ -45,12 +45,12 @@ public:
 			float timeToSpawn = rand() % 3 + 3;
 			Vector2f position = moveToLeft ? Vector2f(GAME_WIDTH, spawnInfo[i].second - 64) : Vector2f(0, spawnInfo[i].second - 64);
 
-			if (spawnInfo[i].first == 1)
+			if (spawnInfo[i].first == "Road")
 			{
 				int vehicle = rand() % 2;
 				listSpawner.push_back(Spawner(timeToSpawn, position, vehicles[vehicle], moveToLeft));
 			}
-			else if (spawnInfo[i].first == 1)
+			else if (spawnInfo[i].first == "Rock")
 			{
 				int animal = rand() % 2;
 				listSpawner.push_back(Spawner(timeToSpawn, position, animals[animal], moveToLeft));
