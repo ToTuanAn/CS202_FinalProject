@@ -114,7 +114,7 @@ int main()
 		for (int x = 0; x < OFFSET; x++)
 			for (int y = 0; y < GRID_WIDTH; y++)
 
-				window.draw(map.getTiles()[x][y]->getSprite());
+				window.draw(map.tiles[x][y]->getSprite());
 
 		window.draw(mainPlayer.getModel());
 

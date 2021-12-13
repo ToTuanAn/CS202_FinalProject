@@ -27,7 +27,6 @@ const int OFFSET = GRID_HEIGHT + 30;
 class GameWorld
 {
 private:
-	vector<vector<GameTile*>> tiles;
 	vector<pair<string, int>> lanes;
 	Vector2i exitPos;
 
@@ -100,15 +99,13 @@ private:
 	}
 
 public:
+	// I can't encapsulate this property!!!
+	vector<vector<GameTile*>> tiles;
+
 	GameWorld()
 	{
 		setUpTiles();
 		setUpUnPassible();
-	}
-
-	vector<vector<GameTile*>> getTiles()
-	{
-		return tiles;
 	}
 
 	vector<pair<string, int>> getLanes()
