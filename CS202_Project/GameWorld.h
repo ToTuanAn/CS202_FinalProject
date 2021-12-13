@@ -11,8 +11,8 @@ using namespace sf;
 const int GAME_HEIGHT = 2880;
 const int GAME_WIDTH = 960;
 
-const int HEIGHT = 992;
-const int WIDTH = 960;
+const int SCREEN_HEIGHT = 992;
+const int SCREEN_WIDTH = 960;
 
 const float CAMERA_SPEED = 1;
 
@@ -106,6 +106,13 @@ public:
 	{
 		setUpTiles();
 		setUpUnPassible();
+	}
+
+	void draw(RenderWindow& window)
+	{
+		for (int row = 0; row < OFFSET; row++)
+			for (int column = 0; column < GRID_WIDTH; column++)
+				window.draw(tiles[row][column]->getSprite());
 	}
 
 	vector<pair<string, int>> getLanes()

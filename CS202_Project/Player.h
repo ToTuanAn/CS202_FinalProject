@@ -139,10 +139,10 @@ public:
 
 	void setBound(Vector2f cameraPosition)
 	{
-		boundEast = body.getPosition().x >= cameraPosition.x + WIDTH / 2;
-		boundWest = body.getPosition().x <= cameraPosition.x - WIDTH / 2;
-		boundNorth = body.getPosition().y <= cameraPosition.y - HEIGHT / 2;
-		boundSouth = body.getPosition().y >= cameraPosition.y + HEIGHT / 2 - 100;
+		boundEast = body.getPosition().x >= cameraPosition.x + SCREEN_WIDTH / 2;
+		boundWest = body.getPosition().x <= cameraPosition.x - SCREEN_WIDTH / 2;
+		boundNorth = body.getPosition().y <= cameraPosition.y - SCREEN_HEIGHT / 2;
+		boundSouth = body.getPosition().y >= cameraPosition.y + SCREEN_HEIGHT / 2 - 100;
 	}
 };
 #endif

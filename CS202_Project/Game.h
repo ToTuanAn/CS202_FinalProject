@@ -2,7 +2,6 @@
 #define _GAME_
 
 #include "GameWorld.h"
-#include "IObject.h"
 #include "ListSpawner.h"
 #include "Player.h"
 #include "SaveLoadSystem.h"
@@ -19,15 +18,38 @@ using namespace sf;
 
 const string SCORE_FONT_NAME = "PixelFont.ttf";
 const string GAME_MUSIC_NAME = "GameMusic.wav";
+const unsigned int GAME_FPS = 60;
 
-class Game : public IObject
+class Game
 {
 private:
-	vector<IObject*> objects;
+	float deltaTime;
+	Clock clock;
+	string title;
+	RenderWindow window;
+	View view;
 	Player player;
 	Text scoreText;
 	Sound gameMusic;
+	GameWorld gameWorld;
 	ListSpawner listSpawner;
+
+	void setupWindow()
+	{
+		window.create(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), title);
+		window.setFramerateLimit(GAME_FPS);
+	}
+
+	void setupView()
+	{
+		view.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+		view.setCenter(player.getBody().getPosition() - Vector2f(0, 368));
+	}
+
+	void setupListSpawner()
+	{
+		listSpawner.setup(gameWorld.getLanes());
+	}
 
 	bool createScoreText()
 	{
@@ -46,7 +68,7 @@ private:
 		scoreText.setOutlineColor(Color::Blue);
 		scoreText.setOutlineThickness(2);
 		scoreText.setStyle(Text::Bold);
-		scoreText.setOrigin(scoreText.getGlobalBounds().width - (WIDTH / 2 - 75), scoreText.getGlobalBounds().height / 2);
+		scoreText.setOrigin(scoreText.getGlobalBounds().width - (SCREEN_WIDTH / 2 - 75), scoreText.getGlobalBounds().height / 2);
 
 		return true;
 	}
@@ -69,6 +91,61 @@ private:
 		return true;
 	}
 
+	void update()
+	{
+		view.move(Vector2f(0, -CAMERA_SPEED));
+
+		player.setBound(view.getCenter());
+		player.update(deltaTime);
+
+		scoreText.setString("Score: " + to_string(player.getScore()));
+
+		listSpawner.update(deltaTime, player, view.getCenter().y);
+	}
+
+	void draw()
+	{
+		window.clear();
+		window.setView(view);
+
+		gameWorld.draw(window);
+		listSpawner.draw(window, player, view.getCenter().y);
+
+		window.draw(player.getModel());
+		window.draw(scoreText);
+
+		window.setView(window.getDefaultView());
+	}
+
+	void newMethod()
+	{
+		Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == Event::Closed)
+				window.close();
+		}
+	}
+
 public:
+	Game()
+	{
+		setupWindow();
+		setupView();
+		setupListSpawner();
+		createScoreText();
+		createGameMusic();
+	}
+
+	void play()
+	{
+		while (window.isOpen())
+		{
+			deltaTime = clock.restart().asSeconds();
+			newMethod();
+			update();
+			draw();
+		}
+	}
 };
 #endif

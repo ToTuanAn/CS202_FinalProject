@@ -1,5 +1,5 @@
 # CS202_FinalProject
-### UI (An)
+### UI (An - Hiep)
 #### Start Menu
 - New Game
 - Load

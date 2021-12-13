@@ -22,13 +22,13 @@ int main()
 	Clock dt_clock;
 
 	// Menu
-	RenderWindow MENU(sf::VideoMode(WIDTH, HEIGHT), "CROSSY ROAD GROUP 10");
+	RenderWindow MENU(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "CROSSY ROAD GROUP 10");
 	Menu menu(MENU.getSize().x, MENU.getSize().y);
 	MENU.setFramerateLimit(60);
 	menu.show(MENU);
 
 	// Window
-	RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "CROSSY ROAD GROUP 10");
+	RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "CROSSY ROAD GROUP 10");
 	window.setFramerateLimit(30);
 
 	// Map
@@ -42,7 +42,7 @@ int main()
 
 	// Main view
 	View mainView;
-	mainView.setSize(WIDTH, HEIGHT);
+	mainView.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 	mainView.setCenter(mainPlayer.getBody().getPosition() - Vector2f(0, 368));
 
 	// Score Text
@@ -66,7 +66,7 @@ int main()
 	scoreText.setOutlineColor(Color::Blue);
 	scoreText.setOutlineThickness(2);
 	scoreText.setStyle(Text::Bold);
-	scoreText.setOrigin(scoreText.getGlobalBounds().width - (WIDTH / 2 - 75), scoreText.getGlobalBounds().height / 2);
+	scoreText.setOrigin(scoreText.getGlobalBounds().width - (SCREEN_WIDTH / 2 - 75), scoreText.getGlobalBounds().height / 2);
 
 	// Sound
 	const string GAME_MUSIC_NAME = "GameMusic";
