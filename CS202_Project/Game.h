@@ -117,7 +117,6 @@ private:
 
 		player.setBound(view.getCenter());
 		player.update(deltaTime);
-
 		scoreText.setString("Score: " + to_string(player.getScore()));
 
 		listSpawner.update(deltaTime, player, view.getCenter().y);
@@ -130,9 +129,7 @@ private:
 
 		gameWorld.draw(window);
 		listSpawner.draw(window, player, view.getCenter().y);
-
 		window.draw(player.getModel());
-
 		window.setView(window.getDefaultView());
 		window.draw(scoreText);
 
@@ -170,7 +167,6 @@ public:
 				cout << "Player is dead!\n";
 				return;
 			}
-
 			deltaTime = clock.restart().asSeconds();
 			newMethod();
 			update();

@@ -6,6 +6,7 @@
 #include "IObject.h"
 #include "ISaveable.h"
 #include "SFML/Graphics.hpp"
+#include "TrafficLight.h"
 
 #include <fstream>
 #include <iostream>
@@ -23,11 +24,14 @@ private:
 	Vector2f position;
 	string type;
 	vector<Enemy*> listEnemy;
+	TrafficLight* trafficLight;
 
 	void updateEnemies(float deltaTime)
 	{
 		for (auto enemy = listEnemy.begin(); enemy != listEnemy.end(); enemy++)
+		{
 			(*enemy)->update(deltaTime);
+		}
 	}
 
 	void addEnemy(float deltaTime)
@@ -38,7 +42,6 @@ private:
 			listEnemy.push_back(e);
 			timeFromLastSwitchAnim = 0;
 		}
-
 		timeFromLastSwitchAnim += deltaTime;
 	}
 
@@ -64,6 +67,7 @@ public:
 		this->type = type;
 
 		timeFromLastSwitchAnim = timeToSpawn;
+		trafficLight = new TrafficLight(Vector2f(GAME_WIDTH / 2, position.y));
 	}
 
 	~Spawner()
@@ -92,15 +96,27 @@ public:
 	void draw(RenderWindow& window)
 	{
 		for (auto enemy = listEnemy.begin(); enemy != listEnemy.end(); enemy++)
+		{
+			if ((*enemy)->getType() == "Truck" || (*enemy)->getType() == "Car")
+			{
+				window.draw(trafficLight->getModel());
+			}
 			window.draw((*enemy)->getModel());
+		}
 	}
 
 	float update(float deltaTime)
 	{
+
+		if (trafficLight->getType() == "red" && (this->type == "Car" || this->type == "Truck"))
+		{
+			trafficLight->update(deltaTime);
+			return deltaTime;
+		}
 		addEnemy(deltaTime);
 		updateEnemies(deltaTime);
+		trafficLight->update(deltaTime);
 		deleteUnusedEnemies();
-
 		return deltaTime;
 	}
 
