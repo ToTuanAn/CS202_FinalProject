@@ -69,27 +69,18 @@ public:
 	ListSpawner()
 	{}
 
-	void setupFromNewGame(vector<pair<string, int>> spawnInfo)
+	void setupFromNewGame(vector<float> lanePositionYs)
 	{
-		string animals[] = { "Dinosaur", "Bird" };
-		string vehicles[] = { "Truck", "Car" };
+		string enemies[] = { "Dinosaur", "Bird", "Truck", "Car" };
 
-		for (int i = spawnInfo.size() - 1; i >= 0; i -= TILES_PER_LANE)
+		for (int i = lanePositionYs.size() - 1; i >= 0; i -= TILES_PER_LANE)
 		{
 			bool moveToLeft = rand() % 2 > 0;
 			float timeToSpawn = rand() % 3 + 3;
-			Vector2f position = moveToLeft ? Vector2f(GAME_WIDTH, spawnInfo[i].second - 64) : Vector2f(0, spawnInfo[i].second - 64);
+			Vector2f position = moveToLeft ? Vector2f(GAME_WIDTH, lanePositionYs[i] - 64) : Vector2f(0, lanePositionYs[i] - 64);
 
-			if (spawnInfo[i].first == "Road")
-			{
-				int vehicle = rand() % 2;
-				listSpawner.push_back(Spawner(timeToSpawn, position, vehicles[vehicle], moveToLeft));
-			}
-			else if (spawnInfo[i].first == "Rock")
-			{
-				int animal = rand() % 2;
-				listSpawner.push_back(Spawner(timeToSpawn, position, animals[animal], moveToLeft));
-			}
+			int enemy = rand() % 4;
+			listSpawner.push_back(Spawner(timeToSpawn, position, enemies[enemy], moveToLeft));
 		}
 	}
 

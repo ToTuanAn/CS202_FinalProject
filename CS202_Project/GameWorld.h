@@ -26,22 +26,19 @@ const int GRID_WIDTH = GAME_WIDTH / 16;
 const int GRID_HEIGHT = GAME_HEIGHT / 16;
 const int OFFSET = GRID_HEIGHT + 30;
 
-class GameWorld : public ISaveable
+class GameWorld
 {
 private:
-	vector<string> lanes;
-	vector<pair<string, int>> laneData;
+	vector<float> lanePositionYs;
 	vector<vector<GameTile*>> tiles;
 	Vector2i exitPos;
 
-	string randomLane()
+	string getNextLane(string lastLane)
 	{
-		int laneRandom = rand() % 3;
-
-		if (laneRandom == 0)
+		if (lastLane == "Rock")
 			return "Grass";
 
-		if (laneRandom == 1)
+		if (lastLane == "Grass")
 			return "Road";
 
 		return "Rock";
@@ -58,28 +55,15 @@ private:
 		return middleTile;
 	}
 
-	void setupTilesFromLoad()
+	void setupTiles()
 	{
 		tiles.clear();
 
-		int laneIndex = 0;
+		string currentLane = "Grass";
 		for (int lane = 0; lane < GRID_HEIGHT;)
 		{
-			string laneName = lanes[laneIndex++];
-			setupTiles(laneName, lane);
-		}
-	}
-
-	void setupTilesFromNewGame()
-	{
-		tiles.clear();
-
-		for (int lane = 0; lane < GRID_HEIGHT;)
-		{
-			string laneRandom = randomLane();
-			lanes.push_back(laneRandom);
-
-			setupTiles(laneRandom, lane);
+			currentLane = getNextLane(currentLane);
+			setupTiles(currentLane, lane);
 		}
 	}
 
@@ -99,7 +83,7 @@ private:
 			for (int rowTile = 0; rowTile < GAME_WIDTH; rowTile += 16)
 				rowTiles.push_back(new GameTile(terrain, rowTile, lane * 16, false, false));
 
-			laneData.push_back(make_pair(laneName, lane * SPAWNER_LANE_WIDTH + SPAWNER_LANE_WIDTH_OFFSET));
+			lanePositionYs.push_back(lane * SPAWNER_LANE_WIDTH + SPAWNER_LANE_WIDTH_OFFSET);
 			tiles.push_back(rowTiles);
 
 			++lane;
@@ -124,7 +108,7 @@ private:
 public:
 	GameWorld()
 	{
-		setupTilesFromNewGame();
+		setupTiles();
 		setupUnPassible();
 	}
 
@@ -135,21 +119,9 @@ public:
 				window.draw(tiles[row][column]->getSprite());
 	}
 
-	vector<pair<string, int>> getLanes()
+	vector<float> getLanePositionYs()
 	{
-		return laneData;
-	}
-
-	void save(ostream& out)
-	{
-		out.write((char*)&lanes, sizeof(lanes));
-	}
-
-	void load(istream& in)
-	{
-		lanes.clear();
-		in.read((char*)&lanes, sizeof(lanes));
-		setupTilesFromLoad();
+		return lanePositionYs;
 	}
 };
 #endif

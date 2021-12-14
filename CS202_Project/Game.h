@@ -58,13 +58,12 @@ private:
 	{
 		saveLoadSystem.setViewToSaveLoadPosition(&view);
 		saveLoadSystem.addSaveableObject(&player);
-		saveLoadSystem.addSaveableObject(&gameWorld);
 		saveLoadSystem.addSaveableObject(&listSpawner);
 	}
 
 	void setupListSpawner()
 	{
-		listSpawner.setupFromNewGame(gameWorld.getLanes());
+		listSpawner.setupFromNewGame(gameWorld.getLanePositionYs());
 	}
 
 	bool createScoreText()
