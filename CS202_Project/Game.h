@@ -64,7 +64,7 @@ private:
 
 	void setupListSpawner()
 	{
-		listSpawner.setup(gameWorld.getLanes());
+		listSpawner.setupFromNewGame(gameWorld.getLanes());
 	}
 
 	bool createScoreText()

@@ -15,6 +15,10 @@
 ### Save Load System (Hung)
 #### Save
 #### Load
+#### Saveable Objects:
+- Player
+- GameWorld (to draw tilemap)
+- ListSpawner (list of Spawners)
 ### Traffic (Teacher)
 #### Create TrafficLight class
 - Sprite (3 colors)

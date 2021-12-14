@@ -16,15 +16,15 @@
 using namespace sf;
 using namespace std;
 
-class Spawner : public IObject, public ISaveable
+class Spawner : public IObject
 {
 private:
 	bool moveToLeft;
-	float speed, timeFromLastSwitchAnim, timeToSpawn;
+	float timeFromLastSpawn, timeToSpawn;
 	Vector2f position;
 	string type;
-	vector<Enemy*> listEnemy;
-	TrafficLight* trafficLight;
+	vector<Enemy *> listEnemy;
+	TrafficLight *trafficLight;
 
 	void updateEnemies(float deltaTime)
 	{
@@ -36,13 +36,14 @@ private:
 
 	void addEnemy(float deltaTime)
 	{
-		if (timeFromLastSwitchAnim >= timeToSpawn)
+		if (timeFromLastSpawn >= timeToSpawn)
 		{
-			Enemy* e = new Enemy(type, position, moveToLeft);
+			Enemy *e = new Enemy(type, position, moveToLeft);
 			listEnemy.push_back(e);
-			timeFromLastSwitchAnim = 0;
+			timeFromLastSpawn = 0;
 		}
-		timeFromLastSwitchAnim += deltaTime;
+
+		timeFromLastSpawn += deltaTime;
 	}
 
 	void deleteUnusedEnemies()
@@ -50,7 +51,7 @@ private:
 		if ((int)listEnemy.size() == 0)
 			return;
 
-		std::vector<Enemy*>::iterator enemy = listEnemy.begin();
+		std::vector<Enemy *>::iterator enemy = listEnemy.begin();
 		if ((*enemy)->getBody().getPosition().x > (float)GAME_WIDTH)
 		{
 			delete (*enemy);
@@ -66,7 +67,7 @@ public:
 		this->position = position;
 		this->type = type;
 
-		timeFromLastSwitchAnim = timeToSpawn;
+		timeFromLastSpawn = timeToSpawn;
 		trafficLight = new TrafficLight(Vector2f(GAME_WIDTH / 2, position.y));
 	}
 
@@ -88,12 +89,7 @@ public:
 			}
 	}
 
-	Vector2f getPosition()
-	{
-		return position;
-	}
-
-	void draw(RenderWindow& window)
+	void draw(RenderWindow &window)
 	{
 		for (auto enemy = listEnemy.begin(); enemy != listEnemy.end(); enemy++)
 		{
@@ -131,15 +127,24 @@ public:
 		return false;
 	}
 
-	void save(ostream& out)
+	bool isMoveToLeft()
 	{
-		out << 1;
+		return moveToLeft;
 	}
 
-	void load(istream& in)
+	float getTimeToSpawn()
 	{
-		int x;
-		in >> x;
+		return timeToSpawn;
+	}
+
+	Vector2f getPosition()
+	{
+		return position;
+	}
+
+	string getType()
+	{
+		return type;
 	}
 };
 #endif

@@ -32,11 +32,44 @@ private:
 		}
 	}
 
+	void deleteAllSpawners()
+	{
+		listSpawner.clear();
+	}
+
+	string typeIntToString(int type)
+	{
+		if (type == 0)
+			return "Dinosaur";
+
+		if (type == 1)
+			return "Bird";
+
+		if (type == 2)
+			return "Truck";
+
+		return "Car";
+	}
+
+	int typeStringToInt(string type)
+	{
+		if (type == "Dinosaur")
+			return 0;
+
+		if (type == "Bird")
+			return 1;
+
+		if (type == "Truck")
+			return 2;
+
+		return 3;
+	}
+
 public:
 	ListSpawner()
 	{}
 
-	void setup(vector<pair<string, int>> spawnInfo)
+	void setupFromNewGame(vector<pair<string, int>> spawnInfo)
 	{
 		string animals[] = { "Dinosaur", "Bird" };
 		string vehicles[] = { "Truck", "Car" };
@@ -103,13 +136,48 @@ public:
 
 	void save(ostream& out)
 	{
-		out << 1;
+		int listSpawnerSize = listSpawner.size();
+		out.write((char*)&listSpawnerSize, sizeof(listSpawnerSize));
+
+		for (auto spawner = listSpawner.begin(); spawner != listSpawner.end(); spawner++)
+		{
+			float timeToSpawn = spawner->getTimeToSpawn();
+			out.write((char*)&timeToSpawn, sizeof(timeToSpawn));
+
+			Vector2f position = spawner->getPosition();
+			out.write((char*)&position, sizeof(position));
+
+			int type = typeStringToInt(spawner->getType());
+			out.write((char*)&type, sizeof(type));
+
+			bool moveToLeft = spawner->isMoveToLeft();
+			out.write((char*)&moveToLeft, sizeof(moveToLeft));
+		}
 	}
 
 	void load(istream& in)
 	{
-		int x;
-		in >> x;
+		deleteAllSpawners();
+
+		int listSpawnerSize = listSpawner.size();
+		in.read((char*)&listSpawnerSize, sizeof(listSpawnerSize));
+
+		for (int i = 0; i < listSpawnerSize; ++i)
+		{
+			float timeToSpawn;
+			in.read((char*)&timeToSpawn, sizeof(timeToSpawn));
+
+			Vector2f position;
+			in.read((char*)&position, sizeof(position));
+
+			int type;
+			in.read((char*)&type, sizeof(type));
+
+			bool moveToLeft;
+			in.read((char*)&moveToLeft, sizeof(moveToLeft));
+
+			listSpawner.push_back(Spawner(timeToSpawn, position, typeIntToString(type), moveToLeft));
+		}
 	}
 };
 #endif
