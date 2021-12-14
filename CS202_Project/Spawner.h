@@ -15,11 +15,11 @@
 using namespace sf;
 using namespace std;
 
-class Spawner : public IObject, public ISaveable
+class Spawner : public IObject
 {
 private:
 	bool moveToLeft;
-	float speed, timeFromLastSwitchAnim, timeToSpawn;
+	float timeFromLastSpawn, timeToSpawn;
 	Vector2f position;
 	string type;
 	vector<Enemy*> listEnemy;
@@ -32,14 +32,14 @@ private:
 
 	void addEnemy(float deltaTime)
 	{
-		if (timeFromLastSwitchAnim >= timeToSpawn)
+		if (timeFromLastSpawn >= timeToSpawn)
 		{
 			Enemy* e = new Enemy(type, position, moveToLeft);
 			listEnemy.push_back(e);
-			timeFromLastSwitchAnim = 0;
+			timeFromLastSpawn = 0;
 		}
 
-		timeFromLastSwitchAnim += deltaTime;
+		timeFromLastSpawn += deltaTime;
 	}
 
 	void deleteUnusedEnemies()
@@ -63,7 +63,7 @@ public:
 		this->position = position;
 		this->type = type;
 
-		timeFromLastSwitchAnim = timeToSpawn;
+		timeFromLastSpawn = timeToSpawn;
 	}
 
 	~Spawner()
@@ -82,11 +82,6 @@ public:
 				delete (*enemy);
 				listEnemy.erase(enemy);
 			}
-	}
-
-	Vector2f getPosition()
-	{
-		return position;
 	}
 
 	void draw(RenderWindow& window)
@@ -115,15 +110,24 @@ public:
 		return false;
 	}
 
-	void save(ostream& out)
+	bool isMoveToLeft()
 	{
-		out << 1;
+		return moveToLeft;
 	}
 
-	void load(istream& in)
+	float getTimeToSpawn()
 	{
-		int x;
-		in >> x;
+		return timeToSpawn;
+	}
+
+	Vector2f getPosition()
+	{
+		return position;
+	}
+
+	string getType()
+	{
+		return type;
 	}
 };
 #endif
