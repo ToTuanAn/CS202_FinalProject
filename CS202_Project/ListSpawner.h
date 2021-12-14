@@ -15,7 +15,7 @@
 using namespace sf;
 using namespace std;
 
-class ListSpawner
+class ListSpawner : public ISaveable
 {
 private:
 	vector<Spawner> listSpawner;
@@ -99,6 +99,17 @@ public:
 			else
 				return false;
 		return false;
+	}
+
+	void save(ostream& out)
+	{
+		out << 1;
+	}
+
+	void load(istream& in)
+	{
+		int x;
+		in >> x;
 	}
 };
 #endif

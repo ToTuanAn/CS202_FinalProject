@@ -2,13 +2,15 @@
 #define _PLAYER_
 
 #include "GameWorld.h"
+#include "ISaveable.h"
 #include "MovingObject.h"
+
 #include <vector>
 
 const Vector2f PLAYER_STARTING_POSITION(960 / 2, 2880 - 32);
 const float SCORE_WIDTH = 145;
 
-class Player : public MovingObject
+class Player : public MovingObject, public ISaveable
 {
 private:
 	vector<Texture> leftAnim, rightAnim, frontAnim, backAnim;
@@ -122,27 +124,25 @@ public:
 		return "Player";
 	}
 
-	void save(ostream& out)
-	{
-		out << body.getPosition().x << endl
-			<< body.getPosition().y << endl
-			<< isIdle << endl;
-	}
-
-	void load(istream& in)
-	{
-		float x, y;
-		in >> x >> y >> isIdle;
-
-		body.setPosition(x, y);
-	}
-
 	void setBound(Vector2f cameraPosition)
 	{
 		boundEast = body.getPosition().x >= cameraPosition.x + SCREEN_WIDTH / 2;
 		boundWest = body.getPosition().x <= cameraPosition.x - SCREEN_WIDTH / 2;
 		boundNorth = body.getPosition().y <= cameraPosition.y - SCREEN_HEIGHT / 2;
 		boundSouth = body.getPosition().y >= cameraPosition.y + SCREEN_HEIGHT / 2 - 100;
+	}
+
+	void save(ostream& out)
+	{
+		out.write((char*)&body.getPosition(), sizeof(body.getPosition()));
+		out.write((char*)&score, sizeof(score));
+	}
+
+	void load(istream& in)
+	{
+		in.read((char*)&body.getPosition(), sizeof(body.getPosition()));
+		in.read((char*)&score, sizeof(score));
+		currentAnim = backAnim;
 	}
 };
 #endif

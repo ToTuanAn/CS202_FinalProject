@@ -3,6 +3,7 @@
 
 #include "IObject.h"
 #include "ISaveable.h"
+
 #include <fstream>
 #include <vector>
 
@@ -13,6 +14,7 @@ class SaveLoadSystem : public IObject
 {
 private:
 	vector<ISaveable*> saveableObjects;
+	View* view;
 
 	string inputFilename()
 	{
@@ -20,6 +22,11 @@ private:
 	}
 
 public:
+	void setViewToSaveLoadPosition(View* view)
+	{
+		this->view = view;
+	}
+
 	float update(float deltaTime)
 	{
 		if (Keyboard::isKeyPressed(Keyboard::L))

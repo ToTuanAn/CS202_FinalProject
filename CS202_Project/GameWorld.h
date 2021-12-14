@@ -2,7 +2,9 @@
 #define _GAMEWORLD_
 
 #include "GameTile.h"
+#include "ISaveable.h"
 #include "SFML/Graphics.hpp"
+
 #include <iostream>
 
 using namespace std;
@@ -24,10 +26,11 @@ const int GRID_WIDTH = GAME_WIDTH / 16;
 const int GRID_HEIGHT = GAME_HEIGHT / 16;
 const int OFFSET = GRID_HEIGHT + 30;
 
-class GameWorld
+class GameWorld : public ISaveable
 {
 private:
-	vector<pair<string, int>> lanes;
+	vector<string> lanes;
+	vector<pair<string, int>> laneData;
 	vector<vector<GameTile*>> tiles;
 	Vector2i exitPos;
 
@@ -55,36 +58,55 @@ private:
 		return middleTile;
 	}
 
-	void setUpTiles()
+	void setupTilesFromLoad()
+	{
+		tiles.clear();
+
+		int laneIndex = 0;
+		for (int lane = 0; lane < GRID_HEIGHT;)
+		{
+			string laneName = lanes[laneIndex++];
+			setupTiles(laneName, lane);
+		}
+	}
+
+	void setupTilesFromNewGame()
 	{
 		tiles.clear();
 
 		for (int lane = 0; lane < GRID_HEIGHT;)
 		{
 			string laneRandom = randomLane();
-			string lanePath = "Tiles/" + laneRandom + "/";
-			string startTile = lanePath + "start.png", middleTile = lanePath + "middle.png", endTile = lanePath + "end.png";
+			lanes.push_back(laneRandom);
 
-			for (int row = 0; row < TILES_PER_LANE; ++row)
-			{
-				if (lane >= GRID_HEIGHT)
-					break;
-
-				vector<GameTile*> rowTiles;
-				string terrain = getRowTile(row, startTile, middleTile, endTile);
-
-				for (int rowTile = 0; rowTile < GAME_WIDTH; rowTile += 16)
-					rowTiles.push_back(new GameTile(terrain, rowTile, lane * 16, false, false));
-
-				lanes.push_back(make_pair(laneRandom, lane * SPAWNER_LANE_WIDTH + SPAWNER_LANE_WIDTH_OFFSET));
-				tiles.push_back(rowTiles);
-
-				++lane;
-			}
+			setupTiles(laneRandom, lane);
 		}
 	}
 
-	void setUpUnPassible()
+	void setupTiles(string laneName, int& lane)
+	{
+		string lanePath = "Tiles/" + laneName + "/";
+		string startTile = lanePath + "start.png", middleTile = lanePath + "middle.png", endTile = lanePath + "end.png";
+
+		for (int row = 0; row < TILES_PER_LANE; ++row)
+		{
+			if (lane >= GRID_HEIGHT)
+				break;
+
+			vector<GameTile*> rowTiles;
+
+			string terrain = getRowTile(row, startTile, middleTile, endTile);
+			for (int rowTile = 0; rowTile < GAME_WIDTH; rowTile += 16)
+				rowTiles.push_back(new GameTile(terrain, rowTile, lane * 16, false, false));
+
+			laneData.push_back(make_pair(laneName, lane * SPAWNER_LANE_WIDTH + SPAWNER_LANE_WIDTH_OFFSET));
+			tiles.push_back(rowTiles);
+
+			++lane;
+		}
+	}
+
+	void setupUnPassible()
 	{
 		string terrain = "Tiles/StartGameTile.png";
 
@@ -102,8 +124,8 @@ private:
 public:
 	GameWorld()
 	{
-		setUpTiles();
-		setUpUnPassible();
+		setupTilesFromNewGame();
+		setupUnPassible();
 	}
 
 	void draw(RenderWindow& window)
@@ -115,7 +137,19 @@ public:
 
 	vector<pair<string, int>> getLanes()
 	{
-		return lanes;
+		return laneData;
+	}
+
+	void save(ostream& out)
+	{
+		out.write((char*)&lanes, sizeof(lanes));
+	}
+
+	void load(istream& in)
+	{
+		lanes.clear();
+		in.read((char*)&lanes, sizeof(lanes));
+		setupTilesFromLoad();
 	}
 };
 #endif

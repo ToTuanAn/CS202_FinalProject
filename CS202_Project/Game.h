@@ -25,15 +25,22 @@ class Game
 private:
 	float deltaTime;
 	Clock clock;
+
 	RenderWindow window;
 	View view;
+
 	Player player;
+
 	Font scoreTextFont;
 	Text scoreText;
+
 	SoundBuffer gameMusicBuffer;
 	Sound gameMusic;
+
 	GameWorld gameWorld;
 	ListSpawner listSpawner;
+
+	SaveLoadSystem saveLoadSystem;
 
 	void setupWindow(string title)
 	{
@@ -45,6 +52,14 @@ private:
 	{
 		view.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 		view.setCenter(player.getBody().getPosition() - Vector2f(0, 368));
+	}
+
+	void setupSaveLoadSystem()
+	{
+		saveLoadSystem.setViewToSaveLoadPosition(&view);
+		saveLoadSystem.addSaveableObject(&player);
+		saveLoadSystem.addSaveableObject(&gameWorld);
+		saveLoadSystem.addSaveableObject(&listSpawner);
 	}
 
 	void setupListSpawner()
@@ -96,6 +111,8 @@ private:
 
 	void update()
 	{
+		saveLoadSystem.update(deltaTime);
+
 		view.move(Vector2f(0, -CAMERA_SPEED));
 
 		player.setBound(view.getCenter());
@@ -140,6 +157,7 @@ public:
 		setupListSpawner();
 		createScoreText();
 		createGameMusic();
+		setupSaveLoadSystem();
 	}
 
 	void play()

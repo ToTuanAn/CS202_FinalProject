@@ -15,7 +15,7 @@
 using namespace sf;
 using namespace std;
 
-class Spawner : public IObject
+class Spawner : public IObject, public ISaveable
 {
 private:
 	bool moveToLeft;
@@ -24,13 +24,13 @@ private:
 	string type;
 	vector<Enemy*> listEnemy;
 
-	void updateEnemies(float dt)
+	void updateEnemies(float deltaTime)
 	{
 		for (auto enemy = listEnemy.begin(); enemy != listEnemy.end(); enemy++)
-			(*enemy)->update(dt);
+			(*enemy)->update(deltaTime);
 	}
 
-	void addEnemy(float dt)
+	void addEnemy(float deltaTime)
 	{
 		if (timeFromLastSwitchAnim >= timeToSpawn)
 		{
@@ -39,7 +39,7 @@ private:
 			timeFromLastSwitchAnim = 0;
 		}
 
-		timeFromLastSwitchAnim += dt;
+		timeFromLastSwitchAnim += deltaTime;
 	}
 
 	void deleteUnusedEnemies()
@@ -113,6 +113,17 @@ public:
 				return true;
 		}
 		return false;
+	}
+
+	void save(ostream& out)
+	{
+		out << 1;
+	}
+
+	void load(istream& in)
+	{
+		int x;
+		in >> x;
 	}
 };
 #endif

@@ -77,21 +77,5 @@ public:
 	{
 		return type;
 	}
-
-	void save(ostream& out)
-	{
-		out << body.getPosition().x << endl
-			<< body.getPosition().y << endl
-			<< type << endl
-			<< moveToLeft << endl;
-	}
-
-	void load(istream& in)
-	{
-		int x, y;
-		in >> x >> y >> type >> moveToLeft;
-
-		body.setPosition(x, y);
-	}
 };
 #endif

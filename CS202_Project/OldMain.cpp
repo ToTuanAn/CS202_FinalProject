@@ -134,3 +134,23 @@
 
 // 	return 0;
 // }
+
+// string lanePath = "Tiles/" + laneRandom + "/";
+// string startTile = lanePath + "start.png", middleTile = lanePath + "middle.png", endTile = lanePath + "end.png";
+
+// for (int row = 0; row < TILES_PER_LANE; ++row)
+// {
+// 	if (lane >= GRID_HEIGHT)
+// 		break;
+
+// 	vector<GameTile*> rowTiles;
+
+// 	string terrain = getRowTile(row, startTile, middleTile, endTile);
+// 	for (int rowTile = 0; rowTile < GAME_WIDTH; rowTile += 16)
+// 		rowTiles.push_back(new GameTile(terrain, rowTile, lane * 16, false, false));
+
+// 	lanes.push_back(make_pair(laneRandom, lane * SPAWNER_LANE_WIDTH + SPAWNER_LANE_WIDTH_OFFSET));
+// 	tiles.push_back(rowTiles);
+
+// 	++lane;
+// }
