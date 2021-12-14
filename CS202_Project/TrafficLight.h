@@ -4,36 +4,40 @@
 #include "MovingObject.h"
 #include <vector>
 
+const float SWITCH_COLOR_TIME = 2;
+
 class TrafficLight : public MovingObject
 {
 private:
 	vector<Texture> anim;
-	const float switchColorTime = 2;
-	string type = "green";
+	string type;
 
 	void loadAnimations()
 	{
-		for (int i = 0; i <= 1; ++i)
+		for (int i = 0; i < 2; ++i)
 		{
-			string path = DATA_PATH + "Light/" + to_string(i) + ".png";
+			string path = DATA_PATH + "Traffic Light/texture (" + to_string(i + 1) + ").png";
+
 			Texture texture;
 			texture.loadFromFile(path);
 			anim.push_back(texture);
 		}
 	}
+
 	void updateAnimation()
 	{
-		if (type == "green")
+		if (type == "Green")
 		{
 			model.setTexture(anim[1]);
-			type = "red";
+			type = "Red";
 		}
 		else
 		{
 			model.setTexture(anim[0]);
-			type = "green";
+			type = "Green";
 		}
 	}
+
 	void move(float deltaTime)
 	{
 		Vector2f moveDirection(1, 0);
@@ -47,7 +51,7 @@ public:
 	{
 		loadAnimations();
 		model.setTexture(anim[0]);
-		cout << "Create" << endl;
+		type = "Green";
 	}
 
 	~TrafficLight()
@@ -57,13 +61,12 @@ public:
 	float update(float deltaTime)
 	{
 		timeFromLastSwitchAnim += deltaTime;
-		if (timeFromLastSwitchAnim >= switchColorTime)
+		if (timeFromLastSwitchAnim >= SWITCH_COLOR_TIME)
 		{
 			updateAnimation();
-			cout << "update"
-				 << " " << type << endl;
 			timeFromLastSwitchAnim = 0;
 		}
+
 		return deltaTime;
 	}
 

@@ -23,8 +23,8 @@ private:
 	float timeFromLastSpawn, timeToSpawn;
 	Vector2f position;
 	string type;
-	vector<Enemy *> listEnemy;
-	TrafficLight *trafficLight;
+	vector<Enemy*> listEnemy;
+	TrafficLight* trafficLight;
 
 	void updateEnemies(float deltaTime)
 	{
@@ -38,7 +38,7 @@ private:
 	{
 		if (timeFromLastSpawn >= timeToSpawn)
 		{
-			Enemy *e = new Enemy(type, position, moveToLeft);
+			Enemy* e = new Enemy(type, position, moveToLeft);
 			listEnemy.push_back(e);
 			timeFromLastSpawn = 0;
 		}
@@ -51,7 +51,7 @@ private:
 		if ((int)listEnemy.size() == 0)
 			return;
 
-		std::vector<Enemy *>::iterator enemy = listEnemy.begin();
+		std::vector<Enemy*>::iterator enemy = listEnemy.begin();
 		if ((*enemy)->getBody().getPosition().x > (float)GAME_WIDTH)
 		{
 			delete (*enemy);
@@ -89,14 +89,13 @@ public:
 			}
 	}
 
-	void draw(RenderWindow &window)
+	void draw(RenderWindow& window)
 	{
 		for (auto enemy = listEnemy.begin(); enemy != listEnemy.end(); enemy++)
 		{
 			if ((*enemy)->getType() == "Truck" || (*enemy)->getType() == "Car")
-			{
 				window.draw(trafficLight->getModel());
-			}
+
 			window.draw((*enemy)->getModel());
 		}
 	}
@@ -104,15 +103,19 @@ public:
 	float update(float deltaTime)
 	{
 
-		if (trafficLight->getType() == "red" && (this->type == "Car" || this->type == "Truck"))
+		if (trafficLight->getType() == "Red" && (this->type == "Car" || this->type == "Truck"))
 		{
 			trafficLight->update(deltaTime);
 			return deltaTime;
 		}
+
 		addEnemy(deltaTime);
 		updateEnemies(deltaTime);
+
 		trafficLight->update(deltaTime);
+
 		deleteUnusedEnemies();
+
 		return deltaTime;
 	}
 
@@ -124,6 +127,7 @@ public:
 			if (enemyBounds.intersects(playerBounds))
 				return true;
 		}
+
 		return false;
 	}
 
