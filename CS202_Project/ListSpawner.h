@@ -76,10 +76,10 @@ public:
 	{
 		cameraYPosition += 368;
 		const float playerYPosition = mainPlayer.getBody().getPosition().y;
-		for (auto i = listSpawner.begin(); i != listSpawner.end(); i++)
+		for (auto spawner = listSpawner.begin(); spawner != listSpawner.end(); spawner++)
 		{
-			if (i->getPosition().y <= cameraYPosition && i->getPosition().y >= playerYPosition - SCREEN_HEIGHT)
-				i->update(deltaTime);
+			if (spawner->getPosition().y <= cameraYPosition && spawner->getPosition().y >= playerYPosition - SCREEN_HEIGHT)
+				spawner->update(deltaTime);
 			else
 				break;
 		}

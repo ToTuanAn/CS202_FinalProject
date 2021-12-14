@@ -25,16 +25,17 @@ class Game
 private:
 	float deltaTime;
 	Clock clock;
-	string title;
 	RenderWindow window;
 	View view;
 	Player player;
+	Font scoreTextFont;
 	Text scoreText;
+	SoundBuffer gameMusicBuffer;
 	Sound gameMusic;
 	GameWorld gameWorld;
 	ListSpawner listSpawner;
 
-	void setupWindow()
+	void setupWindow(string title)
 	{
 		window.create(VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), title);
 		window.setFramerateLimit(GAME_FPS);
@@ -53,7 +54,6 @@ private:
 
 	bool createScoreText()
 	{
-		Font scoreTextFont;
 		if (!scoreTextFont.loadFromFile("Fonts/" + SCORE_FONT_NAME))
 		{
 			cout << "Can't load " + SCORE_FONT_NAME << endl;
@@ -64,19 +64,22 @@ private:
 
 		scoreText.setCharacterSize(50);
 		scoreText.setFont(scoreTextFont);
+
 		scoreText.setFillColor(Color::Red);
+
 		scoreText.setOutlineColor(Color::Blue);
 		scoreText.setOutlineThickness(2);
+
 		scoreText.setStyle(Text::Bold);
-		scoreText.setOrigin(scoreText.getGlobalBounds().width - (SCREEN_WIDTH / 2 - 75), scoreText.getGlobalBounds().height / 2);
+
+		scoreText.setOrigin(scoreText.getGlobalBounds().width / 2 - (SCREEN_WIDTH / 2 - 75), scoreText.getGlobalBounds().height / 2);
 
 		return true;
 	}
 
 	bool createGameMusic()
 	{
-		SoundBuffer buffer;
-		if (!buffer.loadFromFile("Sounds/" + GAME_MUSIC_NAME))
+		if (!gameMusicBuffer.loadFromFile("Sounds/" + GAME_MUSIC_NAME))
 		{
 			cout << "Can't load " + GAME_MUSIC_NAME << endl;
 			return false;
@@ -84,7 +87,7 @@ private:
 
 		cout << GAME_MUSIC_NAME + " is loaded!\n";
 
-		gameMusic.setBuffer(buffer);
+		gameMusic.setBuffer(gameMusicBuffer);
 		gameMusic.setLoop(true);
 		gameMusic.play();
 
@@ -100,7 +103,7 @@ private:
 
 		scoreText.setString("Score: " + to_string(player.getScore()));
 
-		listSpawner.update(deltaTime, player, view.getCenter().y);
+		//listSpawner.update(deltaTime, player, view.getCenter().y);
 	}
 
 	void draw()
@@ -109,12 +112,14 @@ private:
 		window.setView(view);
 
 		gameWorld.draw(window);
-		listSpawner.draw(window, player, view.getCenter().y);
+		// listSpawner.draw(window, player, view.getCenter().y);
 
 		window.draw(player.getModel());
-		window.draw(scoreText);
 
 		window.setView(window.getDefaultView());
+		window.draw(scoreText);
+
+		window.display();
 	}
 
 	void newMethod()
@@ -128,9 +133,9 @@ private:
 	}
 
 public:
-	Game()
+	Game(string title)
 	{
-		setupWindow();
+		setupWindow(title);
 		setupView();
 		setupListSpawner();
 		createScoreText();
@@ -139,8 +144,15 @@ public:
 
 	void play()
 	{
+
 		while (window.isOpen())
 		{
+			if (listSpawner.isCollidedWithPlayer(player))
+			{
+				cout << "Player is dead!\n";
+				return;
+			}
+
 			deltaTime = clock.restart().asSeconds();
 			newMethod();
 			update();

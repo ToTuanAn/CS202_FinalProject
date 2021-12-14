@@ -68,8 +68,7 @@ public:
 
 	~Spawner()
 	{
-		for (auto enemy : listEnemy)
-			delete enemy;
+		deleteAllEnemies();
 	}
 
 	void deleteAllEnemies()

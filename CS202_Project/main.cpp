@@ -1,4 +1,4 @@
-#include "Enemy.h"
+/*#include "Enemy.h"
 #include "GameTile.h"
 #include "GameWorld.h"
 #include "ListSpawner.h"
@@ -35,7 +35,8 @@ int main()
 	GameWorld map = GameWorld();
 
 	// Spawners
-	ListSpawner listSpawner(map.getLanes());
+	ListSpawner listSpawner;
+	listSpawner.setup(map.getLanes());
 
 	// Player
 	Player mainPlayer;
@@ -125,9 +126,18 @@ int main()
 		// Score Text
 		scoreText.setString(SCORE_TEXT + to_string(mainPlayer.getScore()));
 		window.draw(scoreText);
-
+		cout << scoreText.getGlobalBounds().width << " " << scoreText.getGlobalBounds().height << endl;
+		cout << scoreText.getPosition().x << " " << scoreText.getPosition().y << endl
+			 << endl;
 		window.display();
 	}
 
+	return 0;
+}*/
+#include "Game.h"
+int main()
+{
+	Game game("dhjvdsnhvndsv");
+	game.play();
 	return 0;
 }
