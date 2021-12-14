@@ -28,6 +28,7 @@ class GameWorld
 {
 private:
 	vector<pair<string, int>> lanes;
+	vector<vector<GameTile*>> tiles;
 	Vector2i exitPos;
 
 	string randomLane()
@@ -99,9 +100,6 @@ private:
 	}
 
 public:
-	// I can't encapsulate this property!!!
-	vector<vector<GameTile*>> tiles;
-
 	GameWorld()
 	{
 		setUpTiles();

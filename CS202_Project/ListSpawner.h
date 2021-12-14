@@ -3,7 +3,6 @@
 
 #include "Enemy.h"
 #include "GameWorld.h"
-#include "MovingObject.h"
 #include "Player.h"
 #include "SFML/Graphics.hpp"
 #include "Spawner.h"

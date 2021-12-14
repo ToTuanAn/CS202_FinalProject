@@ -22,8 +22,8 @@ public:
 		if (!setUpSprite(textureName))
 			return;
 
-		pos = Vector2f(x, y);
-		sprite.setPosition(pos);
+		this->pos = Vector2f(x, y);
+		this->sprite.setPosition(pos);
 		this->isPassible = isPassible;
 		this->isExit = isExit;
 	}
