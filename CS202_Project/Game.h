@@ -103,7 +103,7 @@ private:
 
 		scoreText.setString("Score: " + to_string(player.getScore()));
 
-		//listSpawner.update(deltaTime, player, view.getCenter().y);
+		listSpawner.update(deltaTime, player, view.getCenter().y);
 	}
 
 	void draw()
@@ -112,7 +112,7 @@ private:
 		window.setView(view);
 
 		gameWorld.draw(window);
-		// listSpawner.draw(window, player, view.getCenter().y);
+		listSpawner.draw(window, player, view.getCenter().y);
 
 		window.draw(player.getModel());
 
