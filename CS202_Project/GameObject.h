@@ -13,7 +13,7 @@ const string DATA_PATH = "Data/";
 const float ANIM_SWITCH_TIME = 0.1;
 const int FRAME_PER_ANIM = 4;
 
-class MovingObject : public IObject
+class GameObject : public IObject
 {
 private:
 	void LoadData(string type)
@@ -49,7 +49,7 @@ protected:
 	virtual void move(float deltaTime) = 0;
 
 public:
-	MovingObject(string type, Vector2f position)
+	GameObject(string type, Vector2f position)
 	{
 		LoadData(type);
 		body.setPosition(position);
@@ -58,7 +58,7 @@ public:
 		currentAnimIndex = 0;
 	}
 
-	virtual ~MovingObject()
+	virtual ~GameObject()
 	{
 	}
 

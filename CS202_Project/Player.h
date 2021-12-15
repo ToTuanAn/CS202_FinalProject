@@ -3,14 +3,14 @@
 
 #include "GameWorld.h"
 #include "ISaveable.h"
-#include "MovingObject.h"
+#include "GameObject.h"
 
 #include <vector>
 
 const Vector2f PLAYER_STARTING_POSITION(960 / 2, 2880 - 32);
 const float SCORE_WIDTH = 145;
 
-class Player : public MovingObject, public ISaveable
+class Player : public GameObject, public ISaveable
 {
 private:
 	vector<Texture> leftAnim, rightAnim, frontAnim, backAnim;
@@ -89,7 +89,7 @@ private:
 
 public:
 	Player() :
-		MovingObject("Player", PLAYER_STARTING_POSITION)
+		GameObject("Player", PLAYER_STARTING_POSITION)
 	{
 		loadAnimations();
 		isIdle = true;

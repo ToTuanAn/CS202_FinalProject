@@ -1,12 +1,12 @@
 #ifndef _TRAFFICLIGHT_
 #define _TRAFFICLIGHT_
 
-#include "MovingObject.h"
+#include "GameObject.h"
 #include <vector>
 
 const float SWITCH_COLOR_TIME = 2;
 
-class TrafficLight : public MovingObject
+class TrafficLight : public GameObject
 {
 private:
 	vector<Texture> anim;
@@ -47,7 +47,7 @@ private:
 
 public:
 	TrafficLight(Vector2f position) :
-		MovingObject("Light", position)
+		GameObject("Light", position)
 	{
 		loadAnimations();
 		model.setTexture(anim[0]);

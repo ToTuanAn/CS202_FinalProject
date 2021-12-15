@@ -1,10 +1,10 @@
 #ifndef _ENEMY_
 #define _ENEMY_
 
-#include "MovingObject.h"
+#include "GameObject.h"
 #include <vector>
 
-class Enemy : public MovingObject
+class Enemy : public GameObject
 {
 private:
 	bool moveToLeft;
@@ -53,7 +53,7 @@ private:
 
 public:
 	Enemy(string type, Vector2f position, bool moveToLeft) :
-		MovingObject(type, position),
+		GameObject(type, position),
 		moveToLeft(moveToLeft)
 	{
 		this->type = type;

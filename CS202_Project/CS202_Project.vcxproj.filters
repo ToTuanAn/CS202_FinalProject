@@ -19,14 +19,17 @@
     <Filter Include="Header Files\Tile">
       <UniqueIdentifier>{188b951e-5190-4c63-b5dd-ec54649d774a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Core">
-      <UniqueIdentifier>{cf845170-92ea-400f-8424-b5a1c9c4feb8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\UI">
       <UniqueIdentifier>{a189757f-afc2-4d9e-9682-d26b7d9d9bd5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Save Load">
       <UniqueIdentifier>{27e656c1-6378-445b-9c4c-fd2da8c592e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Spawner">
+      <UniqueIdentifier>{cf845170-92ea-400f-8424-b5a1c9c4feb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Core">
+      <UniqueIdentifier>{47bd3462-4a1d-4491-a6b6-12c0c289f696}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -35,7 +38,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MovingObject.h">
+    <ClInclude Include="GameObject.h">
       <Filter>Header Files\Character</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
@@ -44,14 +47,11 @@
     <ClInclude Include="Enemy.h">
       <Filter>Header Files\Character</Filter>
     </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Spawner.h">
-      <Filter>Header Files\Core</Filter>
+      <Filter>Header Files\Spawner</Filter>
     </ClInclude>
     <ClInclude Include="ListSpawner.h">
-      <Filter>Header Files\Core</Filter>
+      <Filter>Header Files\Spawner</Filter>
     </ClInclude>
     <ClInclude Include="GameTile.h">
       <Filter>Header Files\Tile</Filter>
@@ -67,6 +67,15 @@
     </ClInclude>
     <ClInclude Include="ISaveable.h">
       <Filter>Header Files\Save Load</Filter>
+    </ClInclude>
+    <ClInclude Include="IObject.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="TrafficLight.h">
+      <Filter>Header Files\Spawner</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
