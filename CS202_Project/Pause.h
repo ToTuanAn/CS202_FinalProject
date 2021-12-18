@@ -1,47 +1,35 @@
-#ifndef _MENU_
-#define _MENU_
+#ifndef _PAUSE_H_
+#define _PAUSE_H_
 
-#include "SFML/Graphics.hpp"
-#include<iostream>
-
-#define MAX_NUMBER_OF_ITEMS 3
-
-using namespace std;
-using namespace sf;
-
-const string MENU_FONT_NAME = "UIFont.ttf";
-
-class Menu
-{
+class PauseScreen {
 public:
-	Menu()
-	{
+	PauseScreen(){
 		if (!font.loadFromFile("Fonts/" + MENU_FONT_NAME))
 			cout << "Can't load " + MENU_FONT_NAME << endl;
 		else
 			cout << MENU_FONT_NAME + " is loaded!\n";
 	}
-
+	
 	void create(float width, float height) {
 		menu[0].setFont(font);
 		menu[0].setFillColor(sf::Color::Red);
-		menu[0].setString("New Game");
+		menu[0].setString("Save");
 		menu[0].setPosition(sf::Vector2f(width / 2, height / (MAX_NUMBER_OF_ITEMS + 1) * 1));
 
 		menu[1].setFont(font);
 		menu[1].setFillColor(sf::Color::White);
-		menu[1].setString("Load Game");
+		menu[1].setString("Resume");
 		menu[1].setPosition(sf::Vector2f(width / 2, height / (MAX_NUMBER_OF_ITEMS + 1) * 2));
 
 		menu[2].setFont(font);
 		menu[2].setFillColor(sf::Color::White);
-		menu[2].setString("Exit");
+		menu[2].setString("Back to menu");
 		menu[2].setPosition(sf::Vector2f(width / 2, height / (MAX_NUMBER_OF_ITEMS + 1) * 3));
 
 		selectedItemIndex = 0;
 	}
 
-	~Menu()
+	~PauseScreen()
 	{}
 
 	void draw(sf::RenderWindow& window)
@@ -77,9 +65,9 @@ public:
 		return selectedItemIndex;
 	}
 
-	void eventMethod(RenderWindow& MENU, bool& isMenu) {
+	void eventMethod(RenderWindow& MENU, bool &isMenu, bool &isPause) {
 		Event event;
-		
+
 		while (MENU.pollEvent(event)) {
 			if (event.type == Event::Closed)
 			{
@@ -103,33 +91,35 @@ public:
 					switch (this->GetPressedItem())
 					{
 					case 0:
-						std::cout << "New game button has been pressed" << std::endl;
-						isMenu = false;
+						std::cout << "Save button has been pressed" << std::endl;
 						break;
 					case 1:
-						std::cout << "Load game button has been pressed" << std::endl;
+						std::cout << "Resume button has been pressed" << std::endl;
 
 						break;
 					case 2:
-						MENU.close();
+						isMenu = true;
+						
 						break;
 					}
+					isPause = false;
 				}
 			}
 		}
-		
+
 	}
+
 
 	void show(RenderWindow& MENU)
 	{
-		MENU.clear();
+		MENU.clear(sf::Color(127, 127, 127));
 		this->draw(MENU);
 		MENU.display();
 	}
-
 private:
 	int selectedItemIndex;
 	Font font;
 	Text menu[MAX_NUMBER_OF_ITEMS];
 };
+
 #endif

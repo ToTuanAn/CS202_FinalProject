@@ -77,5 +77,8 @@
     <ClInclude Include="TrafficLight.h">
       <Filter>Header Files\Spawner</Filter>
     </ClInclude>
+    <ClInclude Include="Pause.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

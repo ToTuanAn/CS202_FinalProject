@@ -161,6 +161,7 @@
     <ClInclude Include="ListSpawner.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Pause.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SaveLoadSystem.h" />
     <ClInclude Include="Spawner.h" />

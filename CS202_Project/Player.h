@@ -16,6 +16,7 @@ private:
 	vector<Texture> leftAnim, rightAnim, frontAnim, backAnim;
 	vector<Texture> currentAnim;
 	bool isIdle;
+	bool canMove = true;
 	bool boundEast, boundWest, boundNorth, boundSouth;
 	int score;
 
@@ -53,39 +54,45 @@ private:
 
 	void move(float deltaTime)
 	{
-		if (Keyboard::isKeyPressed(Keyboard::A))
-		{
-			if (!boundWest)
-				body.move(Vector2f(-speed, 0) * deltaTime);
-			currentAnim = leftAnim;
-		}
-		else if (Keyboard::isKeyPressed(Keyboard::D))
-		{
-			if (!boundEast)
-				body.move(Vector2f(speed, 0) * deltaTime);
-			currentAnim = rightAnim;
-		}
-		else if (Keyboard::isKeyPressed(Keyboard::S))
-		{
-			if (!boundSouth)
-				body.move(Vector2f(0, speed) * deltaTime);
-			currentAnim = frontAnim;
-		}
-		else if (Keyboard::isKeyPressed(Keyboard::W))
-		{
-			if (!boundNorth)
-				body.move(Vector2f(0, -speed) * deltaTime);
-			currentAnim = backAnim;
-		}
-		else
-		{
-			isIdle = true;
-			currentAnimIndex = 0;
+		if (canMove) {
+			if (Keyboard::isKeyPressed(Keyboard::A))
+			{
+				if (!boundWest)
+					body.move(Vector2f(-speed, 0) * deltaTime);
+				currentAnim = leftAnim;
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::D))
+			{
+				if (!boundEast)
+					body.move(Vector2f(speed, 0) * deltaTime);
+				currentAnim = rightAnim;
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::S))
+			{
+				if (!boundSouth)
+					body.move(Vector2f(0, speed) * deltaTime);
+				currentAnim = frontAnim;
+			}
+			else if (Keyboard::isKeyPressed(Keyboard::W))
+			{
+				if (!boundNorth)
+					body.move(Vector2f(0, -speed) * deltaTime);
+				currentAnim = backAnim;
+			}
+			else
+			{
+				isIdle = true;
+				currentAnimIndex = 0;
+			}
+
+			isIdle = false;
+			model.setPosition(body.getPosition());
 		}
 
-		isIdle = false;
-		model.setPosition(body.getPosition());
+		
 	}
+
+	
 
 public:
 	Player() :
@@ -111,6 +118,7 @@ public:
 
 		return deltaTime;
 	}
+
 
 	int getScore()
 	{

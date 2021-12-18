@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "SaveLoadSystem.h"
 #include "Menu.h"
+#include "Pause.h"
 
 #include "SFML/Audio.hpp"
 #include "SFML/Graphics.hpp"
@@ -42,9 +43,11 @@ private:
 	ListSpawner listSpawner;
 
 	Menu menu;
+	PauseScreen pauseScreen;
 
 	SaveLoadSystem saveLoadSystem;
 	bool isMenu = true;
+	bool isPause = false;
 
 
 	void setupWindow(string title)
@@ -140,24 +143,36 @@ private:
 		window.display();
 	}
 
-	void newMethod()
+	void eventMethod()
 	{
 		Event event;
 		while (window.pollEvent(event))
 		{
 			if (event.type == Event::Closed)
 				window.close();
+
+			if (event.type == Event::KeyPressed) {
+				if (event.key.code == Keyboard::P) {
+					isPause = true;
+					while (isPause) {
+						pauseScreen.eventMethod(window, isMenu, isPause);
+						pauseScreen.show(window);
+					}
+				}
+			}
 		}
 	}
 
-	void setupMenu() {
+	void setupUI() {
 		menu.create(SCREEN_WIDTH, SCREEN_HEIGHT);
+		pauseScreen.create(SCREEN_WIDTH, SCREEN_HEIGHT);
 	}
+
 
 public:
 	Game(string title)
 	{
-		setupMenu();
+		setupUI();
 		setupWindow(title);
 		setupView();
 		setupListSpawner();
@@ -182,7 +197,7 @@ public:
 					return;
 				}
 				deltaTime = clock.restart().asSeconds();
-				newMethod();
+				eventMethod();
 				update();
 				draw();
 			}
