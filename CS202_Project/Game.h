@@ -5,6 +5,7 @@
 #include "ListSpawner.h"
 #include "Player.h"
 #include "SaveLoadSystem.h"
+#include "Menu.h"
 
 #include "SFML/Audio.hpp"
 #include "SFML/Graphics.hpp"
@@ -40,7 +41,11 @@ private:
 	GameWorld gameWorld;
 	ListSpawner listSpawner;
 
+	Menu menu;
+
 	SaveLoadSystem saveLoadSystem;
+	bool isMenu = true;
+
 
 	void setupWindow(string title)
 	{
@@ -118,7 +123,7 @@ private:
 		player.update(deltaTime);
 		scoreText.setString("Score: " + to_string(player.getScore()));
 
-		listSpawner.update(deltaTime, player, view.getCenter().y);
+		//listSpawner.update(deltaTime, player, view.getCenter().y);
 	}
 
 	void draw()
@@ -145,9 +150,14 @@ private:
 		}
 	}
 
+	void setupMenu() {
+		menu.create(SCREEN_WIDTH, SCREEN_HEIGHT);
+	}
+
 public:
 	Game(string title)
 	{
+		setupMenu();
 		setupWindow(title);
 		setupView();
 		setupListSpawner();
@@ -161,15 +171,21 @@ public:
 
 		while (window.isOpen())
 		{
-			if (listSpawner.isCollidedWithPlayer(player))
-			{
-				cout << "Player is dead!\n";
-				return;
+			if (isMenu) {
+				menu.eventMethod(window, isMenu);
+				menu.show(window);
 			}
-			deltaTime = clock.restart().asSeconds();
-			newMethod();
-			update();
-			draw();
+			else {
+				if (listSpawner.isCollidedWithPlayer(player))
+				{
+					cout << "Player is dead!\n";
+					return;
+				}
+				deltaTime = clock.restart().asSeconds();
+				newMethod();
+				update();
+				draw();
+			}
 		}
 	}
 };

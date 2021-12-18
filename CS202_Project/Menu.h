@@ -2,6 +2,7 @@
 #define _MENU_
 
 #include "SFML/Graphics.hpp"
+#include<iostream>
 
 #define MAX_NUMBER_OF_ITEMS 3
 
@@ -13,13 +14,15 @@ const string MENU_FONT_NAME = "UIFont.ttf";
 class Menu
 {
 public:
-	Menu(float width, float height)
+	Menu()
 	{
 		if (!font.loadFromFile("Fonts/" + MENU_FONT_NAME))
 			cout << "Can't load " + MENU_FONT_NAME << endl;
 		else
 			cout << MENU_FONT_NAME + " is loaded!\n";
+	}
 
+	void create(float width, float height) {
 		menu[0].setFont(font);
 		menu[0].setFillColor(sf::Color::Red);
 		menu[0].setString("New Game");
@@ -74,55 +77,53 @@ public:
 		return selectedItemIndex;
 	}
 
-	void show(RenderWindow& MENU)
-	{
-		while (MENU.isOpen())
-		{
-			Event event;
-
-			while (MENU.pollEvent(event))
+	void eventMethod(RenderWindow& MENU, bool& isMenu) {
+		Event event;
+		
+		while (MENU.pollEvent(event)) {
+			if (event.type == Event::Closed)
 			{
+				MENU.close();
+			}
 
-				if (event.type == Event::Closed)
+			if (event.type == Event::KeyPressed)
+			{
+				if (event.key.code == Keyboard::Up)
 				{
-					MENU.close();
+					this->MoveUp();
+					break;
 				}
-
-				if (event.type == Event::KeyPressed)
+				if (event.key.code == Keyboard::Down)
 				{
-					if (event.key.code == Keyboard::Up)
+					this->MoveDown();
+					break;
+				}
+				if (event.key.code == Keyboard::Return)
+				{
+					switch (this->GetPressedItem())
 					{
-						this->MoveUp();
+					case 0:
+						std::cout << "Play button has been pressed" << std::endl;
+						isMenu = false;
 						break;
-					}
-					if (event.key.code == Keyboard::Down)
-					{
-						this->MoveDown();
+					case 1:
+						std::cout << "Option button has been pressed" << std::endl;
 						break;
-					}
-					if (event.key.code == Keyboard::Return)
-					{
-						switch (this->GetPressedItem())
-						{
-							case 0:
-								std::cout << "Play button has been pressed" << std::endl;
-								break;
-							case 1:
-								std::cout << "Option button has been pressed" << std::endl;
-								break;
-							case 2:
-								MENU.close();
-								break;
-							default:
-								break;
-						}
+					case 2:
+						MENU.close();
+						break;
 					}
 				}
 			}
-			MENU.clear();
-			this->draw(MENU);
-			MENU.display();
 		}
+		
+	}
+
+	void show(RenderWindow& MENU)
+	{
+		MENU.clear();
+		this->draw(MENU);
+		MENU.display();
 	}
 
 private:
