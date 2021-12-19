@@ -4,24 +4,30 @@
 #include "IObject.h"
 #include "ISaveable.h"
 
+#include <dirent.h>
 #include <fstream>
 #include <vector>
 
 using namespace std;
 using namespace sf;
 
+const char* SAVE_PATH = "Save";
+const string GOOD_SAVE_PATH = "Save";
+
 class SaveLoadSystem : public IObject
 {
 private:
 	vector<ISaveable*> saveableObjects;
 	View* view;
-
-	string inputFilename()
-	{
-		return "save.dat";
-	}
+	string currentFile;
 
 public:
+	SaveLoadSystem()
+	{
+		view = nullptr;
+		currentFile = "";
+	}
+
 	void setViewToSaveLoadPosition(View* view)
 	{
 		this->view = view;
@@ -54,7 +60,7 @@ public:
 		cout << "Saving...\n";
 
 		ofstream out;
-		out.open(inputFilename());
+		out.open(getCurrentFile());
 		if (out.is_open())
 			for (ISaveable* saveableObject : saveableObjects)
 				saveableObject->save(out);
@@ -67,12 +73,54 @@ public:
 		cout << "Loading...\n";
 
 		ifstream in;
-		in.open(inputFilename());
+		in.open(getCurrentFile());
 		if (in.is_open())
 			for (ISaveable* saveableObject : saveableObjects)
 				saveableObject->load(in);
 
 		in.close();
+	}
+
+	vector<string> getAllFiles()
+	{
+		vector<string> files;
+
+		DIR* direct;
+		struct dirent* entry;
+
+		if ((direct = opendir(SAVE_PATH)) != nullptr)
+		{
+			while ((entry = readdir(direct)) != nullptr)
+				files.push_back(entry->d_name);
+
+			closedir(direct);
+		}
+		else
+			cout << "Can't find saving path!\n";
+
+		return files;
+	}
+
+	void createNewFile()
+	{
+		if (currentFile != "")
+			save();
+
+		currentFile = "save" + to_string(getAllFiles().size()) + "dat";
+	}
+
+	string getCurrentFile()
+	{
+		return GOOD_SAVE_PATH + "/" + currentFile;
+	}
+
+	void setCurrentFile(string newFile)
+	{
+		if (currentFile != "")
+			save();
+
+		currentFile = newFile;
+		load();
 	}
 };
 #endif
