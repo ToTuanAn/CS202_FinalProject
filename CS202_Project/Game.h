@@ -200,7 +200,7 @@ public:
 				if (listSpawner.isCollidedWithPlayer(player))
 				{
 					cout << "Player is dead!\n";
-					return;
+					//return;
 				}
 				deltaTime = clock.restart().asSeconds();
 				eventMethod();
