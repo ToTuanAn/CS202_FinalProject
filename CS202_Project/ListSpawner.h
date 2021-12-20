@@ -22,7 +22,7 @@ private:
 
 	void deleteUnusedSpawners(int viewY)
 	{
-		for (int spawner = 0; spawner < listSpawner.size(); spawner++)
+		for (uint spawner = 0; spawner < listSpawner.size(); spawner++)
 		{
 			if (listSpawner[spawner].getPosition().y + 20 > viewY)
 			{
@@ -99,16 +99,17 @@ public:
 	{
 		cameraYPosition += 368;
 		const float playerYPosition = mainPlayer.getBody().getPosition().y;
-		for (int spawner = 0; spawner < listSpawner.size(); ++spawner)
-		{	
-			
-			if (listSpawner[spawner].getPosition().y <= cameraYPosition && listSpawner[spawner].getPosition().y >= playerYPosition - SCREEN_HEIGHT) {
+		for (uint spawner = 0; spawner < listSpawner.size(); ++spawner)
+		{
+
+			if (listSpawner[spawner].getPosition().y <= cameraYPosition && listSpawner[spawner].getPosition().y >= playerYPosition - SCREEN_HEIGHT)
+			{
 				listSpawner[spawner].update(deltaTime);
 			}
-			else {
+			else
+			{
 				break;
 			}
-			
 		}
 		deleteUnusedSpawners(cameraYPosition);
 	}
