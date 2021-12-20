@@ -27,7 +27,7 @@ private:
 
 			int width, height;
 			in >> width >> height;
-			body.setSize(Vector2f(width, height));
+			body.setSize(Vector2f(width / 1.5, height / 1.5));
 			model.setTextureRect(IntRect(0, 0, width, height));
 
 			float scale;
