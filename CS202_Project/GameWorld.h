@@ -16,7 +16,7 @@ const int GAME_WIDTH = 960;
 const int SCREEN_HEIGHT = 992;
 const int SCREEN_WIDTH = 960;
 
-const float CAMERA_SPEED = 1;
+const float CAMERA_SPEED = 5;
 
 const int TILES_PER_LANE = 7;
 const int SPAWNER_LANE_WIDTH = 28;

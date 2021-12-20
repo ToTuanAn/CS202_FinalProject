@@ -12,29 +12,33 @@ using namespace sf;
 class LoadScreen : public UIScreen
 {
 public:
-	LoadScreen(SaveLoadSystem sys)
+	LoadScreen()
 	{
 		if (!font.loadFromFile("Fonts/" + MENU_FONT_NAME))
 			cout << "Can't load " + MENU_FONT_NAME << endl;
 		else
 			cout << MENU_FONT_NAME + " is loaded!\n";
+	}
 
-		vector<string> allLoadFile = sys.getAllFiles();
+	void connect(SaveLoadSystem *sys) {
+		vector<string> allLoadFile = sys->getAllFiles();
+		
 		for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++)
 		{
 			if (allLoadFile[i] != "")
 			{
-				this->list[i].setString(allLoadFile[i]);
+				this->texts[i] = allLoadFile[i];
 			}
 			else
 			{
-				this->list[i].setString("Empty");
+				this->texts[i] = "Empty";
 			}
 		}
+		
 		this->selectedItemIndex = 0;
 	}
 
-	void eventMethod(RenderWindow& MENU, SaveLoadSystem sys)
+	void eventMethod(RenderWindow& MENU, SaveLoadSystem *sys, bool &isSelect)
 	{
 		Event event;
 
@@ -62,13 +66,22 @@ public:
 					switch (this->GetPressedItem())
 					{
 						case 0:
-							sys.setCurrentFile(this->list[0].getString());
+							if ((this->list[0].getString()) != "Empty") {
+								sys->setCurrentFile(this->list[0].getString());
+								isSelect = true;
+							}
 							break;
 						case 1:
-							sys.setCurrentFile(this->list[1].getString());
+							if ((this->list[1].getString()) != "Empty") {
+								sys->setCurrentFile(this->list[1].getString());
+								isSelect = true;
+							}
 							break;
 						case 2:
-							sys.setCurrentFile(this->list[2].getString());
+							if ((this->list[2].getString()) != "Empty") {
+								sys->setCurrentFile(this->list[2].getString());
+								isSelect = true;
+							}
 							break;
 						default:
 							break;

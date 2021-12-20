@@ -88,9 +88,14 @@ public:
 		in.open(SAVE_FILE_LIST);
 		if (in.is_open())
 		{
-			string file;
-			getline(in, file);
-			files.push_back(file);
+			while (!in.eof()) {
+				string file;
+				getline(in, file);
+				files.push_back(file);
+			}
+		}
+		else {
+			cout << "Can not open file :<" << endl;
 		}
 		in.close();
 
@@ -102,8 +107,8 @@ public:
 		if (currentFile != "")
 			save();
 
-		currentFile = "save" + to_string(getAllFiles().size()) + "dat";
-
+		currentFile = "save" + to_string(getAllFiles().size()) + ".dat";
+		cout << currentFile << endl;
 		vector<string> oldFiles = getAllFiles();
 
 		ofstream out;

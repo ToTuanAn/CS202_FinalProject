@@ -28,7 +28,7 @@ private:
 
 	void updateEnemies(float deltaTime)
 	{
-		for (auto enemy = listEnemy.begin(); enemy != listEnemy.end(); enemy++)
+		for (vector<Enemy*>::iterator enemy = listEnemy.begin(); enemy != listEnemy.end(); enemy++)
 		{
 			(*enemy)->update(deltaTime);
 		}
@@ -81,7 +81,7 @@ public:
 		if ((int)listEnemy.size() == 0)
 			return;
 
-		for (auto enemy = listEnemy.begin(); enemy != listEnemy.end(); enemy++)
+		for (vector<Enemy*>::iterator enemy = listEnemy.begin(); enemy != listEnemy.end(); enemy++)
 			if ((*enemy)->getBody().getPosition().x > (float)GAME_WIDTH)
 			{
 				delete (*enemy);
@@ -91,7 +91,7 @@ public:
 
 	void draw(RenderWindow& window)
 	{
-		for (auto enemy = listEnemy.begin(); enemy != listEnemy.end(); enemy++)
+		for (vector<Enemy*>::iterator enemy = listEnemy.begin(); enemy != listEnemy.end(); enemy++)
 		{
 			if ((*enemy)->getType() == "Truck" || (*enemy)->getType() == "Car")
 				window.draw(trafficLight->getModel());
@@ -121,7 +121,7 @@ public:
 
 	bool isCollidedWithPlayer(FloatRect const playerBounds)
 	{
-		for (auto enemy = listEnemy.begin(); enemy != listEnemy.end(); enemy++)
+		for (vector<Enemy*>::iterator enemy = listEnemy.begin(); enemy != listEnemy.end(); enemy++)
 		{
 			FloatRect enemyBounds = (*enemy)->getBody().getGlobalBounds();
 			if (enemyBounds.intersects(playerBounds))

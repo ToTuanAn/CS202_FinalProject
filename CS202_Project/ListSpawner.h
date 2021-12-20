@@ -22,12 +22,12 @@ private:
 
 	void deleteUnusedSpawners(int viewY)
 	{
-		for (auto spawner = listSpawner.begin(); spawner != listSpawner.end(); spawner++)
+		for (int spawner = 0; spawner < listSpawner.size(); spawner++)
 		{
-			if (spawner->getPosition().y + 20 > viewY)
+			if (listSpawner[spawner].getPosition().y + 20 > viewY)
 			{
-				spawner->deleteAllEnemies();
-				listSpawner.erase(spawner);
+				listSpawner[spawner].deleteAllEnemies();
+				listSpawner.erase(listSpawner.begin() + spawner);
 			}
 		}
 	}
@@ -88,7 +88,7 @@ public:
 	{
 		cameraYPosition += 368;
 		const float playerYPosition = mainPlayer.getBody().getPosition().y;
-		for (auto spawner = listSpawner.begin(); spawner != listSpawner.end(); spawner++)
+		for (vector<Spawner>::iterator spawner = listSpawner.begin(); spawner != listSpawner.end(); spawner++)
 			if (spawner->getPosition().y <= cameraYPosition && spawner->getPosition().y >= playerYPosition - SCREEN_HEIGHT)
 				spawner->draw(window);
 			else
@@ -99,14 +99,17 @@ public:
 	{
 		cameraYPosition += 368;
 		const float playerYPosition = mainPlayer.getBody().getPosition().y;
-		for (auto spawner = listSpawner.begin(); spawner != listSpawner.end(); spawner++)
-		{
-			if (spawner->getPosition().y <= cameraYPosition && spawner->getPosition().y >= playerYPosition - SCREEN_HEIGHT)
-				spawner->update(deltaTime);
-			else
+		for (int spawner = 0; spawner < listSpawner.size(); ++spawner)
+		{	
+			
+			if (listSpawner[spawner].getPosition().y <= cameraYPosition && listSpawner[spawner].getPosition().y >= playerYPosition - SCREEN_HEIGHT) {
+				listSpawner[spawner].update(deltaTime);
+			}
+			else {
 				break;
+			}
+			
 		}
-
 		deleteUnusedSpawners(cameraYPosition);
 	}
 
@@ -114,7 +117,7 @@ public:
 	{
 		const FloatRect playerBounds = mainPlayer.getBody().getGlobalBounds();
 		const float playerYPosition = mainPlayer.getBody().getPosition().y;
-		for (auto spawner = listSpawner.begin(); spawner != listSpawner.end(); spawner++)
+		for (vector<Spawner>::iterator spawner = listSpawner.begin(); spawner != listSpawner.end(); spawner++)
 			if (spawner->getPosition().y >= playerYPosition - SCREEN_HEIGHT)
 			{
 				if (spawner->isCollidedWithPlayer(playerBounds))
@@ -130,7 +133,7 @@ public:
 		int listSpawnerSize = listSpawner.size();
 		out.write((char*)&listSpawnerSize, sizeof(listSpawnerSize));
 
-		for (auto spawner = listSpawner.begin(); spawner != listSpawner.end(); spawner++)
+		for (vector<Spawner>::iterator spawner = listSpawner.begin(); spawner != listSpawner.end(); spawner++)
 		{
 			float timeToSpawn = spawner->getTimeToSpawn();
 			out.write((char*)&timeToSpawn, sizeof(timeToSpawn));

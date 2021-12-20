@@ -27,22 +27,10 @@ public:
 	~Menu()
 	{}
 
-	/*void changeLoad(SaveLoadSystem sys) {
-		vector<string> allFile = sys.getAllFiles();
-		for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++) {
-			if (allFile[i] != "") {
-				this->list[i].setString(allFile[i]);
-			}
-			else {
-				this->list[i].setString("Empty");
-			}
-		}
-		this->selectedItemIndex = 0;
-	}*/
-
-	void eventMethod(RenderWindow& MENU, bool& isMenu, SaveLoadSystem sys)
+	void eventMethod(RenderWindow& MENU, bool& isMenu, SaveLoadSystem *sys, LoadScreen *loadScreen)
 	{
 		Event event;
+		bool isSelect = false;
 
 		while (MENU.pollEvent(event))
 		{
@@ -69,15 +57,14 @@ public:
 					{
 						case 0:
 							std::cout << "New game button has been pressed" << std::endl;
+							sys->createNewFile();
 							isMenu = false;
 							break;
 						case 1:
 							std::cout << "Load game button has been pressed" << std::endl;
-							while (true)
-							{
-								LoadScreen loadScreen(sys);
-								loadScreen.eventMethod(MENU, sys);
-								loadScreen.show(MENU);
+							while (!isSelect) {
+								loadScreen->eventMethod(MENU, sys, isSelect);
+								loadScreen->show(MENU);
 							}
 							isMenu = false;
 							break;

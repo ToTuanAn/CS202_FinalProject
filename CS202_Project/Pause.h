@@ -1,6 +1,7 @@
 #ifndef _PAUSE_H_
 #define _PAUSE_H_
 
+#include"SaveLoadSystem.h"
 class PauseScreen : public UIScreen
 {
 public:
@@ -15,7 +16,7 @@ public:
 		this->texts[2] = "Back to menu";
 	}
 
-	void eventMethod(RenderWindow& MENU, bool& isMenu, bool& isPause)
+	void eventMethod(RenderWindow& MENU, bool& isMenu, bool& isPause, SaveLoadSystem *sys)
 	{
 		Event event;
 
@@ -44,6 +45,8 @@ public:
 					{
 						case 0:
 							std::cout << "Save button has been pressed" << std::endl;
+							cout << sys->getCurrentFile() << endl;
+							sys->save();
 							break;
 						case 1:
 							std::cout << "Resume button has been pressed" << std::endl;

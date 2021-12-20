@@ -44,6 +44,7 @@ private:
 
 	Menu menu;
 	PauseScreen pauseScreen;
+	LoadScreen loadScreen;
 
 	SaveLoadSystem saveLoadSystem;
 	bool isMenu = true;
@@ -124,7 +125,6 @@ private:
 		player.setBound(view.getCenter());
 		player.update(deltaTime);
 		scoreText.setString("Score: " + to_string(player.getScore()));
-
 		listSpawner.update(deltaTime, player, view.getCenter().y);
 	}
 
@@ -157,7 +157,7 @@ private:
 					isPause = true;
 					while (isPause)
 					{
-						pauseScreen.eventMethod(window, isMenu, isPause);
+						pauseScreen.eventMethod(window, isMenu, isPause, &saveLoadSystem);
 						pauseScreen.show(window);
 					}
 				}
@@ -169,6 +169,8 @@ private:
 	{
 		menu.create(SCREEN_WIDTH, SCREEN_HEIGHT);
 		pauseScreen.create(SCREEN_WIDTH, SCREEN_HEIGHT);
+		loadScreen.connect(&saveLoadSystem);
+		loadScreen.create(SCREEN_WIDTH, SCREEN_HEIGHT);
 	}
 
 public:
@@ -190,7 +192,7 @@ public:
 		{
 			if (isMenu)
 			{
-				menu.eventMethod(window, isMenu, saveLoadSystem);
+				menu.eventMethod(window, isMenu, &saveLoadSystem, &loadScreen);
 				menu.show(window);
 			}
 			else
