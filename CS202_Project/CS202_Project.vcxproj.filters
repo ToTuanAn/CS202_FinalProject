@@ -80,5 +80,11 @@
     <ClInclude Include="Pause.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Load.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UIScreen.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

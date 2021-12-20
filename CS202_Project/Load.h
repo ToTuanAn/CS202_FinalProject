@@ -1,48 +1,37 @@
-#ifndef _MENU_
-#define _MENU_
+#ifndef LOAD_H
+#define LOAD_H
 
 #include "SFML/Graphics.hpp"
 #include<iostream>
 #include"UIScreen.h"
-#include"Load.h"
 #include"SaveLoadSystem.h"
 
 using namespace std;
 using namespace sf;
 
-class Menu: public UIScreen
-{
+class LoadScreen : public UIScreen {
 public:
-	Menu()
-	{
+	LoadScreen(SaveLoadSystem sys) {
 		if (!font.loadFromFile("Fonts/" + MENU_FONT_NAME))
 			cout << "Can't load " + MENU_FONT_NAME << endl;
 		else
 			cout << MENU_FONT_NAME + " is loaded!\n";
-		this->texts[0] = "New Game";
-		this->texts[1] = "Load Game";
-		this->texts[2] = "Exit Game";
-	}
-
-	~Menu()
-	{}
-
-	/*void changeLoad(SaveLoadSystem sys) {
-		vector<string> allFile = sys.getAllFiles();
+		
+		vector<string> allLoadFile = sys.getAllFiles();
 		for (int i = 0; i < MAX_NUMBER_OF_ITEMS; i++) {
-			if (allFile[i] != "") {
-				this->list[i].setString(allFile[i]);
+			if (allLoadFile[i] != "") {
+				this->list[i].setString(allLoadFile[i]);
 			}
 			else {
 				this->list[i].setString("Empty");
 			}
 		}
 		this->selectedItemIndex = 0;
-	}*/
-
-	void eventMethod(RenderWindow& MENU, bool& isMenu, SaveLoadSystem sys) {
+	}
+	
+	void eventMethod(RenderWindow& MENU, SaveLoadSystem sys) {
 		Event event;
-		
+
 		while (MENU.pollEvent(event)) {
 			if (event.type == Event::Closed)
 			{
@@ -66,29 +55,21 @@ public:
 					switch (this->GetPressedItem())
 					{
 					case 0:
-						std::cout << "New game button has been pressed" << std::endl;
-						isMenu = false;
+						sys.setCurrentFile(this->list[0].getString());
 						break;
 					case 1:
-						std::cout << "Load game button has been pressed" << std::endl;
-						while (true) {
-							LoadScreen loadScreen(sys);
-							loadScreen.eventMethod(MENU, sys);
-							loadScreen.show(MENU);
-						}
-						isMenu = false;
+						sys.setCurrentFile(this->list[1].getString());
 						break;
 					case 2:
-						MENU.close();
+						sys.setCurrentFile(this->list[2].getString());
 						break;
 					}
 				}
 			}
 		}
-		
+
 	}
-
-
-private:
 };
-#endif
+
+#endif // !LOAD_H
+

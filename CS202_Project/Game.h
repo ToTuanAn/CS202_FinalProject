@@ -187,7 +187,7 @@ public:
 		while (window.isOpen())
 		{
 			if (isMenu) {
-				menu.eventMethod(window, isMenu);
+				menu.eventMethod(window, isMenu, saveLoadSystem);
 				menu.show(window);
 			}
 			else {

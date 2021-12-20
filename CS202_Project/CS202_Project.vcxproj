@@ -159,6 +159,7 @@
     <ClInclude Include="IObject.h" />
     <ClInclude Include="ISaveable.h" />
     <ClInclude Include="ListSpawner.h" />
+    <ClInclude Include="Load.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Pause.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="SaveLoadSystem.h" />
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="TrafficLight.h" />
+    <ClInclude Include="UIScreen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
