@@ -1,9 +1,11 @@
 #ifndef _PAUSE_H_
 #define _PAUSE_H_
 
-class PauseScreen : public UIScreen{
+class PauseScreen : public UIScreen
+{
 public:
-	PauseScreen(){
+	PauseScreen()
+	{
 		if (!font.loadFromFile("Fonts/" + MENU_FONT_NAME))
 			cout << "Can't load " + MENU_FONT_NAME << endl;
 		else
@@ -12,11 +14,13 @@ public:
 		this->texts[1] = "Resume Game";
 		this->texts[2] = "Back to menu";
 	}
-	
-	void eventMethod(RenderWindow& MENU, bool &isMenu, bool &isPause) {
+
+	void eventMethod(RenderWindow& MENU, bool& isMenu, bool& isPause)
+	{
 		Event event;
 
-		while (MENU.pollEvent(event)) {
+		while (MENU.pollEvent(event))
+		{
 			if (event.type == Event::Closed)
 			{
 				MENU.close();
@@ -38,26 +42,25 @@ public:
 				{
 					switch (this->GetPressedItem())
 					{
-					case 0:
-						std::cout << "Save button has been pressed" << std::endl;
-						break;
-					case 1:
-						std::cout << "Resume button has been pressed" << std::endl;
-						break;
-					case 2:
-						isMenu = true;
-						break;
+						case 0:
+							std::cout << "Save button has been pressed" << std::endl;
+							break;
+						case 1:
+							std::cout << "Resume button has been pressed" << std::endl;
+							break;
+						case 2:
+							isMenu = true;
+							break;
+						default:
+							break;
 					}
 					isPause = false;
 				}
 			}
 		}
-
 	}
 
-
 private:
-	
 };
 
 #endif

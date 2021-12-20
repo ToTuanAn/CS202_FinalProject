@@ -1,16 +1,16 @@
 #ifndef _MENU_
 #define _MENU_
 
+#include "Load.h"
 #include "SFML/Graphics.hpp"
-#include<iostream>
-#include"UIScreen.h"
-#include"Load.h"
-#include"SaveLoadSystem.h"
+#include "SaveLoadSystem.h"
+#include "UIScreen.h"
+#include <iostream>
 
 using namespace std;
 using namespace sf;
 
-class Menu: public UIScreen
+class Menu : public UIScreen
 {
 public:
 	Menu()
@@ -40,10 +40,12 @@ public:
 		this->selectedItemIndex = 0;
 	}*/
 
-	void eventMethod(RenderWindow& MENU, bool& isMenu, SaveLoadSystem sys) {
+	void eventMethod(RenderWindow& MENU, bool& isMenu, SaveLoadSystem sys)
+	{
 		Event event;
-		
-		while (MENU.pollEvent(event)) {
+
+		while (MENU.pollEvent(event))
+		{
 			if (event.type == Event::Closed)
 			{
 				MENU.close();
@@ -65,29 +67,30 @@ public:
 				{
 					switch (this->GetPressedItem())
 					{
-					case 0:
-						std::cout << "New game button has been pressed" << std::endl;
-						isMenu = false;
-						break;
-					case 1:
-						std::cout << "Load game button has been pressed" << std::endl;
-						while (true) {
-							LoadScreen loadScreen(sys);
-							loadScreen.eventMethod(MENU, sys);
-							loadScreen.show(MENU);
-						}
-						isMenu = false;
-						break;
-					case 2:
-						MENU.close();
-						break;
+						case 0:
+							std::cout << "New game button has been pressed" << std::endl;
+							isMenu = false;
+							break;
+						case 1:
+							std::cout << "Load game button has been pressed" << std::endl;
+							while (true)
+							{
+								LoadScreen loadScreen(sys);
+								loadScreen.eventMethod(MENU, sys);
+								loadScreen.show(MENU);
+							}
+							isMenu = false;
+							break;
+						case 2:
+							MENU.close();
+							break;
+						default:
+							break;
 					}
 				}
 			}
 		}
-		
 	}
-
 
 private:
 };

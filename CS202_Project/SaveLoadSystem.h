@@ -4,15 +4,14 @@
 #include "IObject.h"
 #include "ISaveable.h"
 
-//#include <dirent.h>
 #include <fstream>
 #include <vector>
 
 using namespace std;
 using namespace sf;
 
-const char* SAVE_PATH = "Save";
-const string GOOD_SAVE_PATH = "Save";
+const string SAVE_PATH = "Save/";
+const string SAVE_FILE_LIST = SAVE_PATH + "SaveList.txt";
 
 class SaveLoadSystem : public IObject
 {
@@ -85,18 +84,15 @@ public:
 	{
 		vector<string> files;
 
-		DIR* direct;
-		struct dirent* entry;
-
-		if ((direct = opendir(SAVE_PATH)) != nullptr)
+		ifstream in;
+		in.open(SAVE_FILE_LIST);
+		if (in.is_open())
 		{
-			while ((entry = readdir(direct)) != nullptr)
-				files.push_back(entry->d_name);
-
-			closedir(direct);
+			string file;
+			getline(in, file);
+			files.push_back(file);
 		}
-		else
-			cout << "Can't find saving path!\n";
+		in.close();
 
 		return files;
 	}
@@ -107,11 +103,24 @@ public:
 			save();
 
 		currentFile = "save" + to_string(getAllFiles().size()) + "dat";
+
+		vector<string> oldFiles = getAllFiles();
+
+		ofstream out;
+		out.open(SAVE_FILE_LIST);
+		if (out.is_open())
+		{
+			out << currentFile << endl;
+
+			for (string file : oldFiles)
+				out << file << endl;
+		}
+		out.close();
 	}
 
 	string getCurrentFile()
 	{
-		return GOOD_SAVE_PATH + "/" + currentFile;
+		return SAVE_PATH + currentFile;
 	}
 
 	void setCurrentFile(string newFile)

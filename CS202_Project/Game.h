@@ -3,10 +3,10 @@
 
 #include "GameWorld.h"
 #include "ListSpawner.h"
-#include "Player.h"
-#include "SaveLoadSystem.h"
 #include "Menu.h"
 #include "Pause.h"
+#include "Player.h"
+#include "SaveLoadSystem.h"
 
 #include "SFML/Audio.hpp"
 #include "SFML/Graphics.hpp"
@@ -48,7 +48,6 @@ private:
 	SaveLoadSystem saveLoadSystem;
 	bool isMenu = true;
 	bool isPause = false;
-
 
 	void setupWindow(string title)
 	{
@@ -126,7 +125,7 @@ private:
 		player.update(deltaTime);
 		scoreText.setString("Score: " + to_string(player.getScore()));
 
-		//listSpawner.update(deltaTime, player, view.getCenter().y);
+		listSpawner.update(deltaTime, player, view.getCenter().y);
 	}
 
 	void draw()
@@ -151,10 +150,13 @@ private:
 			if (event.type == Event::Closed)
 				window.close();
 
-			if (event.type == Event::KeyPressed) {
-				if (event.key.code == Keyboard::P) {
+			if (event.type == Event::KeyPressed)
+			{
+				if (event.key.code == Keyboard::P)
+				{
 					isPause = true;
-					while (isPause) {
+					while (isPause)
+					{
 						pauseScreen.eventMethod(window, isMenu, isPause);
 						pauseScreen.show(window);
 					}
@@ -163,11 +165,11 @@ private:
 		}
 	}
 
-	void setupUI() {
+	void setupUI()
+	{
 		menu.create(SCREEN_WIDTH, SCREEN_HEIGHT);
 		pauseScreen.create(SCREEN_WIDTH, SCREEN_HEIGHT);
 	}
-
 
 public:
 	Game(string title)
@@ -186,11 +188,13 @@ public:
 
 		while (window.isOpen())
 		{
-			if (isMenu) {
+			if (isMenu)
+			{
 				menu.eventMethod(window, isMenu, saveLoadSystem);
 				menu.show(window);
 			}
-			else {
+			else
+			{
 				if (listSpawner.isCollidedWithPlayer(player))
 				{
 					cout << "Player is dead!\n";
