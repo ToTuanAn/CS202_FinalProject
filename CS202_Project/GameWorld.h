@@ -25,6 +25,7 @@ const int SPAWNER_LANE_WIDTH_OFFSET = -24;
 const int GRID_WIDTH = GAME_WIDTH / 16;
 const int GRID_HEIGHT = GAME_HEIGHT / 16;
 const int OFFSET = GRID_HEIGHT + 30;
+const int FINALOFFSET = -30;
 
 class GameWorld
 {
@@ -71,17 +72,22 @@ private:
 	{
 		string lanePath = "Tiles/" + laneName + "/";
 		string startTile = lanePath + "start.png", middleTile = lanePath + "middle.png", endTile = lanePath + "end.png";
-
 		for (int row = 0; row < TILES_PER_LANE; ++row)
 		{
 			if (lane >= GRID_HEIGHT)
 				break;
 
 			vector<GameTile*> rowTiles;
-
-			string terrain = getRowTile(row, startTile, middleTile, endTile);
-			for (int rowTile = 0; rowTile < GAME_WIDTH; rowTile += 16)
-				rowTiles.push_back(new GameTile(terrain, rowTile, lane * 16, false, false));
+			if (lane == 0) {
+				string terrain = "Tiles/StartGameTile.png";
+				for (int rowTile = 0; rowTile < GAME_WIDTH; rowTile += 16)
+					rowTiles.push_back(new GameTile(terrain, rowTile, lane * 16, false, false));
+			}
+			else {
+				string terrain = getRowTile(row, startTile, middleTile, endTile);
+				for (int rowTile = 0; rowTile < GAME_WIDTH; rowTile += 16)
+					rowTiles.push_back(new GameTile(terrain, rowTile, lane * 16, false, false));
+			}
 
 			lanePositionYs.push_back(lane * SPAWNER_LANE_WIDTH + SPAWNER_LANE_WIDTH_OFFSET);
 			tiles.push_back(rowTiles);
@@ -93,6 +99,7 @@ private:
 	void setupUnPassible()
 	{
 		string terrain = "Tiles/StartGameTile.png";
+
 
 		for (int row = GRID_HEIGHT; row < OFFSET; ++row)
 		{

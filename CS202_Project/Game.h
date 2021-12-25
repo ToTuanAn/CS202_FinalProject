@@ -122,7 +122,9 @@ private:
 	{
 		saveLoadSystem.update(deltaTime);
 
-		view.move(Vector2f(0, -CAMERA_SPEED));
+		if (view.getCenter().y > 498) {
+			view.move(Vector2f(0, -CAMERA_SPEED));
+		}
 
 		player.setBound(view.getCenter());
 		player.update(deltaTime);
