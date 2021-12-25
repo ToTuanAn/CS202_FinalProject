@@ -5,6 +5,7 @@
 #include "ListSpawner.h"
 #include "Menu.h"
 #include "Pause.h"
+#include "GameOver.h"
 #include "Player.h"
 #include "SaveLoadSystem.h"
 
@@ -45,6 +46,7 @@ private:
 	Menu menu;
 	PauseScreen pauseScreen;
 	LoadScreen loadScreen;
+	GameOver gameOverScreen;
 
 	SaveLoadSystem saveLoadSystem;
 	bool isMenu = true;
@@ -171,6 +173,7 @@ private:
 		pauseScreen.create(SCREEN_WIDTH, SCREEN_HEIGHT);
 		loadScreen.connect(&saveLoadSystem);
 		loadScreen.create(SCREEN_WIDTH, SCREEN_HEIGHT);
+		gameOverScreen.create(SCREEN_WIDTH, SCREEN_HEIGHT);
 	}
 
 public:
@@ -199,8 +202,11 @@ public:
 			{
 				if (listSpawner.isCollidedWithPlayer(player))
 				{
-					cout << "Player is dead!\n";
-					return;
+					bool isSelect = true;
+					while (isSelect) {
+						gameOverScreen.eventMethod(window, isMenu, isSelect);
+						gameOverScreen.show(window);
+					}
 				}
 				deltaTime = clock.restart().asSeconds();
 				eventMethod();
