@@ -13,6 +13,7 @@ public:
 		this->texts[0] = "Back to menu";
 		this->texts[1] = "Exit";
 		this->texts[2] = "";
+		this->MAX_NUMBER_OF_ITEMS = 2;
 	}
 
 	void eventMethod(RenderWindow& MENU, bool &isMenu, bool &isSelect) {
