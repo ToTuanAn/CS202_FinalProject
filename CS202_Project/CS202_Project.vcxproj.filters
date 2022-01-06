@@ -89,5 +89,8 @@
     <ClInclude Include="GameOver.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Victory.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

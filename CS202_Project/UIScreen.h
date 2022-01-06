@@ -19,7 +19,7 @@ public:
 	void create(float width, float height) {
 		title.setFont(font);
 		title.setFillColor(sf::Color::White);
-		title.setString("POKEMON \nCROSSY ROAD");
+		title.setString(titleStr);
 		title.setPosition(sf::Vector2f(width / 2 - 400, 10));
 		title.setOutlineColor(sf::Color::Black);
 		title.setOutlineThickness(5);
@@ -135,6 +135,8 @@ protected:
 	string icPath = "Background/icon.png";
 	
 	Text title;
+	string titleStr = "POKEMON \nCROSSY ROAD";
+
 	Text* list = new Text[MAX_NUMBER_OF_ITEMS];
 	string* texts = new string[MAX_NUMBER_OF_ITEMS];
 };

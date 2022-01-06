@@ -169,6 +169,7 @@
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="TrafficLight.h" />
     <ClInclude Include="UIScreen.h" />
+    <ClInclude Include="Victory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

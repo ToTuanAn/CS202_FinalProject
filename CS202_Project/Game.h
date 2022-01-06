@@ -6,6 +6,7 @@
 #include "Menu.h"
 #include "Pause.h"
 #include "GameOver.h"
+#include "Victory.h"
 #include "Player.h"
 #include "SaveLoadSystem.h"
 
@@ -47,6 +48,7 @@ private:
 	PauseScreen pauseScreen;
 	LoadScreen loadScreen;
 	GameOver gameOverScreen;
+	Victory victoryScreen;
 
 	SaveLoadSystem saveLoadSystem;
 	bool isMenu = true;
@@ -176,6 +178,7 @@ private:
 		loadScreen.connect(&saveLoadSystem);
 		loadScreen.create(SCREEN_WIDTH, SCREEN_HEIGHT);
 		gameOverScreen.create(SCREEN_WIDTH, SCREEN_HEIGHT);
+		victoryScreen.create(SCREEN_WIDTH, SCREEN_HEIGHT);
 	}
 
 public:
@@ -208,6 +211,13 @@ public:
 					while (isSelect) {
 						gameOverScreen.eventMethod(window, isMenu, isSelect);
 						gameOverScreen.show(window);
+					}
+				}
+				if (player.getBody().getPosition().y <= 2) {
+					bool isSelect = true;
+					while (isSelect) {
+						victoryScreen.eventMethod(window, isMenu, isSelect);
+						victoryScreen.show(window);
 					}
 				}
 				deltaTime = clock.restart().asSeconds();

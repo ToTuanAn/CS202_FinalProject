@@ -78,7 +78,7 @@ private:
 				break;
 
 			vector<GameTile*> rowTiles;
-			if (lane == 0) {
+			if (lane <= 2) {
 				string terrain = "Tiles/StartGameTile.png";
 				for (int rowTile = 0; rowTile < GAME_WIDTH; rowTile += 16)
 					rowTiles.push_back(new GameTile(terrain, rowTile, lane * 16, false, false));

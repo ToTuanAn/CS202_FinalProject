@@ -1,23 +1,32 @@
-#ifndef _GAME_OVER_H_
-#define _GAME_OVER_H_
+#ifndef _VICTORY_H_
+#define _VICTORY_H_
 
+#include "SFML/Graphics.hpp"
 #include "UIScreen.h"
+#include <iostream>
 
-class GameOver : public UIScreen {
+using namespace std;
+using namespace sf;
+
+class Victory : public UIScreen {
 public:
-	GameOver() {
+	Victory()
+	{
 		if (!font.loadFromFile("Fonts/" + MENU_FONT_NAME))
 			cout << "Can't load " + MENU_FONT_NAME << endl;
 		else
 			cout << MENU_FONT_NAME + " is loaded!\n";
-		this->texts[0] = "Back to menu";
-		this->texts[1] = "Exit";
+		this->texts[0] = "Back to game";
+		this->texts[1] = "Exit Game";
 		this->texts[2] = "";
 		this->MAX_NUMBER_OF_ITEMS = 2;
-		this->titleStr = "  GAME OVER";
+		this->titleStr = "VICTORY";
 	}
 
-	void eventMethod(RenderWindow& MENU, bool &isMenu, bool &isSelect) {
+	~Victory()
+	{}
+
+	void eventMethod(RenderWindow& MENU, bool& isMenu, bool& isSelect) {
 		Event event;
 
 		while (MENU.pollEvent(event)) {
@@ -58,7 +67,7 @@ public:
 			}
 		}
 	}
-private:
 };
+
 
 #endif
