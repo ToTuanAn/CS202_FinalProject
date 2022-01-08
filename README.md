@@ -3,9 +3,6 @@
 #### Start Menu
 - New Game
 - Load
-- Settings
-	- Difficulty
-	- Music Volume
 #### In-game Menu (Press P (or another key) to pause the game and display this Menu)
 - Save
 - Back to game
